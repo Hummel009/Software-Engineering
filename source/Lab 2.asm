@@ -15,7 +15,7 @@ org 100h
         mov dl, 13
         int 21h
 
-;===Скип, если символ 3 не равен символу 5===;
+;===Skip if 3rd symbol not equals 5th symbol===;
 
         mov al, [readln+4]
         mov bl, [readln+6]
@@ -23,7 +23,7 @@ org 100h
         cmp al, bl
         jne skip
 
-;===Скип, если букв не 5 и не 6===;
+;===Skip if length not equals 5 or 6; choose right setter of the N-1th symbol===;
 
         mov al, [readln+1]
 
@@ -35,7 +35,7 @@ org 100h
 
         jmp skip
 
-;===Выбираем, какой символ проверяем на небытие буквой===;
+;===Setters of the 3rd and N-1th symbols===;
 test3:
         mov al, [readln+4]
         mov bl, 3
@@ -49,7 +49,7 @@ test5:
         mov al, [readln+6]
         jmp testNum
 
-;===Скип, если символ не является буквой===;
+;===Skip if the N-1th symbol is not letter; go to the setter of the 3rd symbol, if it wasn't set already===;
 testNum:
         cmp al, 65
         jl skip
@@ -81,7 +81,7 @@ testNum:
         cmp bl, 3
         jne test3
 
-;===Сообщение, что подходит===;
+;===Everything is ok===;
 
         mov ah, 09h
         mov dx, yes
@@ -92,7 +92,7 @@ testNum:
 
 ret
 
-;===Сообщение, что не подходит===;
+;===Everything is shit===;
 
 skip:
         mov ah, 09h
