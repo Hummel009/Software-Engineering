@@ -41,6 +41,6 @@ int 21h
 
 ret
 
-aboba1: db "for (int i = 1; i<=256; ++i){$"
-aboba2: db "i+=1;$"
+aboba1: db "for (int i = 1; i <= 256; ++i){$"
+aboba2: db "i += 1;$"
 aboba3: db "}$"
