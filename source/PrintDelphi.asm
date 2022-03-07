@@ -53,7 +53,7 @@ int 21h
 
 ret
 
-aboba1: db "for i:= 1 to 256 do$"
+aboba1: db "for I:= 1 to 256 do$"
 aboba2: db "Begin$"
 aboba3: db "Inc(I);$"
 aboba4: db "End.$"
