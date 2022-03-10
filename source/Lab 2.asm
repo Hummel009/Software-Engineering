@@ -26,13 +26,12 @@ org 100h
 ;===Skip if length not equals 5 or 6; choose right setter of the N-1th symbol===;
 
         mov al, [readln+1]
-        mov bx, [readln+1]
 
         cmp al, 5
-        je testNM1
+        je test4
 
         cmp al, 6
-        je testNM1
+        je test5
 
         jmp skip
 
@@ -42,8 +41,13 @@ test3:
         mov bl, 3
         jmp testNum
 
-testNM1:
-        mov al, [readln+bx-1]
+test4:
+        mov al, [readln+5]
+        jmp testNum
+
+test5:
+        mov al, [readln+6]
+        jmp testNum
 
 ;===Skip if the N-1th symbol is not letter; go to the setter of the 3rd symbol, if it wasn't set already===;
 testNum:
