@@ -1,11 +1,13 @@
 org 100h
+
+start:
         mov ah, 09h
-        mov dx, systemout
+        mov dx, writeln
         int 21h
 
         mov ah, 0ah
         mov dx, readln
-        int 21h
+        int 21h     
 
         mov ah, 02h
         mov dl, 10
@@ -23,63 +25,62 @@ org 100h
         cmp al, bl
         jne skip
 
-;===Skip if length not equals 5 or 6; choose right setter of the N-1th symbol===;
+;===Skip if length lesser then 5===;
 
         mov al, [readln+1]
 
         cmp al, 5
-        je test4
-
-        cmp al, 6
-        je test5
-
-        jmp skip
-
-;===Setters of the 3rd and N-1th symbols===;
-test3:
-        mov al, [readln+4]
-        mov bl, 3
-        jmp testNum
-
-test4:
-        mov al, [readln+5]
-        jmp testNum
-
-test5:
-        mov al, [readln+6]
-        jmp testNum
-
-;===Skip if the N-1th symbol is not letter; go to the setter of the 3rd symbol, if it wasn't set already===;
-testNum:
-        cmp al, 65
         jl skip
 
-        cmp al, 122
+;===Find symbol N-1===;
+
+        mov bh, [readln+1]
+        mov [var], bh
+
+        mov bp, readln-2
+        mov dx, 0
+        mov dl, [var]
+        add bp, dx
+
+        mov bh, [bp]
+        jmp testNum
+
+set3:
+        mov bh, [readln+4]
+        mov bl, 3
+
+;===Skip if the N-1th symbol is not letter; go to the setter of the 3rd symbol, if it wasn't set already===;
+
+testNum:
+        cmp bh, 65
+        jl skip
+
+        cmp bh, 122
         jg skip
 
-        cmp al, 91
+        cmp bh, 91
         je skip
 
-        cmp al, 92
+        cmp bh, 92
         je skip
 
-        cmp al, 93
+        cmp bh, 93
         je skip
 
-        cmp al, 94
+        cmp bh, 94
         je skip
 
-        cmp al, 95
+        cmp bh, 95
         je skip
 
-        cmp al, 96
+        cmp bh, 96
         je skip
 
-        cmp al, 96
+        cmp bh, 96
         je skip
 
         cmp bl, 3
-        jne test3
+        jne set3
 
 ;===Everything is ok===;
 
@@ -104,7 +105,8 @@ skip:
 
 ret
 
-systemout: db "Enter the text: $"
-readln: db 255 dup "$"
-yes: db "Yes, this word is allowed.$"
-no: db "No, this word isn't allowed.$"
+writeln: db "Enter the text: $"
+readln db 7, 0, 7 dup ('$')
+yes db 'Yes, this word is allowed.$'
+no db 'No, this word is not allowed.$'
+var db 0    
