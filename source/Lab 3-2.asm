@@ -73,12 +73,14 @@ ret
 
 intToStrAndDisp:
         aam
-        add ax,3030h
-        mov dl,ah
-        mov dh,al
-        mov ah,02
+        add ax, 3030h
+        mov dl, ah
+        mov dh, al
+		
+        mov ah, 02h
         int 21h
-        mov dl,dh
+		
+        mov dl, dh
         int 21h
 ret
 
