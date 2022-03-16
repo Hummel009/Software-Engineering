@@ -36,13 +36,7 @@ loop startA2
 
 ;====== Display 1st ======;
 
-        mov ah, 02h
-        mov dl, 10
-        int 21h
-
-        mov ah, 02h
-        mov dl, 13
-        int 21h
+        call newLine
 
         mov ah, 09h
         mov dx, str2
@@ -60,13 +54,7 @@ loop startA2
 
 ;====== Display 2nd ======;
 
-        mov ah, 02h
-        mov dl, 10
-        int 21h
-
-        mov ah, 02h
-        mov dl, 13
-        int 21h
+        call newLine
 
         mov ah, 09h
         mov dx, str3
@@ -85,6 +73,16 @@ loop startA2
         mov ah, 08h
         int 21h
         
+ret
+
+newLine:
+        mov ah, 02h
+        mov dl, 10
+        int 21h
+
+        mov ah, 02h
+        mov dl, 13
+        int 21h
 ret
 
 ;====== Variables ======;
