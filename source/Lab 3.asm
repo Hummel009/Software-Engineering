@@ -68,12 +68,14 @@ skip:
 ;====== IntToStr ======;
         mov ax, [dups]
         aam
-        add ax,3030h
-        mov dl,ah
-        mov dh,al
-        mov ah,02
+        add ax, 3030h
+        mov dl, ah
+        mov dh, al
+		
+        mov ah, 02h
         int 21h
-        mov dl,dh
+		
+        mov dl, dh
         int 21h
 
         mov ah, 08h
