@@ -10,7 +10,7 @@ startA1:
 
         mov bx, cx
         cmp [nums+bx], 0
-        jnl finishA1
+        jnl finishA1      ;if >=0, then skip increment
 
         add [minus], 1
 
@@ -24,7 +24,7 @@ startA2:
 
         mov bx, cx
         cmp [nums+bx], 0
-        jl finishA2
+        jl finishA2        ;if <0, then skip sum
         mov ax, [nums+bx]
 
         add [plus], ax
@@ -33,6 +33,8 @@ startA2:
         dec cx
 
 loop startA2
+
+;====== Display 1st ======;
 
         mov ah, 02h
         mov dl, 10
@@ -56,7 +58,7 @@ loop startA2
         mov dl,dh
         int 21h
 
-;====== IntToStr ======;
+;====== Display 2nd ======;
 
         mov ah, 02h
         mov dl, 10
