@@ -43,14 +43,7 @@ loop startA2
         int 21h
 
         mov ax, [minus]
-        aam
-        add ax,3030h
-        mov dl,ah
-        mov dh,al
-        mov ah,02
-        int 21h
-        mov dl,dh
-        int 21h
+        call intToStrAndDisp
 
 ;====== Display 2nd ======;
 
@@ -61,14 +54,7 @@ loop startA2
         int 21h
 
         mov ax, [plus]
-        aam
-        add ax,3030h
-        mov dl,ah
-        mov dh,al
-        mov ah,02
-        int 21h
-        mov dl,dh
-        int 21h
+        call intToStrAndDisp
 
         mov ah, 08h
         int 21h
@@ -85,6 +71,17 @@ newLine:
         int 21h
 ret
 
+intToStrAndDisp:
+        aam
+        add ax,3030h
+        mov dl,ah
+        mov dh,al
+        mov ah,02
+        int 21h
+        mov dl,dh
+        int 21h
+ret
+
 ;====== Variables ======;
         str1 db "Array:  -1, -2, 3, 4, 7, 6, 7, 8, 9$"
         str2 db "Found 0- elements: $"
@@ -94,4 +91,4 @@ ret
 
 ;====== Temp variables ======;
         minus dw 0
-        plus dw 0 
+        plus dw 0   
