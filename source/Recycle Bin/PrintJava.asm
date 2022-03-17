@@ -1,7 +1,8 @@
 org 100h
 
-;====== Line 1 ======;
         mov ah, 09h
+        
+;====== Line 1 ======;
         mov dx, line1
         int 21h
 
