@@ -1,59 +1,40 @@
 org 100h
 
-mov ah, 09h
-mov dx, aboba1
-int 21h
+;====== Line 1 ======;
+        mov ah, 09h
+        mov dx, line1
+        int 21h
 
-mov ah, 02h
-mov dx, 10
-int 21h
+        mov dx, newLine
+        int 21h
 
-mov ah, 02h
-mov dx, 13
-int 21h
+;====== Line 2 ======;
+        mov dx, line2
+        int 21h
 
-mov ah, 09h
-mov dx, aboba2
-int 21h
+        mov dx, newLine
+        int 21h
 
-mov ah, 02h
-mov dx, 10
-int 21h
+;====== Line 3 ======;
+        mov dx, line3
+        int 21h
 
-mov ah, 02h
-mov dx, 13
-int 21h
+        mov dx, newLine
+        int 21h
 
-mov ah, 09h
-mov dx, aboba3
-int 21h
+;====== Line 4 ======;
+        mov dx, line4
+        int 21h
 
-mov ah, 02h
-mov dx, 10
-int 21h
-
-mov ah, 02h
-mov dx, 13
-int 21h
-
-mov ah, 09h
-mov dx, aboba4
-int 21h
-
-mov ah, 02h
-mov dx, 10
-int 21h
-
-mov ah, 02h
-mov dx, 13
-int 21h
-
-mov ah, 08h
-int 21h
+;====== Do not exit ======;
+        mov ah, 08h
+        int 21h
 
 ret
 
-aboba1: db "for I:= 1 to 256 do$"
-aboba2: db "Begin$"
-aboba3: db "Inc(I);$"
-aboba4: db "End.$"
+;====== Variables ======;
+        line1: db "For I:= 1 to 256 do$"
+        line2: db "Begin$"
+        line3: db "  Inc(I);$"
+        line4: db "End.$"
+        newLine: db 10, 13, "$"
