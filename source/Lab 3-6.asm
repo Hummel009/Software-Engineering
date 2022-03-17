@@ -1,10 +1,11 @@
 org 100h
 
-start:
+;====== Start ======;
         mov ah, 09h
         mov dx, str1
         int 21h
 
+;====== First loop: count 0- ======;
         mov cx, [bytes]
 startA1:
 
@@ -19,6 +20,7 @@ startA1:
 
 loop startA1
 
+;====== Second loop: the sum of 0+ ======;
         mov cx, [bytes]
 startA2:
 
@@ -35,8 +37,9 @@ startA2:
 loop startA2
 
 ;====== Display 1st ======;
-
-        call newLine
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
         mov ah, 09h
         mov dx, str2
@@ -46,8 +49,9 @@ loop startA2
         call intToStrAndDisp
 
 ;====== Display 2nd ======;
-
-        call newLine
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
         mov ah, 09h
         mov dx, str3
@@ -56,30 +60,23 @@ loop startA2
         mov ax, [plus]
         call intToStrAndDisp
 
+;====== Do not exit ======;
         mov ah, 08h
         int 21h
         
 ret
 
-newLine:
-        mov ah, 02h
-        mov dl, 10
-        int 21h
-
-        mov ah, 02h
-        mov dl, 13
-        int 21h
-ret
-
+;====== IntToStrAndDisp ======;
 intToStrAndDisp:
         aam
+
         add ax, 3030h
         mov dl, ah
         mov dh, al
-		
+                
         mov ah, 02h
         int 21h
-		
+                
         mov dl, dh
         int 21h
 ret
@@ -90,7 +87,6 @@ ret
         str3 db "The sum of 0+ elements: $"
         nums dw '0', -1, -2, 3, 4, 7, 6, 7, 8, 9
         bytes dw 18
-
-;====== Temp variables ======;
+        newLine db 13, 10, '$'
         minus dw 0
         plus dw 0   

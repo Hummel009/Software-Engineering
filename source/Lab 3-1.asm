@@ -1,12 +1,13 @@
 org 100h
 
-start:
+;====== Start ======;
         mov ah, 09h
         mov dx, str1
         int 21h
 
+;====== Loop for the sum of 9, 7, 5, 3, 1 items ======;
         mov cx, [bytes]
-startA2:
+startA1:
 
         mov bx, cx
         mov ax, [nums+bx]
@@ -16,20 +17,20 @@ startA2:
         finishA2:
 
         cmp cx, 4
-        jl skipaboba
+        jl @F
 
 
         dec cx
         dec cx
         dec cx
 
-skipaboba:
+@@:
+loop startA1
 
-loop startA2
-
-;====== Display 2nd ======;
-
-        call newLine
+;====== Display ======;
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
         mov ah, 09h
         mov dx, str3
@@ -43,18 +44,10 @@ loop startA2
         
 ret
 
-newLine:
-        mov ah, 02h
-        mov dl, 10
-        int 21h
-
-        mov ah, 02h
-        mov dl, 13
-        int 21h
-ret
-
+;====== IntToStrAndDisp ======;
 intToStrAndDisp:
         aam
+
         add ax, 3030h
         mov dl, ah
         mov dh, al
@@ -71,6 +64,5 @@ ret
         str3 db "The sum of 0+ elements: $"
         nums dw '0', -1, -2, 3, 4, 7, 6, 7, 8, 9
         bytes dw 18
-
-;====== Temp variables ======;
+        newLine db 13, 10, '$'
         plus dw 0   

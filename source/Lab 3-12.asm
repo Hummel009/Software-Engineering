@@ -1,14 +1,17 @@
 org 100h
 
-start:
+;====== Start ======;
         mov ah, 09h
         mov dx, str1
         int 21h
 
+;====== First loop: for every element ======;
         mov cx, [bytes]               ;cx is needed for the loop
 startA1:
 
         mov [savedI], cx              ;save cx, because second loop will change it
+
+        ;=======Second loop: for every element=======;
         mov cx, [bytes]               ;set new limit
 
         startA2:
@@ -50,7 +53,11 @@ startA1:
         dec cx                        ;every loop does -1, but we need -2: every element is 2 bytes
 
 loop startA1
-        call newLine
+
+;====== Display first duplicate ======;
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
         mov ah, 09h
         mov dx, str2
@@ -59,7 +66,10 @@ loop startA1
         mov ax, [neededI]
         call intToStrAndDisp
 
-        call newLine
+;====== Display second duplicate ======;
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
         mov ah, 09h
         mov dx, str3
@@ -68,6 +78,7 @@ loop startA1
         mov ax, [neededJ]
         call intToStrAndDisp
 
+;====== Do not exit ======;
         mov ah, 08h
         int 21h
         
@@ -76,6 +87,7 @@ ret
 ;====== IntToStr ======;
 intToStrAndDisp:
         aam
+
         add ax, 3030h
         mov dl, ah
         mov dh, al
@@ -87,16 +99,6 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== New Line ======;
-newLine:
-        mov ah, 02h
-        mov dl, 10
-        int 21h
-
-        mov ah, 02h
-        mov dl, 13
-        int 21h
-ret
 ;====== Variables ======;
         str1 db "Array: 59, 8, 7, 6, 5, 59, 3, 2, 1$" ;display array
         str2 db "First duplicate: $" ;display dup
@@ -104,6 +106,7 @@ ret
         nums dw '0', 59, 8, 7, 6, 5, 59, 3, 2, 1      ;our array; '0' prevents from skipping the first element while loop breaks
         bytes dw 18                                 ;array elements * 2
         length dw 9                                 ;array elements
+        newLine db 13, 10, '$'
 
 ;====== Temp variables ======;
         neededI dw 0
