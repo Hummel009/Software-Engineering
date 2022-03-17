@@ -107,8 +107,6 @@ ret
         bytes dw 18                                 ;array elements * 2
         length dw 9                                 ;array elements
         newLine db 13, 10, '$'
-
-;====== Temp variables ======;
         neededI dw 0
         neededJ dw 0
         savedI dw 0
