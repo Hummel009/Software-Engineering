@@ -1,4 +1,5 @@
 org 100h
+;do operation on symbols and display the new word
 
 ;====== Start ======;
         mov ah, 09h
