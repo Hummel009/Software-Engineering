@@ -1,4 +1,5 @@
 org 100h
+;find the quantity of 7+ elements and replace them with "7"
 
 ;====== Start ======;
         mov ah, 09h
