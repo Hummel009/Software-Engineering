@@ -1,5 +1,5 @@
 org 100h
-;find the sum of 0+ elements and the quantity of 0- elements
+;find the sum of 0+ elements and the quantity of 0- elements in the array
 
 ;====== Start ======;
         mov ah, 09h
