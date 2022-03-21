@@ -1,5 +1,5 @@
 org 100h
-;found the quantity of unique elements in array
+;find the quantity of unique elements in array
 
 ;====== Start ======;
         mov ah, 09h
