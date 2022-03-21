@@ -1,4 +1,5 @@
 org 100h
+;check if the word is correct
 
 ;====== Start ======;
         mov ah, 09h
