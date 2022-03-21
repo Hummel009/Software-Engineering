@@ -1,4 +1,5 @@
 org 100h
+;find the positions of two duplicates in the array
 
 ;====== Start ======;
         mov ah, 09h
