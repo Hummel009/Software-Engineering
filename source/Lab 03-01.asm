@@ -1,5 +1,5 @@
 org 100h
-;sum every element with index mod 2 = 1
+;sum every element in the array with (position mod 2 = 1)
 
 ;====== Start ======;
         mov ah, 09h
