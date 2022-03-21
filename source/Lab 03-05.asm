@@ -1,5 +1,5 @@
 org 100h
-;find the biggest 0- element and the least 0+ element
+;find the biggest 0- element and the least 0+ element in the array
 
 ;====== Start ======;
         mov ah, 09h
