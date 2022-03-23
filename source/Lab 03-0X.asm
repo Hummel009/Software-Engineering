@@ -32,7 +32,7 @@ loop startA1
         mov dx, str2
         int 21h
 
-        mov dx, [big]
+        mov ax, [big]
         call intToStrAndDisp
         mov ah, 09h
         mov dx, newLine
@@ -46,11 +46,16 @@ loop startA1
         mov cx, 2
 cycle:
         mov bx, cx
-        mov dx, [nums+bx]
+        mov ax, [nums+bx]
         call intToStrAndDisp
+
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
 
         add cx, 2
         cmp cx, [bytes]
+
 jbe cycle
 
 ;====== Do not exit ======;
@@ -61,14 +66,17 @@ ret
 
 ;====== IntToStrAndDisp ======;
 intToStrAndDisp:
-        add dx, '0'
+        aam
 
+        add ax, '00'
+        mov dl, ah
+        mov dh, al
+                
         mov ah, 02h
         int 21h
-
-        mov dx, ' '
+                
+        mov dl, dh
         int 21h
-
 ret
 
 ;====== Variables ======;
@@ -78,4 +86,4 @@ ret
         nums dw '0', 9, 2, 9, 4, 7, 6, 7, 8, 9
         bytes dw 18
         newLine db 13, 10, '$'
-        big dw 0      
+        big dw 0

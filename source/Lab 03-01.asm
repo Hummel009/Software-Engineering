@@ -49,7 +49,7 @@ ret
 intToStrAndDisp:
         aam
 
-        add ax, 3030h
+        add ax, '00'
         mov dl, ah
         mov dh, al
                 
@@ -58,6 +58,7 @@ intToStrAndDisp:
                 
         mov dl, dh
         int 21h
+        
 ret
 
 ;====== Variables ======;
