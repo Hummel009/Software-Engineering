@@ -37,7 +37,7 @@ cycle1:
 jbe cycle1
 
 ;====== LET IT BE THE START 0- ELEMENT =====;
-        mov cx, [bytes]
+        mov cx, 2
 cycle2:
 
         mov bx, cx
@@ -48,12 +48,13 @@ cycle2:
         mov [minus], ax
 
         @@:
-        dec cx
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle2
+jbe cycle2
 
 ;====== LET IT BE THE START 0+ ELEMENT =====;
-        mov cx, [bytes]
+        mov cx, 2
 cycle3:
 
         mov bx, cx
@@ -64,12 +65,13 @@ cycle3:
         mov [plus], ax
 
         @@:
-        dec cx
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle3
+jbe cycle3
 
 ;====== COMPARE AND FIND MAX 0- ELEMENT =====;
-        mov cx, [bytes]
+        mov cx, 2
 cycle4:
 
         mov bx, cx
@@ -84,12 +86,13 @@ cycle4:
         mov [minus], ax
 
         @@:
-        dec cx
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle4
+jbe cycle4
 
 ;====== COMPARE AND FIND MIN 0+ ELEMENT =====;
-        mov cx, [bytes]
+        mov cx, 2
 cycle5:
 
         mov bx, cx
@@ -103,9 +106,10 @@ cycle5:
         mov [plus], ax
 
         @@:
-        dec cx
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle5
+jbe cycle5
 
 ;====== ABS OF THE ELEMENT =====;
         mov ax, [minus]

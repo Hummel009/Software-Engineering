@@ -26,7 +26,7 @@ jbe cycle1
         mov [big], 0
 
 ;====== COUNT ELEMENTS ======;
-        mov cx, [bytes]
+        mov cx, 2
 cycle2:
         mov [saved], cx
         mov bx, cx
@@ -43,9 +43,10 @@ cycle2:
 
         @@:
         mov cx, [saved]
-        dec cx
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle2
+jbe cycle2
 
 ;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h

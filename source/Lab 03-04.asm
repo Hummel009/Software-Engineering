@@ -39,7 +39,7 @@ jbe cycle1
         mov [big], 0
 
 ;====== FIND ELEMENTS BIGGER THAN SEVEN ======;
-        mov cx, [bytes]
+        mov cx, 2
 cycle2:
 
         mov bx, cx
@@ -50,9 +50,11 @@ cycle2:
         mov [nums+bx], 7
 
         @@:
-        dec cx
 
-loop cycle2
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle2
 
 ;====== DISPLAY THE ARRAY ======;
         mov ah, 09h
