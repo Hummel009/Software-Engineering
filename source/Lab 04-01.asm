@@ -45,7 +45,7 @@ cycle2:
 
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
-                jl notSwapThem
+                jl @F
 
         ;====== SWAP ======;
                 mov ax, [savedAJ]
@@ -58,7 +58,7 @@ cycle2:
 
                 mov cx, [savedJ]
 
-                notSwapThem:
+                @@:
                 add cx, 2
                 cmp cx, [bytes]
 

@@ -59,11 +59,12 @@ jbe cycle2
 
         mov ax, [big]
         call intToStrAndDisp
+
+;====== DISPLAY THE ARRAY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
-
-;====== DISPLAY THE ARRAY ======;
+		
         mov ah, 09h
         mov dx, str3
         int 21h

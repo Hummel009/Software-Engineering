@@ -50,7 +50,6 @@ cycle2:
         mov [nums+bx], 7
 
         @@:
-
         add cx, 2
         cmp cx, [bytes]
 

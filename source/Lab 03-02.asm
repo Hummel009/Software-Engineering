@@ -53,11 +53,7 @@ cycle2:
 
                 mov bx, [savedJ]
                 mov dx, [nums+bx]
-                mov [savedAJ], dx  
-
-                mov bx, [savedI]
-                cmp bx, [savedJ]
-                je @F         
+                mov [savedAJ], dx       
 
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
