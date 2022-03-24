@@ -41,6 +41,7 @@ jbe cycle1
 cycle2:
 
         mov [savedI], cx
+        mov [added], 0
 
         ;====== SECOND LOOP ======;
         mov cx, [savedI]
@@ -64,11 +65,10 @@ cycle2:
                 jne @F        
 
         ;====== BREAK ELEMENT ======;
-                mov bx, [savedI]
-                mov [nums+bx], 'd'
-
                 mov bx, [savedJ]
                 mov [nums+bx], 'd'
+
+                mov [added], 1
 
                 @@:
                 add cx, 2
@@ -76,6 +76,15 @@ cycle2:
 
         jbe cycle3
 
+        mov ax, [added]
+
+        cmp ax, 0
+        je @F
+
+        mov bx, [savedI]
+        mov [nums+bx], 'd'
+
+        @@:
         mov cx, [savedI]
         add cx, 2
         cmp cx, [bytes]
@@ -99,13 +108,52 @@ cycle4:
 
 jbe cycle4
 
-;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
 
         mov ah, 09h
         mov dx, str2
+        int 21h
+
+        mov cx, 2
+
+cycle5:
+        mov bx, cx
+        mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
+        call intToStrAndDisp
+
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
+
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle5
+
+
+;====== DISPLAY THE QUANTITY ======;
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
+
+        mov ah, 09h
+        mov dx, str3
         int 21h
 
         mov ax, [unique]
@@ -133,9 +181,10 @@ intToStrAndDisp:
 ret
 
 ;====== VARIABLES ======;
-        str1 db "Array: $"
-        str2 db "Unique elements: $"
-        nums dw '0', 1, 2, -3, 4, 7, 4, 7, 8, 9
+        str1 db "Start array: $"
+        str2 db "No duplicat: $"
+        str3 db "Unique elements: $"
+        nums dw '0', 2, 2, -3, 5, 7, 4, 7, 2, 9
         bytes dw 18
         length dw 9
         unique dw 9
@@ -144,4 +193,5 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0   
-        temp dw 0   
+        temp dw 0
+        added dw 0 
