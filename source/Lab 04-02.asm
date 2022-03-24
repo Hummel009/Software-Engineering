@@ -5,11 +5,28 @@ org 100h
         mov ah, 09h
         mov dx, str1
         int 21h
+
+        mov cx, 2
+
+cycle1:
+        mov bx, cx
+        mov ax, [nums+bx]
+        call intToStrAndDisp
+
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
+
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle1
+		
         mov [big], 0
 
-;====== First loop: count 0- ======;
+;====== Count elements div 5 ======;
         mov cx, [bytes]
-startA1:
+cycle2:
         mov [saved], cx
         mov bx, cx
 
@@ -19,7 +36,7 @@ startA1:
         cdq
         idiv ecx
         test edx, edx
-        jnz @F ;if mod <>0, then skip increment
+        jnz @F 
 
         add [big], 1
 
@@ -27,9 +44,9 @@ startA1:
         mov cx, [saved]
         dec cx
 
-loop startA1
+loop cycle2
 
-;====== Display 1st ======;
+;====== Display the quantity ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -50,7 +67,7 @@ loop startA1
         int 21h
 
         mov cx, 2
-cycle:
+cycle3:
         mov [saved], cx
         mov bx, cx
 
@@ -60,10 +77,9 @@ cycle:
         cdq
         idiv ecx
         test edx, edx
-        jnz @F ;if mod <>0, then skip disp
+        jnz @F 
 
         mov ax, [nums+bx]
-
         call intToStrAndDisp
 
         mov ah, 02h
@@ -75,7 +91,7 @@ cycle:
         add cx, 2
         cmp cx, [bytes]
 
-jbe cycle
+jbe cycle3
 
 ;====== Do not exit ======;
         mov ah, 08h
@@ -99,7 +115,7 @@ intToStrAndDisp:
 ret
 
 ;====== Variables ======;
-        str1 db "Array: 10, 17, 65, 99, 31, 45, 88, 34, 12$"
+        str1 db "Start array: $"
         str2 db "Found (mod 5 = 0)  elements: $"
         str3 db "New array: $"
         nums dw '0', 10, 17, 65, 99, 31, 45, 88, 34, 40

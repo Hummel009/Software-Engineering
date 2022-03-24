@@ -12,11 +12,11 @@ cycle1:
         mov bx, cx
         mov ax, [nums+bx]
         call intToStrAndDisp
-                
+
         mov ah, 02h
         mov dx, ' '
         int 21h
-                
+
         add cx, 2
         cmp cx, [bytes]
 
@@ -95,10 +95,10 @@ intToStrAndDisp:
         add ax, '00'
         mov dl, ah
         mov dh, al
-                
+
         mov ah, 02h
         int 21h
-                
+
         mov dl, dh
         int 21h
         

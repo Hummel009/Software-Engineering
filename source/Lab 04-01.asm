@@ -1,5 +1,5 @@
 org 100h
-;find the positions of two duplicates in the array
+;sort array
 
 ;====== Start ======;
         mov ah, 09h
@@ -23,12 +23,12 @@ cycle1:
 jbe cycle1
 
 ;====== First loop ======;
-        mov cx, [bytes]            
+        mov cx, [bytes] 
 cycle2:
 
-        mov [savedI], cx              
+        mov [savedI], cx           
 
-        ;====== Second loop ======;
+;====== Second loop ======;
         mov cx, [bytes]             
 
         cycle3:
@@ -36,34 +36,30 @@ cycle2:
 
                 mov bx, [savedI]
                 mov dx, [nums+bx]
-                mov [savedAI], dx     
+                mov [savedAI], dx   
 
                 mov bx, [savedJ]
                 mov dx, [nums+bx]
                 mov [savedAJ], dx    
 
-                mov bx, [savedI]
-                cmp bx, [savedJ]
-                je @F           
-
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
-                jne @F        
+                jb notSwapThem    
 
-        ;====== Find real pos ======;
-                mov ax, [savedI]
-                mov bl, 2
-                div bl
-                mov [pos1], ax
+        ;====== Swap ======;
+                mov ax, [savedAJ]
+                mov bx, [savedI]
+                mov [nums+bx], ax
 
-                mov ax, [savedJ]
-                mov bl, 2
-                div bl
-                mov [pos2], ax
+                mov ax, [savedAI]
+                mov bx, [savedJ]
+                mov [nums+bx], ax
 
-                dec cx            
+                mov cx, [savedJ]
 
-        @@:
+                notSwapThem:
+                dec cx
+
         loop cycle3
 
         mov cx, [savedI]            
@@ -71,29 +67,29 @@ cycle2:
 
 loop cycle2
 
-;====== Display first duplicate ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
 
+;====== Display arr ======;
         mov ah, 09h
         mov dx, str2
         int 21h
 
-        mov ax, [pos1]
+        mov cx, 2
+cycle4:
+        mov bx, cx
+        mov ax, [nums+bx]
         call intToStrAndDisp
 
-;====== Display second duplicate ======;
-        mov ah, 09h
-        mov dx, newLine
+        mov ah, 02h
+        mov dx, ' '
         int 21h
 
-        mov ah, 09h
-        mov dx, str3
-        int 21h
+        add cx, 2
+        cmp cx, [bytes]
 
-        mov ax, [pos2]
-        call intToStrAndDisp
+jbe cycle4
 
 ;====== Do not exit ======;
         mov ah, 08h
@@ -108,24 +104,23 @@ intToStrAndDisp:
         add ax, '00'
         mov dl, ah
         mov dh, al
-                
+ 
         mov ah, 02h
         int 21h
-                
+
         mov dl, dh
         int 21h
 ret
 
 ;====== Variables ======;
-        str1 db "Array: $"
-        str2 db "Dup Index 1: $" 
-        str3 db "Dup Index 2: $" 
-        nums dw '0', 59, 8, 7, 6, 5, 59, 3, 2, 1  
-        bytes dw 18                                
-        length dw 9                                
+        str1 db "Start array: $"
+        str2 db "Sorted array: $"
+        nums dw '0', 9, 8, 17, 6, 5, 4, 3, 2, 1     
+        bytes dw 18                               
+        length dw 9                                 
         newLine db 13, 10, '$'
-        pos1 dw 0
-        pos2 dw 0
+        neededI dw 0
+        neededJ dw 0
         savedI dw 0
         savedJ dw 0
         savedAI dw 0
