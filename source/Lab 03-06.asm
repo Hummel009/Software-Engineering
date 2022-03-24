@@ -1,55 +1,43 @@
 org 100h
-;find the sum of 0+ elements and the quantity of 0- elements in the array
+;the sum of 0+ elements with indexes mod 2 = 1
 
 ;====== Start ======;
+start:
         mov ah, 09h
         mov dx, str1
         int 21h
 
-;====== First loop: count 0- ======;
-        mov cx, [bytes]
-startA1:
+        mov cx, 2
 
+cycle1:
         mov bx, cx
-        cmp [nums+bx], 0
-        jnl finishA1      ;if >=0, then skip increment
-
-        add [minus], 1
-
-        finishA1:
-        dec cx
-
-loop startA1
-
-;====== Second loop: the sum of 0+ ======;
-        mov cx, [bytes]
-startA2:
-
-        mov bx, cx
-        cmp [nums+bx], 0
-        jl finishA2        ;if <0, then skip sum
         mov ax, [nums+bx]
+        call intToStrAndDisp
+                
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
+                
+        add cx, 2
+        cmp cx, [bytes]
 
+jbe cycle1
+
+;====== Calc the sum ======;
+        mov cx, 2
+cycle2:
+
+        mov bx, cx
+        mov ax, [nums+bx]
         add [plus], ax
 
-        finishA2:
-        dec cx
+        add cx, 4
+        cmp cx, [bytes]
 
-loop startA2
+jbe cycle2
 
-;====== Display 1st ======;
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
 
-        mov ah, 09h
-        mov dx, str2
-        int 21h
-
-        mov ax, [minus]
-        call intToStrAndDisp
-
-;====== Display 2nd ======;
+;====== Display the sum ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -61,7 +49,6 @@ loop startA2
         mov ax, [plus]
         call intToStrAndDisp
 
-;====== Do not exit ======;
         mov ah, 08h
         int 21h
         
@@ -70,7 +57,6 @@ ret
 ;====== IntToStrAndDisp ======;
 intToStrAndDisp:
         aam
-
         add ax, '00'
         mov dl, ah
         mov dh, al
@@ -83,11 +69,11 @@ intToStrAndDisp:
 ret
 
 ;====== Variables ======;
-        str1 db "Array:  -1, -2, 3, 4, 7, 6, 7, 8, 9$"
-        str2 db "Found 0- elements: $"
+        str1 db "Array: $"
         str3 db "The sum of 0+ elements: $"
-        nums dw '0', -1, -2, 3, 4, 7, 6, 7, 8, 9
+        nums dw '0', 1, 2, 3, 4, 7, 6, 7, 8, 9
         bytes dw 18
         newLine db 13, 10, '$'
-        minus dw 0
-        plus dw 0   
+
+;====== Temp variables ======;
+        plus dw 0

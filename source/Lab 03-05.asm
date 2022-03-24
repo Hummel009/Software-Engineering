@@ -6,41 +6,57 @@ org 100h
         mov dx, str1
         int 21h
 
+        mov cx, 2
+
+cycle1:
+        mov bx, cx
+        mov ax, [nums+bx]
+        call intToStrAndDisp
+
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
+
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle1
+
 ;====== Save random 0- =====;
         mov cx, [bytes]
-startA1:
+cycle2:
 
         mov bx, cx
         mov ax, [nums+bx]
         cmp ax, 0
-        jnl @F        ;if <0, then skip saving
+        jnl @F      
 
         mov [minus], ax
 
         @@:
         dec cx
 
-loop startA1
+loop cycle2
 
 ;====== Save random 0+ =====;
         mov cx, [bytes]
-startA2:
+cycle3:
 
         mov bx, cx
         mov ax, [nums+bx]
         cmp ax, 0
-        jl @F        ;if <0, then skip saving
+        jl @F      
 
         mov [plus], ax
 
         @@:
         dec cx
 
-loop startA2
+loop cycle3
 
 ;====== Save max minus =====;
         mov cx, [bytes]
-startA3:
+cycle4:
 
         mov bx, cx
         mov ax, [nums+bx]
@@ -56,11 +72,11 @@ startA3:
         @@:
         dec cx
 
-loop startA3
+loop cycle4
 
 ;====== Save min plus ======;
         mov cx, [bytes]
-startA4:
+cycle5:
 
         mov bx, cx
         mov ax, [nums+bx]
@@ -75,7 +91,7 @@ startA4:
         @@:
         dec cx
 
-loop startA4
+loop cycle5
 
 ;====== We can't display 0-, so we will display 0+ with the symbol "-" ======;
         mov ax, [minus]
@@ -120,20 +136,20 @@ intToStrAndDisp:
         add ax, '00'
         mov dl, ah
         mov dh, al
-                
+
         mov ah, 02h
         int 21h
-                
+
         mov dl, dh
         int 21h
 ret
 
 ;====== Variables ======;
-        str1 db "Array:  -1, -2, -3, -4, 5, 6, 7, 8, 9$"
+        str1 db "Array: $"
         str2 db "Minus elem: -$"
         str3 db "Plus elem: $"
         nums dw 'f', -1, -2, -3, -4, 5, 6, 7, 8, 9
         bytes dw 18
         newLine db 13, 10, '$'
         minus dw 0
-        plus dw 0   
+        plus dw 0  

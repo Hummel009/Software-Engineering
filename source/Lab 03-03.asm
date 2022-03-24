@@ -6,35 +6,51 @@ org 100h
         mov dx, str1
         int 21h
 
-;====== First loop: for every element ======;
-        mov cx, [bytes]               ;cx is needed for the loop
-startA1:
+        mov cx, 2
 
-        mov [savedI], cx              ;save cx, because second loop will change it
+cycle1:
+        mov bx, cx
+        mov ax, [nums+bx]
+        call intToStrAndDisp
 
-        ;=======Second loop: for every element=======;
-        mov cx, [bytes]               ;set new limit
+        mov ah, 02h
+        mov dx, ' '
+        int 21h
 
-        startA2:
-                mov [savedJ], cx      ;save J
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle1
+
+;====== First loop ======;
+        mov cx, [bytes]            
+cycle2:
+
+        mov [savedI], cx              
+
+        ;====== Second loop ======;
+        mov cx, [bytes]             
+
+        cycle3:
+                mov [savedJ], cx     
 
                 mov bx, [savedI]
                 mov dx, [nums+bx]
-                mov [savedAI], dx     ;save item 1, that will be compared with 2
+                mov [savedAI], dx     
 
                 mov bx, [savedJ]
                 mov dx, [nums+bx]
-                mov [savedAJ], dx     ;save item 2, that will be compared with 1
-
+                mov [savedAJ], dx    
 
                 mov bx, [savedI]
                 cmp bx, [savedJ]
-                je finishA1           ;do not compare itself
+                je @F           
 
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
-                jne finishA1          ;if not equal, do not decrement the quantity
+                jne @F        
 
+        ;====== Find real pos ======;
                 mov ax, [savedI]
                 mov bl, 2
                 div bl
@@ -45,15 +61,15 @@ startA1:
                 div bl
                 mov [neededJ], ax
 
-                dec cx                ;every loop does -1, but we need -2: every element is 2 bytes
+                dec cx            
 
-        finishA1:
-        loop startA2
+        @@:
+        loop cycle3
 
-        mov cx, [savedI]              ;load saved counter instead of corrupted one from A2
-        dec cx                        ;every loop does -1, but we need -2: every element is 2 bytes
+        mov cx, [savedI]            
+        dec cx                      
 
-loop startA1
+loop cycle2
 
 ;====== Display first duplicate ======;
         mov ah, 09h
@@ -101,16 +117,16 @@ intToStrAndDisp:
 ret
 
 ;====== Variables ======;
-        str1 db "Array: 59, 8, 7, 6, 5, 59, 3, 2, 1$" ;display array
-        str2 db "First duplicate: $" ;display dup
-        str3 db "Second duplicate: $" ;display dup
-        nums dw '0', 59, 8, 7, 6, 5, 59, 3, 2, 1      ;our array; '0' prevents from skipping the first element while loop breaks
-        bytes dw 18                                 ;array elements * 2
-        length dw 9                                 ;array elements
+        str1 db "Array: $"
+        str2 db "Dup Index 1: $" 
+        str3 db "Dup Index 2: $" 
+        nums dw '0', 59, 8, 7, 6, 5, 59, 3, 2, 1  
+        bytes dw 18                                
+        length dw 9                                
         newLine db 13, 10, '$'
         neededI dw 0
         neededJ dw 0
         savedI dw 0
         savedJ dw 0
         savedAI dw 0
-        savedAJ dw 0  
+        savedAJ dw 0
