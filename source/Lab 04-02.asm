@@ -31,12 +31,12 @@ cycle2:
         mov [saved], cx
         mov bx, cx
 
-        mov ecx, 5
-        mov eax, 0
+        mov cx, 5
+        mov ax, 0
         mov ax, [nums+bx]
         cdq
-        idiv ecx
-        test edx, edx
+        idiv cx
+        test dx, dx
         jnz @F 
 
         add [big], 1
@@ -72,12 +72,12 @@ cycle3:
         mov [saved], cx
         mov bx, cx
 
-        mov ecx, 5
-        mov eax, 0
+        mov cx, 5
+        mov ax, 0
         mov ax, [nums+bx]
         cdq
-        idiv ecx
-        test edx, edx
+        idiv cx
+        test dx, dx
         jnz @F 
 
         mov ax, [nums+bx]
@@ -124,4 +124,4 @@ ret
         saved dw 0
         newLine db 13, 10, '$'
         big dw 0
-        temp dw 0
+        temp dw 0   
