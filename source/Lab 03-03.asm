@@ -11,6 +11,20 @@ org 100h
 cycle1:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
 
         mov ah, 02h
@@ -120,7 +134,7 @@ ret
         str1 db "Array: $"
         str2 db "Dup Index 1: $" 
         str3 db "Dup Index 2: $" 
-        nums dw '0', 59, 8, 7, 6, 5, 59, 3, 2, 1  
+        nums dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
         bytes dw 18                                
         length dw 9                                
         newLine db 13, 10, '$'
@@ -130,3 +144,4 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0
+        temp dw 0

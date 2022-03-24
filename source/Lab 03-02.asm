@@ -11,6 +11,20 @@ org 100h
 cycle1:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
 
         mov ah, 02h
@@ -107,7 +121,7 @@ ret
 ;====== Variables ======;
         str1 db "Array: $"
         str2 db "Unique elements: $"
-        nums dw '0', 1, 2, 3, 4, 7, 6, 7, 8, 9
+        nums dw '0', 1, 2, -3, 4, 7, 6, 7, 8, 9
         bytes dw 18
         length dw 9
         unique dw 9
@@ -116,3 +130,4 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0   
+        temp dw 0

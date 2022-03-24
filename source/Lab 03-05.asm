@@ -11,6 +11,20 @@ org 100h
 cycle1:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
 
         mov ah, 02h
@@ -152,4 +166,5 @@ ret
         bytes dw 18
         newLine db 13, 10, '$'
         minus dw 0
-        plus dw 0  
+        plus dw 0
+        temp dw 0

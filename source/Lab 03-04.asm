@@ -11,6 +11,20 @@ org 100h
 cycle1:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
 
         mov ah, 02h
@@ -53,6 +67,20 @@ loop cycle2
 cycle3:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
 
         mov ah, 02h
@@ -101,7 +129,8 @@ ret
         str1 db "Start array: $"
         str2 db "Elements bigger than 7: $"
         str3 db "New array: $"
-        nums dw '0', 9, 2, 9, 4, 7, 6, 7, 8, 9
+        nums dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
         bytes dw 18
         newLine db 13, 10, '$'
         big dw 0   
+        temp dw 0

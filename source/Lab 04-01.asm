@@ -1,5 +1,6 @@
 org 100h
 ;sort array
+;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
 ;====== Start ======;
         mov ah, 09h

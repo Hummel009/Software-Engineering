@@ -11,12 +11,26 @@ org 100h
 cycle1:
         mov bx, cx
         mov ax, [nums+bx]
+        mov [temp], ax
+
+        cmp ax, 0
+        jnl @F
+
+        mov ah, 02h
+        mov dx, '-'
+        int 21h
+
+        mov ax, [temp]
+        mov bl, -1
+        idiv bl
+
+        @@:
         call intToStrAndDisp
-                
+
         mov ah, 02h
         mov dx, ' '
         int 21h
-                
+
         add cx, 2
         cmp cx, [bytes]
 
@@ -70,7 +84,8 @@ ret
 ;====== Variables ======;
         str1 db "Array: $"
         str2 db "The sum: $"
-        nums dw '0', 1, 2, 3, 4, 7, 6, 7, 8, 9
+        nums dw '0', -1, -2, -3, 4, 7, 6, 7, 8, 9
         bytes dw 18
         newLine db 13, 10, '$'
-        plus dw 0  
+        plus dw 0
+        temp dw 0     

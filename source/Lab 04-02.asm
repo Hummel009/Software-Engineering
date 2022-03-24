@@ -1,5 +1,6 @@
 org 100h
 ;display the quantity of el mod 5 = 0 elements and display them
+;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
 ;====== Start ======;
         mov ah, 09h
@@ -21,7 +22,7 @@ cycle1:
         cmp cx, [bytes]
 
 jbe cycle1
-		
+                
         mov [big], 0
 
 ;====== Count elements div 5 ======;
@@ -116,10 +117,11 @@ ret
 
 ;====== Variables ======;
         str1 db "Start array: $"
-        str2 db "Found (mod 5 = 0)  elements: $"
+        str2 db "Mod 5 = 0 elements: $"
         str3 db "New array: $"
         nums dw '0', 10, 17, 65, 99, 31, 45, 88, 34, 40
         bytes dw 18
         saved dw 0
         newLine db 13, 10, '$'
         big dw 0
+        temp dw 0
