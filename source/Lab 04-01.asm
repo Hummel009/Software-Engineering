@@ -114,7 +114,7 @@ intToStrAndDisp:
 ret
 
 ;====== VARIABLES ======;
-        str1 db "START array: $"
+        str1 db "Start array: $"
         str2 db "Sorted array: $"
         nums dw '0', 9, 8, 17, 6, 5, 4, 3, 2, 1     
         bytes dw 18                               

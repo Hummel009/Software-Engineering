@@ -126,7 +126,7 @@ intToStrAndDisp:
 ret
 
 ;====== VARIABLES ======;
-        str1 db "START array: $"
+        str1 db "Start array: $"
         str2 db "Elements bigger than 7: $"
         str3 db "New array: $"
         nums dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
