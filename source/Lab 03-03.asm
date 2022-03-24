@@ -37,13 +37,13 @@ cycle1:
 jbe cycle1
 
 ;====== FIRST LOOP ======;
-        mov cx, [bytes]            
+        mov cx, 2
 cycle2:
 
         mov [savedI], cx              
 
         ;====== SECOND LOOP ======;
-        mov cx, [bytes]             
+        mov cx, [savedI]
 
         cycle3:
                 mov [savedJ], cx     
@@ -75,15 +75,16 @@ cycle2:
                 div bl
                 mov [pos2], ax
 
-                dec cx            
+                @@:
+                add cx, 2
+                cmp cx, [bytes]
+        jbe cycle3
 
-        @@:
-        loop cycle3
+        mov cx, [savedI]
+        add cx, 2
+        cmp cx, [bytes]
 
-        mov cx, [savedI]            
-        dec cx                      
-
-loop cycle2
+jbe cycle2
 
 ;====== DISPLAY DUPLICATE 1 ======;
         mov ah, 09h
@@ -144,4 +145,4 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0
-        temp dw 0
+        temp dw 0 
