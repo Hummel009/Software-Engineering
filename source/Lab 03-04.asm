@@ -1,7 +1,7 @@
 org 100h
-;calculate the quantity of the nums that are bigger then 7, replace them with 7 and display the new array
+;FIND THE QUANTITY OF 7+ ELEMENTS AND REPLACE THEM WITH 7
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -38,7 +38,7 @@ jbe cycle1
   
         mov [big], 0
 
-;====== Find 7+ ======;
+;====== FIND ELEMENTS BIGGER THAN SEVEN ======;
         mov cx, [bytes]
 cycle2:
 
@@ -54,7 +54,7 @@ cycle2:
 
 loop cycle2
 
-;====== Display arr ======;
+;====== DISPLAY THE ARRAY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -92,7 +92,7 @@ cycle3:
 
 jbe cycle3
 
-;====== Display quantity ======;
+;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -104,13 +104,13 @@ jbe cycle3
         mov ax, [big]
         call intToStrAndDisp
 
-;====== Do not exit ======;
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
 
 ret
 
-;====== IntToStrAndDisp ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -125,8 +125,8 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== Variables ======;
-        str1 db "Start array: $"
+;====== VARIABLES ======;
+        str1 db "START array: $"
         str2 db "Elements bigger than 7: $"
         str3 db "New array: $"
         nums dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9

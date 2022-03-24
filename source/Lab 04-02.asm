@@ -1,8 +1,8 @@
 org 100h
-;display the quantity of el mod 5 = 0 elements and display them
+;DISPLAY THE QUANTITY OF ITEMS MOD 5 = 0 AND DISPLAY THEM AS AN ARRAY
 ;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -25,7 +25,7 @@ jbe cycle1
                 
         mov [big], 0
 
-;====== Count elements div 5 ======;
+;====== COUNT ELEMENTS ======;
         mov cx, [bytes]
 cycle2:
         mov [saved], cx
@@ -47,7 +47,7 @@ cycle2:
 
 loop cycle2
 
-;====== Display the quantity ======;
+;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -62,7 +62,7 @@ loop cycle2
         mov dx, newLine
         int 21h
 
-;====== Display arr ======;
+;====== DISPLAY THE ARRAY ======;
         mov ah, 09h
         mov dx, str3
         int 21h
@@ -94,13 +94,13 @@ cycle3:
 
 jbe cycle3
 
-;====== Do not exit ======;
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
 
 ret
 
-;====== IntToStrAndDisp ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -115,7 +115,7 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         str1 db "Start array: $"
         str2 db "Mod 5 = 0 elements: $"
         str3 db "New array: $"

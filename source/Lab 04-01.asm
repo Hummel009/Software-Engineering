@@ -1,8 +1,8 @@
 org 100h
-;sort array
+;SORT THE ARRAY
 ;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -23,13 +23,13 @@ cycle1:
 
 jbe cycle1
 
-;====== First loop ======;
+;====== FIRST LOOP ======;
         mov cx, [bytes] 
 cycle2:
 
         mov [savedI], cx           
 
-;====== Second loop ======;
+;====== SECOND LOOP ======;
         mov cx, [bytes]             
 
         cycle3:
@@ -47,7 +47,7 @@ cycle2:
                 cmp dx, [savedAJ]
                 jb notSwapThem    
 
-        ;====== Swap ======;
+        ;====== SWAP ======;
                 mov ax, [savedAJ]
                 mov bx, [savedI]
                 mov [nums+bx], ax
@@ -72,7 +72,7 @@ loop cycle2
         mov dx, newLine
         int 21h
 
-;====== Display arr ======;
+;====== DISPLAY THE ARRAY ======;
         mov ah, 09h
         mov dx, str2
         int 21h
@@ -92,13 +92,13 @@ cycle4:
 
 jbe cycle4
 
-;====== Do not exit ======;
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
         
 ret
 
-;====== IntToStr ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -113,8 +113,8 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== Variables ======;
-        str1 db "Start array: $"
+;====== VARIABLES ======;
+        str1 db "START array: $"
         str2 db "Sorted array: $"
         nums dw '0', 9, 8, 17, 6, 5, 4, 3, 2, 1     
         bytes dw 18                               

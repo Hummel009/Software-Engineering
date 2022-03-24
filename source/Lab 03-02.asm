@@ -1,7 +1,8 @@
 org 100h
-;find the quantity of unique elements in the array
+;FIND THE QUANTITY OF UNIQUE ELEMENTS IN ARRAY
+;NO SUPPORT FOR DIFFERENT DUPLICATES
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -36,13 +37,13 @@ cycle1:
 
 jbe cycle1
 
-;====== First loop ======;
+;====== FIRST LOOP ======;
         mov cx, [bytes]             
 cycle2:
 
         mov [savedI], cx
 
-        ;====== Second loop ======;
+        ;====== SECOND LOOP ======;
         mov cx, [bytes]               
         cycle3:
                 mov [savedJ], cx    
@@ -63,7 +64,7 @@ cycle2:
                 cmp dx, [savedAJ]
                 jne @F        
 
-        ;====== Break element ======;
+        ;====== BREAK ELEMENT ======;
                 mov bx, [savedI]
                 mov [nums+bx], 'f'  
 
@@ -87,7 +88,7 @@ loop cycle2
         mov dx, str2
         int 21h
 
-;====== Add lost element ======;
+;====== ADD LOST ELEMENT ======;
         cmp [unique], 9              
         jnl @F                    
 
@@ -102,7 +103,7 @@ loop cycle2
 
 ret
 
-;====== IntToStrAndDisp ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -118,7 +119,7 @@ intToStrAndDisp:
         
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         str1 db "Array: $"
         str2 db "Unique elements: $"
         nums dw '0', 1, 2, -3, 4, 7, 6, 7, 8, 9

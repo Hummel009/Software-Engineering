@@ -1,7 +1,7 @@
 org 100h
-;the sum of 0+ elements with indexes mod 2 = 1
+;THE SUM OF 0- ELEMENTS WITH INDEXES MOD 2 = 1
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -36,7 +36,7 @@ cycle1:
 
 jbe cycle1
 
-;====== Calc the sum ======;
+;====== CALCULATE THE SUM ======;
         mov cx, 2
 cycle2:
 
@@ -49,8 +49,7 @@ cycle2:
 
 jbe cycle2
 
-
-;====== Display the sum ======;
+;====== DISPLAY THE SUM ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -67,21 +66,21 @@ jbe cycle2
         
 ret
 
-;====== IntToStrAndDisp ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
         add ax, '00'
         mov dl, ah
         mov dh, al
-                
+
         mov ah, 02h
         int 21h
-                
+
         mov dl, dh
         int 21h
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         str1 db "Array: $"
         str2 db "The sum: $"
         nums dw '0', -1, -2, -3, 4, 7, 6, 7, 8, 9

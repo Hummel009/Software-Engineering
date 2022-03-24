@@ -1,7 +1,7 @@
 org 100h
-;check if the word is correct
+;CHECK IF THE WORD IS CORRECT
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, writeln
         int 21h
@@ -14,20 +14,20 @@ org 100h
         mov dx, newLine
         int 21h
 
-;====== Skip if 3rd symbol not equals 5th symbol ======;
+;====== SKIP IF 3 <> 5 ======;
         mov al, [readln+4]
         mov bl, [readln+6]
 
         cmp al, bl
         jne skip
 
-;====== Skip if length lesser then 5 ======;
+;====== SKIP IF N < 5 ======;
         mov al, [readln+1]
 
         cmp al, 5
         jl skip
 
-;====== Find symbol N-1 ======;
+;====== FIND N-1 ======;
         mov bh, [readln+1]
         mov [var], bh
 
@@ -37,14 +37,14 @@ org 100h
         add bp, dx
 
 
-;====== Test 3 and N-1 ======;
+;====== TEST 3 AND N-1 ======;
         mov bh, [bp]
-        call testNum
+        call testLet
 
         mov bh, [readln+4]
-        call testNum
+        call testLet
 
-;====== Everything is ok ======;
+;====== EVERYTHING IS OK ======;
         mov ah, 09h
         mov dx, yes
         int 21h
@@ -54,7 +54,7 @@ org 100h
 
 ret
 
-;====== Everything is shit ======;
+;====== EVERYTHING IS SHIT ======;
 skip:
         mov ah, 09h
         mov dx, no
@@ -65,8 +65,8 @@ skip:
 
 ret
 
-;====== Our conditions for symbol ======;
-testNum:
+;====== SKIP IF IS NOT LETTER ======;
+testLet:
         cmp bh, 65
         jl skip
 
@@ -95,7 +95,7 @@ testNum:
         je skip
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         writeln: db "Enter the text: $"
         readln db 7, 0, 7 dup ('$')
         yes db 'Yes, this word is allowed.$'

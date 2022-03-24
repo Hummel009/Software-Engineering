@@ -1,7 +1,7 @@
 org 100h
-;find the biggest 0- element and the least 0+ element in the array
+;FIND THE BIGGEST 0- ELEMENT AND THE LEAST 0+ ELEMENT
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -36,7 +36,7 @@ cycle1:
 
 jbe cycle1
 
-;====== Save random 0- =====;
+;====== LET IT BE THE START 0- ELEMENT =====;
         mov cx, [bytes]
 cycle2:
 
@@ -52,7 +52,7 @@ cycle2:
 
 loop cycle2
 
-;====== Save random 0+ =====;
+;====== LET IT BE THE START 0+ ELEMENT =====;
         mov cx, [bytes]
 cycle3:
 
@@ -68,7 +68,7 @@ cycle3:
 
 loop cycle3
 
-;====== Save max minus =====;
+;====== COMPARE AND FIND MAX 0- ELEMENT =====;
         mov cx, [bytes]
 cycle4:
 
@@ -88,7 +88,7 @@ cycle4:
 
 loop cycle4
 
-;====== Save min plus ======;
+;====== COMPARE AND FIND MIN 0+ ELEMENT =====;
         mov cx, [bytes]
 cycle5:
 
@@ -107,13 +107,13 @@ cycle5:
 
 loop cycle5
 
-;====== We can't display 0-, so we will display 0+ with the symbol "-" ======;
+;====== ABS OF THE ELEMENT =====;
         mov ax, [minus]
         mov bl, -1
         idiv bl
         mov [minus], ax
 
-;====== Display 1st ======;
+;====== DISPLAY 1 ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -125,7 +125,7 @@ loop cycle5
         mov ax, [minus]
         call intToStrAndDisp
 
-;====== Display 2nd ======;
+;====== DISPLAY 2 ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -137,13 +137,13 @@ loop cycle5
         mov ax, [plus]
         call intToStrAndDisp
 
-;====== Do not exit ======;
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
         
 ret
 
-;====== IntToStrAndDisp ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -158,7 +158,7 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         str1 db "Array: $"
         str2 db "Minus elem: -$"
         str3 db "Plus elem: $"

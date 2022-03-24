@@ -1,7 +1,7 @@
 org 100h
 ;check if the word is correct
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, writeln
         int 21h
@@ -14,14 +14,14 @@ org 100h
         mov dx, newLine
         int 21h
 
-;====== Skip if 1rd symbol not equals 3th symbol ======;
+;====== SKIP IF 1 <> 3 ======;
         mov al, [readln+2]
         mov bl, [readln+4]
 
         cmp al, bl
         jne skip
 
-;====== Skip if length lesser then 3 ======;
+;====== SKIP IF N < 3 ======;
         mov al, [readln+1]
 
         cmp al, 3
@@ -30,7 +30,7 @@ org 100h
         cmp al, 5
         je test5
 
-;====== Find symbol N ======;
+;====== FIND N ======;
         mov bh, [readln+1]
         mov [var], bh
         add [var], 1
@@ -42,7 +42,7 @@ org 100h
 
 jmp testN
 
-;====== Test 1 and N ======;
+;====== TEST 1, 5 AND N ======;
 test5:
         mov bh, [readln+6]
         jmp testLet
@@ -55,7 +55,7 @@ test1:
         mov bh, [readln+2]
         jmp testNum
 
-;====== Everything is ok ======;
+;====== EVERYTHING IS OK ======;
 res:
         mov ah, 09h
         mov dx, yes
@@ -66,7 +66,7 @@ res:
 
 ret
 
-;====== Everything is shit ======;
+;====== EVERYTHING IS SHIT ======;
 skip:
         mov ah, 09h
         mov dx, no
@@ -77,7 +77,7 @@ skip:
 
 ret
 
-;====== Our conditions for symbol ======;
+;====== CHECK IF IS LETTER ======;
 testLet:
         cmp bh, 65
         jl skip
@@ -108,7 +108,7 @@ testLet:
 
 jmp test1
 
-;====== Our conditions for symbol ======;
+;====== CHECK IF IS NUMBER ======;
 testNum:
         cmp bh, 48
         jl skip
@@ -118,7 +118,7 @@ testNum:
 
 jmp res
 
-;====== Variables ======;
+;====== VARIABLES ======;
         writeln: db "Enter the text: $"
         readln db 8, 0, 8 dup ('$')
         yes db 'Yes, this word is allowed.$'

@@ -1,7 +1,7 @@
 org 100h
-;find the positions of two duplicates in the array
+;FIND THE POSITIONS OF TWO DUPLICATES IN ARRAY
 
-;====== Start ======;
+;====== START ======;
         mov ah, 09h
         mov dx, str1
         int 21h
@@ -36,13 +36,13 @@ cycle1:
 
 jbe cycle1
 
-;====== First loop ======;
+;====== FIRST LOOP ======;
         mov cx, [bytes]            
 cycle2:
 
         mov [savedI], cx              
 
-        ;====== Second loop ======;
+        ;====== SECOND LOOP ======;
         mov cx, [bytes]             
 
         cycle3:
@@ -64,7 +64,7 @@ cycle2:
                 cmp dx, [savedAJ]
                 jne @F        
 
-        ;====== Find real pos ======;
+        ;====== FIND THE REAL POS ======;
                 mov ax, [savedI]
                 mov bl, 2
                 div bl
@@ -85,7 +85,7 @@ cycle2:
 
 loop cycle2
 
-;====== Display first duplicate ======;
+;====== DISPLAY DUPLICATE 1 ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -97,7 +97,7 @@ loop cycle2
         mov ax, [pos1]
         call intToStrAndDisp
 
-;====== Display second duplicate ======;
+;====== DISPLAY DUPLICATE 2 ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -109,13 +109,13 @@ loop cycle2
         mov ax, [pos2]
         call intToStrAndDisp
 
-;====== Do not exit ======;
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
         
 ret
 
-;====== IntToStr ======;
+;====== CONVERT ======;
 intToStrAndDisp:
         aam
 
@@ -130,7 +130,7 @@ intToStrAndDisp:
         int 21h
 ret
 
-;====== Variables ======;
+;====== VARIABLES ======;
         str1 db "Array: $"
         str2 db "Dup Index 1: $" 
         str3 db "Dup Index 2: $" 
