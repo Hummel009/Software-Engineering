@@ -54,7 +54,11 @@ cycle2:
 
                 mov bx, [savedJ]
                 mov dx, [nums+bx]
-                mov [savedAJ], dx          
+                mov [savedAJ], dx
+
+                mov dx, [savedI]
+                cmp dx, [savedJ]
+                je @F
 
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
@@ -141,4 +145,4 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0
-        temp dw 0 
+        temp dw 0
