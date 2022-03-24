@@ -1,6 +1,5 @@
 org 100h
 ;FIND THE QUANTITY OF UNIQUE ELEMENTS IN ARRAY
-;NO SUPPORT FOR DIFFERENT DUPLICATES
 
 ;====== START ======;
         mov ah, 09h
@@ -38,13 +37,13 @@ cycle1:
 jbe cycle1
 
 ;====== FIRST LOOP ======;
-        mov cx, [bytes]             
+        mov cx, 2
 cycle2:
 
         mov [savedI], cx
 
         ;====== SECOND LOOP ======;
-        mov cx, [bytes]               
+        mov cx, [savedI]
         cycle3:
                 mov [savedJ], cx    
 
@@ -66,20 +65,41 @@ cycle2:
 
         ;====== BREAK ELEMENT ======;
                 mov bx, [savedI]
-                mov [nums+bx], 'f'  
+                mov [nums+bx], 'd'
 
-                sub [unique], 1     
+                mov bx, [savedJ]
+                mov [nums+bx], 'd'
 
-                dec cx              
+                @@:
+                add cx, 2
+                cmp cx, [bytes]
+
+        jbe cycle3
+
+        mov cx, [savedI]
+        add cx, 2
+        cmp cx, [bytes]
+
+jbe cycle2
+
+;====== CALCULATE UNIQUE ELEMENTS ======;
+        mov cx, 2
+cycle4:
+        mov bx, cx
+        mov ax, [nums+bx]
+
+        cmp ax, 'd'
+        jne @F
+
+        sub [unique], 1
 
         @@:
-        loop cycle3
+        add cx, 2
+        cmp cx, [bytes]
 
-        mov cx, [savedI]        
-        dec cx                     
+jbe cycle4
 
-loop cycle2
-
+;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
@@ -88,13 +108,6 @@ loop cycle2
         mov dx, str2
         int 21h
 
-;====== ADD LOST ELEMENT ======;
-        cmp [unique], 9              
-        jnl @F                    
-
-        dec [unique];                  
-
-        @@:
         mov ax, [unique]
         call intToStrAndDisp
 
@@ -122,7 +135,7 @@ ret
 ;====== VARIABLES ======;
         str1 db "Array: $"
         str2 db "Unique elements: $"
-        nums dw '0', 1, 2, -3, 4, 7, 6, 7, 8, 9
+        nums dw '0', 1, 2, -3, 4, 7, 4, 7, 8, 9
         bytes dw 18
         length dw 9
         unique dw 9
@@ -131,4 +144,4 @@ ret
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0   
-        temp dw 0
+        temp dw 0  
