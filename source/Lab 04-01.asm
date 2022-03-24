@@ -1,5 +1,5 @@
 org 100h
-;SORT THE ARRAY
+;SORT THE ARRAY USING THE BUBBLE SORT
 ;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
 ;====== START ======;
@@ -24,13 +24,13 @@ cycle1:
 jbe cycle1
 
 ;====== FIRST LOOP ======;
-        mov cx, [bytes] 
+        mov cx, 2
 cycle2:
 
         mov [savedI], cx           
 
 ;====== SECOND LOOP ======;
-        mov cx, [bytes]             
+        mov cx, [savedI]
 
         cycle3:
                 mov [savedJ], cx     
@@ -45,7 +45,7 @@ cycle2:
 
                 mov dx, [savedAI]
                 cmp dx, [savedAJ]
-                jb notSwapThem    
+                jl notSwapThem
 
         ;====== SWAP ======;
                 mov ax, [savedAJ]
@@ -59,14 +59,16 @@ cycle2:
                 mov cx, [savedJ]
 
                 notSwapThem:
-                dec cx
+                add cx, 2
+                cmp cx, [bytes]
 
-        loop cycle3
+        jbe cycle3
 
-        mov cx, [savedI]            
-        dec cx                      
+        mov cx, [savedI]
+        add cx, 2
+        cmp cx, [bytes]
 
-loop cycle2
+jbe cycle2
 
         mov ah, 09h
         mov dx, newLine
@@ -116,7 +118,7 @@ ret
 ;====== VARIABLES ======;
         str1 db "Start array: $"
         str2 db "Sorted array: $"
-        nums dw '0', 9, 8, 17, 6, 5, 4, 3, 2, 1     
+        nums dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
         bytes dw 18                               
         length dw 9                                 
         newLine db 13, 10, '$'

@@ -125,4 +125,4 @@ ret
         saved dw 0
         newLine db 13, 10, '$'
         big dw 0
-        temp dw 0   
+        temp dw 0
