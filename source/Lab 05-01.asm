@@ -7,39 +7,40 @@ org 100h
         int 21h
         
         mov ah, 09h
+        mov dx, newLine
+        int 21h
+        
+        mov ah, 09h
         mov dx, writeln2
         int 21h
-        
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
-        
-        mov ah, 09h
-        mov dx, writeln3
+
+        mov ah, 0ah
+        mov dx, readln
         int 21h
         
         mov ah, 09h
         mov dx, newLine
         int 21h
-        
+
+        mov al, '3'
+        mov di, readln+2
+        mov cx, 0
+        mov cl, [readln+1]
+
 ;====== FIND SYMBOL ======;
 again:
-        mov al, 'm'
-        mov cx, 0
-        mov ch, [writeln2+1]
-        mov di, writeln2
         repne scasb
         jnz exit
         
         dec di
-        add [save], 1
         mov byte[di], '0'
+        add [save], 1
 jmp again
         
 ;====== SHOW RESULT ======;
 exit:
         mov ah, 09h
-        mov dx, writeln4
+        mov dx, writeln3
         int 21h
         
         mov ax, [save]
@@ -65,9 +66,9 @@ intToStrAndDisp:
 ret
         
 ;====== VARIABLES ======;
-        writeln1 db "This is the string: $"
-        writeln2 db "Amomus1488$"
-        writeln3 db "We will count the symbol `m`$"
-        writeln4 db "Result: $"
+        writeln1 db "We will count the symbol `3`$"
+        writeln2 db "Enter the string: $"
+        writeln3 db "Result: $"
+        readln db 255 dup ('$')
         newLine db 13, 10, '$'
-        save dw -4
+        save dw 0
