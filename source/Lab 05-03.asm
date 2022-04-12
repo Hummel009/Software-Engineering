@@ -35,7 +35,6 @@ org 100h
         cmp al, 'a'
         jge intoBigLetter
 
-
 ;====== SET CONVERTER DATA ======;
 intoBigLetter:
         mov al, [readln+2]
