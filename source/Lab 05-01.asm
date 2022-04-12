@@ -31,9 +31,7 @@ org 100h
 again:
         repne scasb
         jnz exit
-        
-        dec di
-        mov byte[di], '0'
+
         add [save], 1
 jmp again
         
@@ -71,4 +69,4 @@ ret
         writeln3 db "Result: $"
         readln db 255 dup ('$')
         newLine db 13, 10, '$'
-        save dw 0
+        save dw 0    
