@@ -1,7 +1,24 @@
-org 100h
-;CALCULATE FORMULA WITH 16-BIT NUMBERS USING CALL WITH GLOBAL PARAMETERS
+format MZ
+entry code_seg:entryPoint
+stack 200h
+;CALCULATE FORMULA WITH 16-BIT NUMBERS USING CALL WITH REGISTERS
 
+segment data_seg
+;====== VARIABLES ======;
+        writeln1 db "Enter the number C: $"
+        writeln2 db "Enter the number D: $"
+        newLine db 13, 10, '$'
+        readln1 db 2, 0, 2 dup "$"
+        readln2 db 2, 0, 2 dup "$"
+        savedC dw 0
+        savedD dw 0
+
+segment code_seg
 ;====== START ======;
+entryPoint:
+        mov ax, data_seg
+        mov ds, ax
+
         mov ah, 09h
         mov dx, writeln1
         int 21h
@@ -39,30 +56,9 @@ org 100h
         mov [savedC], ax
         mov [savedD], bx
 
-        call operations
+        call calc_seg:operations
 
 ;====== SHOW ======;
-        call intToStrAndDisp
-
-        mov ah, 08h
-        int 21h
-
-ret
-
-;====== OPERATIONS ======;
-operations:
-        mov ax, [savedD]
-        mov bx, [savedD]
-        mul bx
-        add ax, 1
-        mov bx, ax
-        mov ax, [savedC]
-        div bx
-        add ax, 1
-ret
-
-;====== CONVERT ======;
-intToStrAndDisp:
         aam
 
         add ax, '00'
@@ -74,13 +70,22 @@ intToStrAndDisp:
                 
         mov dl, dh
         int 21h
-ret
 
-;====== VARIABLES ======;
-        writeln1 db "Enter the number C: $"
-        writeln2 db "Enter the number D: $"
-        newLine db 13, 10, '$'
-        readln1 db 2, 0, 2 dup "$"
-        readln2 db 2, 0, 2 dup "$"
-        savedC dw 0
-        savedD dw 0
+        mov ah, 08h
+        int 21h
+
+        mov ax, 4C00h
+        int 21h
+
+segment calc_seg
+;====== OPERATIONS ======;
+operations:
+        mov ax, [savedD]
+        mov bx, [savedD]
+        mul bx
+        add ax, 1
+        mov bx, ax
+        mov ax, [savedC]
+        div bx
+        add ax, 1
+retf

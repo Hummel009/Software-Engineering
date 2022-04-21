@@ -42,7 +42,17 @@ org 100h
 ;====== SHOW ======;
         mov ah, 0
 
-        call intToStrAndDisp
+        aam
+
+        add ax, '00'
+        mov dl, ah
+        mov dh, al
+                
+        mov ah, 02h
+        int 21h
+                
+        mov dl, dh
+        int 21h
 
         mov ah, 08h
         int 21h
@@ -68,21 +78,6 @@ operations:
         pop bp
 
 retn 4
-
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
-
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
-                
-        mov ah, 02h
-        int 21h
-                
-        mov dl, dh
-        int 21h
-ret
 
 ;====== VARIABLES ======;
         writeln1 db "Enter the number A: $"

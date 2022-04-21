@@ -1,7 +1,24 @@
-org 100h
+format MZ
+entry code_seg:entryPoint
+stack 200h
 ;CALCULATE FORMULA WITH 8-BIT NUMBERS USING CALL WITH GLOBAL PARAMETERS
 
+segment data_seg
+;====== VARIABLES ======;
+        writeln1 db "Enter the number A: $"
+        writeln2 db "Enter the number B: $"
+        newLine db 13, 10, '$'
+        readln1 db 2, 0, 2 dup "$"
+        readln2 db 2, 0, 2 dup "$"
+        savedA db 0
+        savedB db 0
+
+segment code_seg
 ;====== START ======;
+entryPoint:
+        mov ax, data_seg
+        mov ds, ax
+
         mov ah, 09h
         mov dx, writeln1
         int 21h
@@ -37,18 +54,29 @@ org 100h
         mov [savedA], al
         mov [savedB], bl
 
-        call operations
+        call calc_seg:operations
 
 ;====== SHOW ======;
         mov ah, 0
+        aam
 
-        call intToStrAndDisp
+        add ax, '00'
+        mov dl, ah
+        mov dh, al
+                
+        mov ah, 02h
+        int 21h
+                
+        mov dl, dh
+        int 21h
 
         mov ah, 08h
         int 21h
 
-ret
+        mov ax, 4C00h
+        int 21h
 
+segment calc_seg
 ;====== OPERATIONS ======;
 operations:
         mov al, [savedA]
@@ -61,28 +89,4 @@ operations:
 
         mov bl, [savedA]
         add al, bl
-ret
-
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
-
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
-                
-        mov ah, 02h
-        int 21h
-                
-        mov dl, dh
-        int 21h
-ret
-
-;====== VARIABLES ======;
-        writeln1 db "Enter the number A: $"
-        writeln2 db "Enter the number B: $"
-        newLine db 13, 10, '$'
-        readln1 db 2, 0, 2 dup "$"
-        readln2 db 2, 0, 2 dup "$"
-        savedA db 0
-        savedB db 0
+retf
