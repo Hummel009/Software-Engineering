@@ -6,13 +6,13 @@ uses
   SysUtils;
 
 var
-  nums: array[1..9] of byte;
-  sus, amogus, i: byte;
+  nums: array[1..9] of Integer;
+  sus, amogus, i: Integer;
 
 begin
   randomize;    
   for i:= 1 to 9 do
-    nums[i]:=random(10);
+    nums[i]:=random(200);
 
   for i:= 1 to 9 do
     write(nums[i], ' ');
@@ -22,23 +22,23 @@ begin
   asm
     mov ecx, 0
   @cycle:
-    mov al, byte[nums+ecx]
-    cmp al, 5
+    mov eax, dword[nums+ecx]
+    cmp eax, 100
     jng @skip
 
-    add sus, al
+    add sus, eax
     add amogus, 1
 
     @skip:
-    add ecx, 1
-    cmp ecx, 9
+    add ecx, 4  //every int is 4 bytes
+    cmp ecx, 36 //9 ints = 36 bytes
   jl @cycle
   end;
 
   writeln;
-  write('The sum of elements bigger then 5: ', sus);    
+  write('The sum of elements bigger then 100: ', sus);    
   writeln;
-  write('The amount of elements bigger then 5: ', amogus);
+  write('The amount of elements bigger then 100: ', amogus);
 
   readln;
 end.
