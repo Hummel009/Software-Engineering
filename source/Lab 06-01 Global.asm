@@ -54,7 +54,7 @@ entryPoint:
         mov [savedA], al
         mov [savedB], bl
 
-        call calc_seg:operations
+        call far calc_seg:operations
 
 ;====== SHOW ======;
         mov ah, 0

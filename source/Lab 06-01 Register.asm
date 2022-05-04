@@ -52,7 +52,7 @@ entryPoint:
         mov cl, al
         mov ch, bl
 
-        call calc_seg:operations
+        call far calc_seg:operations
 
 ;====== SHOW ======;
         mov ah, 0
