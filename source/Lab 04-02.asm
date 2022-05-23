@@ -34,9 +34,9 @@ cycle2:
         mov ax, [nums+bx]
         mov dx, 0
         div cx
-        cmp dx, 1
+        cmp dx, 0
 
-        je skip
+        jne skip
 
         add [mods], 1
         mov dx, [nums+bx]
