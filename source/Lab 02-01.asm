@@ -30,12 +30,12 @@ org 100h
 ;====== FIND AND TEST N-1 ======;
         mov bx, 0
         mov bl, [readln+1]
-        mov bh, [readln+bx]
+        mov al, [readln+bx]
 
-        cmp bh, 65
+        cmp al, 65
         jl skip
 
-        cmp bh, 122
+        cmp al, 122
         jg skip
 
 ;====== FIND AND TEST 3 ======;
@@ -73,5 +73,4 @@ ret
         readln db 7, 0, 7 dup ('$')
         yes db 'Yes, this word is allowed.$'
         no db 'No, this word is not allowed.$'
-        var db 0
-        newLine db 13, 10, '$' 
+        newLine db 13, 10, '$'    
