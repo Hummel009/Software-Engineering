@@ -6,7 +6,7 @@ org 100h
         mov dx, str1
         int 21h
 
-        mov cx, 2
+        mov cx, 0
 
 cycle1:
         mov bx, cx
@@ -34,10 +34,10 @@ cycle1:
         add cx, 2
         cmp cx, [arrSize]
 
-jbe cycle1
+jng cycle1
 
 ;====== FIRST LOOP ======;
-        mov cx, 2
+        mov cx, 0
 cycle2:
 
         mov [savedI], cx
@@ -66,7 +66,7 @@ cycle2:
 
         ;====== BREAK ELEMENT ======;
                 mov bx, [savedJ]
-                mov [arr+bx], 'd'
+                mov [arr+bx], 'ff'
 
                 mov [added], 1
 
@@ -82,22 +82,22 @@ cycle2:
         je @F
 
         mov bx, [savedI]
-        mov [arr+bx], 'd'
+        mov [arr+bx], 'ff'
 
         @@:
         mov cx, [savedI]
         add cx, 2
         cmp cx, [arrSize]
 
-jbe cycle2
+jng cycle2
 
 ;====== CALCULATE UNIQUE ELEMENTS ======;
-        mov cx, 2
+        mov cx, 0
 cycle4:
         mov bx, cx
         mov ax, [arr+bx]
 
-        cmp ax, 'd'
+        cmp ax, 'ff'
         jne @F
 
         sub [unique], 1
@@ -106,7 +106,7 @@ cycle4:
         add cx, 2
         cmp cx, [arrSize]
 
-jbe cycle4
+jng cycle4
 
         mov ah, 09h
         mov dx, newLine
@@ -116,12 +116,15 @@ jbe cycle4
         mov dx, str2
         int 21h
 
-        mov cx, 2
+        mov cx, 0
 
 cycle5:
         mov bx, cx
         mov ax, [arr+bx]
         mov [temp], ax
+
+        cmp ax, 'ff'
+        je skip
 
         cmp ax, 0
         jnl @F
@@ -141,10 +144,11 @@ cycle5:
         mov dx, ' '
         int 21h
 
+        skip:
         add cx, 2
         cmp cx, [arrSize]
 
-jbe cycle5
+jng cycle5
 
 
 ;====== DISPLAY THE QUANTITY ======;
@@ -184,8 +188,8 @@ ret
         str1 db "Start array: $"
         str2 db "No duplicat: $"
         str3 db "Unique elements: $"
-        arr dw '0', 2, 2, -3, 5, 7, 4, 7, 2, 9
-        arrSize dw 18
+        arr dw 2, 2, -3, 5, 7, 4, 7, 2, 9
+        arrSize dw 16
         length dw 9
         unique dw 9
         newLine db 13, 10, '$'
