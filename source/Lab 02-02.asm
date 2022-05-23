@@ -1,5 +1,5 @@
 org 100h
-;check if the word is correct
+;CHECK IF THE WORD IS CORRECT
 
 ;====== START ======;
         mov ah, 09h
@@ -27,36 +27,36 @@ org 100h
         cmp al, 3
         jl skip
 
-        cmp al, 5
-        je test5
+;====== FIND AND TEST N ======;
+        mov bx, 0
+        mov bl, [readln+1]
+        mov al, [readln+bx+1]
 
-;====== FIND N ======;
-        mov bh, [readln+1]
-        mov [var], bh
-        add [var], 1
+        cmp al, 'A'
+        jl skip
 
-        mov bp, readln-2
-        mov dx, 0
-        mov dl, [var]
-        add bp, dx
+        cmp al, 'z'
+        jg skip
 
-jmp testN
+;====== FIND AND TEST 5 ======;
+        mov al, [readln+6]
 
-;====== TEST 1, 5 AND N ======;
-test5:
-        mov bh, [readln+6]
-        jmp testLet
+        cmp al, 'A'
+        jl skip
 
-testN:
-        mov bh, [bp]
-        jmp testLet
+        cmp al, 'z'
+        jg skip
 
-test1:
-        mov bh, [readln+2]
-        jmp testNum
+;====== FIND AND TEST 1 ======;
+        mov al, [readln+2]
+
+        cmp al, '0'
+        jl skip
+
+        cmp al, '9'
+        jg skip
 
 ;====== EVERYTHING IS OK ======;
-res:
         mov ah, 09h
         mov dx, yes
         int 21h
@@ -77,51 +77,9 @@ skip:
 
 ret
 
-;====== CHECK IF IS LETTER ======;
-testLet:
-        cmp bh, 65
-        jl skip
-
-        cmp bh, 122
-        jg skip
-
-        cmp bh, 91
-        je skip
-
-        cmp bh, 92
-        je skip
-
-        cmp bh, 93
-        je skip
-
-        cmp bh, 94
-        je skip
-
-        cmp bh, 95
-        je skip
-
-        cmp bh, 96
-        je skip
-
-        cmp bh, 96
-        je skip
-
-jmp test1
-
-;====== CHECK IF IS NUMBER ======;
-testNum:
-        cmp bh, 48
-        jl skip
-
-        cmp bh, 57
-        jg skip
-
-jmp res
-
 ;====== VARIABLES ======;
-        writeln: db "Enter the text: $"
+        writeln db "Enter the text: $"
         readln db 8, 0, 8 dup ('$')
         yes db 'Yes, this word is allowed.$'
         no db 'No, this word is not allowed.$'
-        var db 0
-        newLine db 13, 10, '$'
+        newLine db 13, 10, '$'    
