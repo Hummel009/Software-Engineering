@@ -41,7 +41,7 @@ jng cycle1
 cycle2:
 
         mov [savedI], cx
-        mov [added], 0
+        mov [broken], 0
 
         ;====== SECOND LOOP ======;
         mov cx, [savedI]
@@ -68,7 +68,7 @@ cycle2:
                 mov bx, [savedJ]
                 mov [arr+bx], 'ff'
 
-                mov [added], 1
+                mov [broken], 1
 
                 @@:
                 add cx, 2
@@ -76,7 +76,7 @@ cycle2:
 
         jbe cycle3
 
-        mov ax, [added]
+        mov ax, [broken]
 
         cmp ax, 0
         je @F
@@ -190,12 +190,11 @@ ret
         str3 db "Unique elements: $"
         arr dw 2, 2, -3, 5, 7, 4, 7, 2, 9
         arrSize dw 16
-        length dw 9
-        unique dw 9
         newLine db 13, 10, '$'
+        unique dw 9
         savedI dw 0
         savedJ dw 0
         savedAI dw 0
         savedAJ dw 0   
         temp dw 0
-        added dw 0 
+        broken dw 0 
