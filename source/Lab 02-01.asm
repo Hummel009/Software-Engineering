@@ -27,22 +27,25 @@ org 100h
         cmp al, 5
         jl skip
 
-;====== FIND N-1 ======;
-        mov bh, [readln+1]
-        mov [var], bh
+;====== FIND AND TEST N-1 ======;
+        mov bx, 0
+        mov bl, [readln+1]
+        mov bh, [readln+bx]
 
-        mov bp, readln-2
-        mov dx, 0
-        mov dl, [var]
-        add bp, dx
+        cmp bh, 65
+        jl skip
 
+        cmp bh, 122
+        jg skip
 
-;====== TEST 3 AND N-1 ======;
-        mov bh, [bp]
-        call testLet
+;====== FIND AND TEST 3 ======;
+        mov al, [readln+4]
 
-        mov bh, [readln+4]
-        call testLet
+        cmp al, 'A'
+        jl skip
+
+        cmp al, 'z'
+        jg skip
 
 ;====== EVERYTHING IS OK ======;
         mov ah, 09h
@@ -65,40 +68,10 @@ skip:
 
 ret
 
-;====== SKIP IF IS NOT LETTER ======;
-testLet:
-        cmp bh, 65
-        jl skip
-
-        cmp bh, 122
-        jg skip
-
-        cmp bh, 91
-        je skip
-
-        cmp bh, 92
-        je skip
-
-        cmp bh, 93
-        je skip
-
-        cmp bh, 94
-        je skip
-
-        cmp bh, 95
-        je skip
-
-        cmp bh, 96
-        je skip
-
-        cmp bh, 96
-        je skip
-ret
-
 ;====== VARIABLES ======;
-        writeln: db "Enter the text: $"
+        writeln db "Enter the text: $"
         readln db 7, 0, 7 dup ('$')
         yes db 'Yes, this word is allowed.$'
         no db 'No, this word is not allowed.$'
         var db 0
-        newLine db 13, 10, '$'
+        newLine db 13, 10, '$' 
