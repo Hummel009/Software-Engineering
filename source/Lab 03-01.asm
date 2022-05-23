@@ -8,7 +8,7 @@ org 100h
 
 ;====== SHOW ARR ======;
         mov bx, 0
-cycle:
+cycle1:
         mov ah, 02h
         mov dx, [nums+bx]
         add dx, '0'
@@ -16,7 +16,7 @@ cycle:
 
         add bx, 2
         cmp bx, [bytes]
-jng cycle
+jng cycle1
 
         mov ah, 09h
         mov dx, newLine
