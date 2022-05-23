@@ -11,7 +11,7 @@ org 100h
 
 cycle1:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         call intToStrAndDisp
 
         mov ah, 02h
@@ -19,7 +19,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
 
@@ -36,11 +36,11 @@ cycle2:
                 mov [savedJ], cx     
 
                 mov bx, [savedI]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAI], dx   
 
                 mov bx, [savedJ]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAJ], dx    
 
                 mov dx, [savedAI]
@@ -50,23 +50,23 @@ cycle2:
         ;====== SWAP ======;
                 mov ax, [savedAJ]
                 mov bx, [savedI]
-                mov [nums+bx], ax
+                mov [arr+bx], ax
 
                 mov ax, [savedAI]
                 mov bx, [savedJ]
-                mov [nums+bx], ax
+                mov [arr+bx], ax
 
                 mov cx, [savedJ]
 
                 @@:
                 add cx, 2
-                cmp cx, [bytes]
+                cmp cx, [arrSize]
 
         jbe cycle3
 
         mov cx, [savedI]
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -82,7 +82,7 @@ jbe cycle2
         mov cx, 2
 cycle4:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         call intToStrAndDisp
 
         mov ah, 02h
@@ -90,7 +90,7 @@ cycle4:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle4
 
@@ -118,8 +118,8 @@ ret
 ;====== VARIABLES ======;
         str1 db "Start array: $"
         str2 db "Sorted array: $"
-        nums dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
-        bytes dw 18                               
+        arr dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
+        arrSize dw 18                               
         length dw 9                                 
         newLine db 13, 10, '$'
         neededI dw 0

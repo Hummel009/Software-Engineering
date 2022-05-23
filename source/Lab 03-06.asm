@@ -3,14 +3,14 @@ org 100h
 
 ;====== START ======;
         mov ah, 09h
-        mov dx, stra1
+        mov dx, str1
         int 21h
 
 ;====== DISPLAY 1ST ======;
         mov cx, 2
 cycle0:
         mov bx, cx
-        mov ax, [nums1+bx]
+        mov ax, [arr1+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -32,7 +32,7 @@ cycle0:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle0
 
@@ -41,14 +41,14 @@ jbe cycle0
         int 21h
 
         mov ah, 09h
-        mov dx, stra2
+        mov dx, str2
         int 21h
 
 ;====== DISPLAY 2ND ======;
         mov cx, 2
 cycle1:
         mov bx, cx
-        mov ax, [nums2+bx]
+        mov ax, [arr2+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -70,7 +70,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
 
@@ -86,11 +86,11 @@ cycle2:
                 mov [savedJ], cx    
 
                 mov bx, [savedI]
-                mov dx, [nums1+bx]
+                mov dx, [arr1+bx]
                 mov [savedAI], dx    
 
                 mov bx, [savedJ]
-                mov dx, [nums2+bx]
+                mov dx, [arr2+bx]
                 mov [savedAJ], dx
 
                 mov dx, [savedAI]
@@ -100,19 +100,19 @@ cycle2:
         ;====== SAVE DUP ELEMENT ======;
                 mov bx, [savedDupPos]
                 mov dx, [savedAJ]
-                mov [nums3+bx], dx
+                mov [arr3+bx], dx
 
                 add [savedDupPos], 2
 
                 @@:
                 add cx, 2
-                cmp cx, [bytes]
+                cmp cx, [arrSize]
 
         jbe cycle3
 
         mov cx, [savedI]
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -121,14 +121,14 @@ jbe cycle2
         int 21h
 
         mov ah, 09h
-        mov dx, str2
+        mov dx, str3
         int 21h
 
         mov cx, 2
 
 cycle5:
         mov bx, cx
-        mov ax, [nums3+bx]
+        mov ax, [arr3+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -161,7 +161,7 @@ jb cycle5
         int 21h
 
         mov ah, 09h
-        mov dx, str3
+        mov dx, str4
         int 21h
 
         mov ax, [savedDupPos]
@@ -193,14 +193,14 @@ intToStrAndDisp:
 ret
 
 ;====== VARIABLES ======;
-        stra1 db "1st array: $"
-        stra2 db "2nd array: $"
-        str2 db "Duplicates: $"
-        str3 db "Duplicates quantity: $"
-        nums1 dw '0', 1, 2, 3, 4, 5, 6, 7, 8, 9
-        nums2 dw '0', -1, -2, 3, 4, -5, 6, 7, 8, 9
-        nums3 dw '0', 0, 0, 0, 0, 0, 0, 0, 0, 0
-        bytes dw 18
+        str1 db "1st array: $"
+        str2 db "2nd array: $"
+        str3 db "Duplicates: $"
+        str4 db "Duplicates quantity: $"
+        arr1 dw '0', 1, 2, 3, 4, 5, 6, 7, 8, 9
+        arr2 dw '0', -1, -2, 3, 4, -5, 6, 7, 8, 9
+        arr3 dw '0', 0, 0, 0, 0, 0, 0, 0, 0, 0
+        arrSize dw 18
         newLine db 13, 10, '$'
         savedI dw 0
         savedJ dw 0

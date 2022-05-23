@@ -4,19 +4,19 @@ org 100h
 
 ;====== START ======;
         mov ah, 09h
-        mov dx, writeln1
+        mov dx, str1
         int 21h
 
 ;====== SHOW ARR ======;
         mov bx, 0
 cycle1:
         mov ah, 02h
-        mov dx, [nums+bx]
+        mov dx, [arr+bx]
         add dx, '0'
         int 21h
 
         add bx, 2
-        cmp bx, [bytes]
+        cmp bx, [arrSize]
 jng cycle1
 
         mov ah, 09h
@@ -24,14 +24,14 @@ jng cycle1
         int 21h
 
         mov ah, 09h
-        mov dx, writeln2
+        mov dx, str2
         int 21h
 
 ;====== DISPLAY NEEDED ITEMS ======;
         mov bx, 0
 cycle2:
         mov cx, 2
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov dx, 0
         div cx
         cmp dx, 0
@@ -39,7 +39,7 @@ cycle2:
         jne skip
 
         add [mods], 1
-        mov dx, [nums+bx]
+        mov dx, [arr+bx]
         add dx, '0'
         mov ah, 02h
         int 21h
@@ -47,7 +47,7 @@ cycle2:
         skip:
 
         add bx, 2
-        cmp bx, [bytes]
+        cmp bx, [arrSize]
 jng cycle2
 
 ;====== DISPLAY THE QUANTITY ======;
@@ -56,7 +56,7 @@ jng cycle2
         int 21h
 
         mov ah, 09h
-        mov dx, writeln3
+        mov dx, str3
         int 21h
 
         mov ah, 02h
@@ -70,10 +70,10 @@ jng cycle2
 ret
 
 ;====== VARIABLES ======;
-        writeln1 db "Start array: $"
-        writeln2 db "New array: $"
-        writeln3 db "Quantity of items mod 2 = 0: $"
-        nums dw 1, 2, 3, 4, 5, 6, 7, 8, 9
+        str1 db "Start array: $"
+        str2 db "New array: $"
+        str3 db "Quantity of items mod 2 = 0: $"
+        arr dw 1, 2, 3, 4, 5, 6, 7, 8, 9
         newLine db 13, 10, '$'
         mods dw 0
-        bytes dw 16 
+        arrSize dw 16

@@ -10,7 +10,7 @@ org 100h
 
 cycle1:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -32,7 +32,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
 
@@ -41,7 +41,7 @@ jbe cycle1
 cycle2:
 
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         cmp ax, 0
         jnl @F      
 
@@ -49,7 +49,7 @@ cycle2:
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -58,7 +58,7 @@ jbe cycle2
 cycle3:
 
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         cmp ax, 0
         jl @F      
 
@@ -66,7 +66,7 @@ cycle3:
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle3
 
@@ -75,7 +75,7 @@ jbe cycle3
 cycle4:
 
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov dx, [minus]
 
         cmp ax, dx
@@ -87,7 +87,7 @@ cycle4:
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle4
 
@@ -96,7 +96,7 @@ jbe cycle4
 cycle5:
 
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov dx, [plus]
         cmp ax, dx
         jnl @F
@@ -107,7 +107,7 @@ cycle5:
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle5
 
@@ -166,8 +166,8 @@ ret
         str1 db "Array: $"
         str2 db "Minus elem: -$"
         str3 db "Plus elem: $"
-        nums dw 'f', -1, -2, -3, -4, 5, 6, 7, 8, 9
-        bytes dw 18
+        arr dw 'f', -1, -2, -3, -4, 5, 6, 7, 8, 9
+        arrSize dw 18
         newLine db 13, 10, '$'
         minus dw 0
         plus dw 0

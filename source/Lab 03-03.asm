@@ -10,7 +10,7 @@ org 100h
 
 cycle1:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -32,7 +32,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
 
@@ -49,11 +49,11 @@ cycle2:
                 mov [savedJ], cx     
 
                 mov bx, [savedI]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAI], dx     
 
                 mov bx, [savedJ]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAJ], dx
 
                 mov dx, [savedI]
@@ -77,12 +77,12 @@ cycle2:
 
                 @@:
                 add cx, 2
-                cmp cx, [bytes]
+                cmp cx, [arrSize]
         jbe cycle3
 
         mov cx, [savedI]
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -135,8 +135,8 @@ ret
         str1 db "Array: $"
         str2 db "Dup Index 1: $" 
         str3 db "Dup Index 2: $" 
-        nums dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
-        bytes dw 18                                
+        arr dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
+        arrSize dw 18                                
         length dw 9                                
         newLine db 13, 10, '$'
         pos1 dw 0

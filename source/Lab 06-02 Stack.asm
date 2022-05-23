@@ -3,11 +3,11 @@ org 100h
 
 ;====== START ======;
         mov ah, 09h
-        mov dx, writeln1
+        mov dx, str1
         int 21h
 
         mov ah, 0ah
-        mov dx, readln1
+        mov dx, str3
         int 21h
 
         mov ah, 09h
@@ -15,11 +15,11 @@ org 100h
         int 21h
 
         mov ah, 09h
-        mov dx, writeln2
+        mov dx, str2
         int 21h
 
         mov ah, 0ah
-        mov dx, readln2
+        mov dx, str4
         int 21h
 
         mov ah, 09h
@@ -28,11 +28,11 @@ org 100h
 
 ;====== STR TO INT ======;
         mov ax, 0
-        mov al, [readln1+2]
+        mov al, [str3+2]
         sub al, '0'
 
         mov bx, 0
-        mov bl, [readln2+2]
+        mov bl, [str4+2]
         sub bl, '0'
 
 ;====== PREPARING CALL ======;
@@ -75,8 +75,8 @@ operations:
 retn 4
 
 ;====== VARIABLES ======;
-        writeln1 db "Enter the number C: $"
-        writeln2 db "Enter the number D: $"
+        str1 db "Enter the number C: $"
+        str2 db "Enter the number D: $"
+        str3 db 2, 0, 2 dup "$"
+        str4 db 2, 0, 2 dup "$"
         newLine db 13, 10, '$'
-        readln1 db 2, 0, 2 dup "$"
-        readln2 db 2, 0, 2 dup "$"

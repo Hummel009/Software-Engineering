@@ -10,7 +10,7 @@ org 100h
 
 cycle1:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -32,7 +32,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
   
@@ -43,15 +43,15 @@ jbe cycle1
 cycle2:
 
         mov bx, cx
-        cmp [nums+bx], 7
+        cmp [arr+bx], 7
         jng @F 
 
         add [big], 1
-        mov [nums+bx], 7
+        mov [arr+bx], 7
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -67,7 +67,7 @@ jbe cycle2
         mov cx, 2
 cycle3:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -89,7 +89,7 @@ cycle3:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle3
 
@@ -130,8 +130,8 @@ ret
         str1 db "Start array: $"
         str2 db "Elements bigger than 7: $"
         str3 db "New array: $"
-        nums dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
-        bytes dw 18
+        arr dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
+        arrSize dw 18
         newLine db 13, 10, '$'
         big dw 0   
         temp dw 0

@@ -3,11 +3,11 @@ org 100h
         
 ;====== START ======;
         mov ah, 09h
-        mov dx, writeln1
+        mov dx, str1
         int 21h
         
         mov ah, 09h
-        mov dx, writeln2
+        mov dx, str2
         int 21h
         
         mov ah, 09h
@@ -15,7 +15,7 @@ org 100h
         int 21h
         
         mov ah, 09h
-        mov dx, writeln3
+        mov dx, str3
         int 21h
         
         mov ah, 09h
@@ -26,8 +26,8 @@ org 100h
 again:
         mov al, '2'
         mov cx, 0
-        mov ch, [writeln2+1]
-        mov di, writeln2
+        mov ch, [str2+1]
+        mov di, str2
         repne scasb
         jnz exit
         dec di
@@ -37,11 +37,11 @@ jmp again
 ;====== SHOW RESULT ======;
 exit:
         mov ah, 09h
-        mov dx, writeln4
+        mov dx, str4
         int 21h
         
         mov ah, 09h
-        mov dx, writeln2
+        mov dx, str2
         int 21h
         
         mov ah, 08h
@@ -49,8 +49,8 @@ exit:
 ret
         
 ;====== VARIABLES ======;
-        writeln1 db "This is the string: $"
-        writeln2 db "Abobus228$"
-        writeln3 db "We will replace the symbol `b` with 0$"
-        writeln4 db "Result: $"
+        str1 db "This is the string: $"
+        str2 db "Abobus228$"
+        str3 db "We will replace the symbol `b` with 0$"
+        str4 db "Result: $"
         newLine db 13, 10, '$'

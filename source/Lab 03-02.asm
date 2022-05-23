@@ -10,7 +10,7 @@ org 100h
 
 cycle1:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -32,7 +32,7 @@ cycle1:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle1
 
@@ -49,11 +49,11 @@ cycle2:
                 mov [savedJ], cx    
 
                 mov bx, [savedI]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAI], dx    
 
                 mov bx, [savedJ]
-                mov dx, [nums+bx]
+                mov dx, [arr+bx]
                 mov [savedAJ], dx
 
                 mov dx, [savedI]
@@ -66,13 +66,13 @@ cycle2:
 
         ;====== BREAK ELEMENT ======;
                 mov bx, [savedJ]
-                mov [nums+bx], 'd'
+                mov [arr+bx], 'd'
 
                 mov [added], 1
 
                 @@:
                 add cx, 2
-                cmp cx, [bytes]
+                cmp cx, [arrSize]
 
         jbe cycle3
 
@@ -82,12 +82,12 @@ cycle2:
         je @F
 
         mov bx, [savedI]
-        mov [nums+bx], 'd'
+        mov [arr+bx], 'd'
 
         @@:
         mov cx, [savedI]
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle2
 
@@ -95,7 +95,7 @@ jbe cycle2
         mov cx, 2
 cycle4:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
 
         cmp ax, 'd'
         jne @F
@@ -104,7 +104,7 @@ cycle4:
 
         @@:
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle4
 
@@ -120,7 +120,7 @@ jbe cycle4
 
 cycle5:
         mov bx, cx
-        mov ax, [nums+bx]
+        mov ax, [arr+bx]
         mov [temp], ax
 
         cmp ax, 0
@@ -142,7 +142,7 @@ cycle5:
         int 21h
 
         add cx, 2
-        cmp cx, [bytes]
+        cmp cx, [arrSize]
 
 jbe cycle5
 
@@ -184,8 +184,8 @@ ret
         str1 db "Start array: $"
         str2 db "No duplicat: $"
         str3 db "Unique elements: $"
-        nums dw '0', 2, 2, -3, 5, 7, 4, 7, 2, 9
-        bytes dw 18
+        arr dw '0', 2, 2, -3, 5, 7, 4, 7, 2, 9
+        arrSize dw 18
         length dw 9
         unique dw 9
         newLine db 13, 10, '$'
