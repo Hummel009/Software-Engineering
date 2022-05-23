@@ -1,69 +1,70 @@
 org 100h
-;THE SUM OF 0- ELEMENTS WITH INDEXES MOD 2 = 1
+;THE SUM OF 0+ ELEMENTS WITH INDEXES MOD 2 = 1
 
 ;====== START ======;
         mov ah, 09h
-        mov dx, str1
+        mov dx, writeln1
         int 21h
 
-        mov cx, 2
-
-cycle1:
-        mov bx, cx
-        mov ax, [nums+bx]
-        mov [temp], ax
-
-        cmp ax, 0
-        jnl @F
-
+;====== SHOW ARR ======;
+        mov bx, 0
+cycle:
         mov ah, 02h
-        mov dx, '-'
+        mov dx, [nums+bx]
+        add dx, '0'
         int 21h
 
-        mov ax, [temp]
-        mov bl, -1
-        idiv bl
+        add bx, 2
+        cmp bx, [bytes]
+jng cycle
 
-        @@:
-        call intToStrAndDisp
-
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
-
-        add cx, 2
-        cmp cx, [bytes]
-
-jbe cycle1
-
-;====== CALCULATE THE SUM ======;
-        mov cx, 2
-cycle2:
-
-        mov bx, cx
-        mov ax, [nums+bx]
-        add [plus], ax
-
-        add cx, 4
-        cmp cx, [bytes]
-
-jbe cycle2
-
-;====== DISPLAY THE SUM ======;
         mov ah, 09h
         mov dx, newLine
         int 21h
 
         mov ah, 09h
-        mov dx, str2
+        mov dx, writeln2
         int 21h
 
-        mov ax, [plus]
+;====== DISPLAY NEEDED ITEMS ======;
+        mov bx, 0
+cycle2:
+        mov cx, 4
+        mov ax, bx
+        mov dx, 0
+        div cx
+        cmp dx, 0
+
+        jne skip
+
+        mov ax, [nums+bx]
+        add [mods], ax
+        mov dx, [nums+bx]
+        add dx, '0'
+        mov ah, 02h
+        int 21h
+
+        skip:
+
+        add bx, 2
+        cmp bx, [bytes]
+jng cycle2
+
+;====== DISPLAY THE QUANTITY ======;
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
+
+        mov ah, 09h
+        mov dx, writeln3
+        int 21h
+
+        mov ax, [mods]
         call intToStrAndDisp
 
+;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
-        
 ret
 
 ;====== CONVERT ======;
@@ -81,10 +82,10 @@ intToStrAndDisp:
 ret
 
 ;====== VARIABLES ======;
-        str1 db "Array: $"
-        str2 db "The sum: $"
-        nums dw '0', -1, -2, -3, 4, 7, 6, 7, 8, 9
-        bytes dw 18
+        writeln1 db "Start array: $"
+        writeln2 db "New array: $"
+        writeln3 db "The sum of items mod 2 = 0: $"
+        nums dw 1, 2, 3, 4, 5, 6, 7, 8, 9
         newLine db 13, 10, '$'
-        plus dw 0
-        temp dw 0     
+        mods dw 0
+        bytes dw 16   
