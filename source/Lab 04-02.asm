@@ -1,52 +1,54 @@
 org 100h
-;DISPLAY THE QUANTITY OF ITEMS MOD 5 = 0 AND DISPLAY THEM AS AN ARRAY
+;DISPLAY THE QUANTITY OF ITEMS MOD 2 = 0 AND DISPLAY THEM AS AN ARRAY
 ;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
 ;====== START ======;
         mov ah, 09h
-        mov dx, str1
+        mov dx, writeln1
         int 21h
 
-        mov cx, 2
-
-cycle1:
-        mov bx, cx
-        mov ax, [nums+bx]
-        call intToStrAndDisp
-
+;====== SHOW ARR ======;
+        mov bx, 0
+cycle:
         mov ah, 02h
-        mov dx, ' '
+        mov dx, [nums+bx]
+        add dx, '0'
         int 21h
 
-        add cx, 2
-        cmp cx, [bytes]
+        add bx, 2
+        cmp bx, [bytes]
+jng cycle
 
-jbe cycle1
-                
-        mov [big], 0
+        mov ah, 09h
+        mov dx, newLine
+        int 21h
 
-;====== COUNT ELEMENTS ======;
-        mov cx, 2
+        mov ah, 09h
+        mov dx, writeln2
+        int 21h
+
+;====== DISPLAY NEEDED ITEMS ======;
+        mov bx, 0
 cycle2:
-        mov [saved], cx
-        mov bx, cx
-
-        mov cx, 5
-        mov ax, 0
+        mov cx, 2
         mov ax, [nums+bx]
-        cdq
-        idiv cx
-        test dx, dx
-        jnz @F 
+        mov dx, 0
+        div cx
+        cmp dx, 1
 
-        add [big], 1
+        je skip
 
-        @@:
-        mov cx, [saved]
-        add cx, 2
-        cmp cx, [bytes]
+        add [mods], 1
+        mov dx, [nums+bx]
+        add dx, '0'
+        mov ah, 02h
+        int 21h
 
-jbe cycle2
+        skip:
+
+        add bx, 2
+        cmp bx, [bytes]
+jng cycle2
 
 ;====== DISPLAY THE QUANTITY ======;
         mov ah, 09h
@@ -54,76 +56,24 @@ jbe cycle2
         int 21h
 
         mov ah, 09h
-        mov dx, str2
+        mov dx, writeln3
         int 21h
-
-        mov ax, [big]
-        call intToStrAndDisp
-
-;====== DISPLAY THE ARRAY ======;
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
-		
-        mov ah, 09h
-        mov dx, str3
-        int 21h
-
-        mov cx, 2
-cycle3:
-        mov [saved], cx
-        mov bx, cx
-
-        mov cx, 5
-        mov ax, 0
-        mov ax, [nums+bx]
-        cdq
-        idiv cx
-        test dx, dx
-        jnz @F 
-
-        mov ax, [nums+bx]
-        call intToStrAndDisp
 
         mov ah, 02h
-        mov dx, ' '
+        mov dx, [mods]
+        add dx, '0'
         int 21h
-
-        @@:
-        mov cx, [saved]
-        add cx, 2
-        cmp cx, [bytes]
-
-jbe cycle3
 
 ;====== DO NOT EXIT ======;
         mov ah, 08h
         int 21h
-
-ret
-
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
-
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
-                
-        mov ah, 02h
-        int 21h
-                
-        mov dl, dh
-        int 21h
 ret
 
 ;====== VARIABLES ======;
-        str1 db "Start array: $"
-        str2 db "Mod 5 = 0 elements: $"
-        str3 db "New array: $"
-        nums dw '0', 10, 17, 65, 99, 31, 45, 88, 34, 40
-        bytes dw 18
-        saved dw 0
+        writeln1 db "Start array: $"
+        writeln2 db "New array: $"
+        writeln3 db "Quantity of items mod 2 = 0: $"
+        nums dw 1, 2, 3, 4, 5, 6, 7, 8, 9
         newLine db 13, 10, '$'
-        big dw 0
-        temp dw 0
+        mods dw 0
+        bytes dw 16 
