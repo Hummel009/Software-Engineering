@@ -1,0 +1,20 @@
+org 100h
+
+        mov ax, 01010101b
+
+        mov dx, 0
+cycle1:
+        shl ax, 1
+        adc dx, 0
+
+        cmp ax, 00000000b
+jne cycle1
+
+        mov ah, 02h
+        add dx, '0'
+        int 21h
+
+        mov ah, 08h
+        int 21h
+        
+ret  
