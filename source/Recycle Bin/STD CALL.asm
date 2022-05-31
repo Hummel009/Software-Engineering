@@ -1,7 +1,7 @@
 org 100h
-        push 0
-        push 2
         push 18
+        push 2
+        push 0
         call procedure1
 ret
 
@@ -9,7 +9,7 @@ procedure1:
         push bp
         mov bp, sp
 
-        mov bx, [bp+8]
+        mov bx, [bp+4]
 
 cycle:
         mov ah, 02h
@@ -22,7 +22,7 @@ cycle:
         int 21h
 
         add bx, [bp+6]
-        cmp bx, [bp+4]
+        cmp bx, [bp+8]
 jng cycle
 
         mov ah, 08h
@@ -30,6 +30,6 @@ jng cycle
 
         pop bp
 
-ret 4
+ret 6
 
-        arr dw 0,1,2,3,4,5,6,7,8,9     
+        arr dw 0,1,2,3,4,5,6,7,8,9    
