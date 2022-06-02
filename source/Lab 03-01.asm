@@ -88,4 +88,4 @@ ret
         arr dw 1, 2, 3, 4, 5, 6, 7, 8, 9
         newLine db 13, 10, '$'
         mods dw 0
-        arrSize dw 16   
+        arrSize dw 16

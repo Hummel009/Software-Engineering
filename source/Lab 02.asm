@@ -32,10 +32,10 @@ org 100h
         mov bl, [str2+1]
         mov al, [str2+bx]
 
-        cmp al, 65
+        cmp al, 'A'
         jl skip
 
-        cmp al, 122
+        cmp al, 'z'
         jg skip
 
 ;====== FIND AND TEST 3 ======;
@@ -46,23 +46,22 @@ org 100h
 
         cmp al, 'z'
         jg skip
-
+		
 ;====== EVERYTHING IS OK ======;
         mov ah, 09h
         mov dx, str3
         int 21h
 
-        mov ah, 08h
-        int 21h
-
-ret
-
+		jmp finish
+		
 ;====== EVERYTHING IS SHIT ======;
 skip:
         mov ah, 09h
         mov dx, str4
         int 21h
 
+;====== DO NOT CLOSE ======;
+finish:		
         mov ah, 08h
         int 21h
 
@@ -73,4 +72,4 @@ ret
         str2 db 7, 0, 7 dup ('$')
         str3 db 'Yes, this word is allowed.$'
         str4 db 'No, this word is not allowed.$'
-        newLine db 13, 10, '$'    
+        newLine db 13, 10, '$'
