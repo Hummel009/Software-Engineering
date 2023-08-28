@@ -1,4 +1,4 @@
-﻿format PE64 Console 5.0
+format PE64 Console 5.0
 entry Start
 
 include 'win64a.inc'
@@ -20,66 +20,24 @@ Start:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
   
-;====== Skip IF 3 <> 5 ======;
+; skip if 3 <> 5
   mov al, [readBuf+2]
   mov bl, [readBuf+4]
   
   cmp al, bl
   jne Skip
 
-;====== Skip IF N < 5 ======;
-  sub [chrsRead], 2
+; skip if N < 5
+  mov eax, [chrsRead]
+  sub eax, 2 ; true length
 
-  cmp [chrsRead], 5
+  cmp eax, 5
   jl Skip
 
-;====== FIND AND TEST N-1 ======;
-  mov bx, 0
-  mov bl, [str2+1]
-  mov al, [str2+bx]
-
-  cmp al, 'A'
-  jl Skip
-
-  cmp al, 'z'
-  jg Skip
-
-;====== FIND AND TEST 3 ======; 
-  mov al, [readBuf+2]
-
-  cmp al, 'A'
-  jl Skip
-
-  cmp al, 'z'
-  jg Skip    
-
-;====== FIND LENGTH ======; 
-  mov ebx, 0
-  jmp Iter
-
-Sus:
-  inc ebx
-
-Iter:
-  cmp [readBuf+ebx], 0
-  jne Sus
-
-  sub ebx, 2
-  mov [readLen], bl
-  cmp [readLen], 10
-  jnl Skip
+; find and test N-1
+  mov ebx, eax
+  sub ebx, 2 ; n - 1 -> indexing from 0 and sub 1
   
-  add [readLen], '0'
-
-  ;invoke WriteConsoleA, [hStdOut], readLen, 1, chrsWritten, 0   
-  ;invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  
-;====== Skip IF N < 5 ======;
-  cmp [readLen], 5
-  jl Skip
-  
-;====== FIND AND TEST N-1 ======;
-  movzx ebx, [readLen]
   mov al, [readBuf+ebx]
 
   cmp al, 'A'
@@ -87,18 +45,26 @@ Iter:
 
   cmp al, 'z'
   jg Skip
+
+; find and test 3rd
+  mov al, [readBuf+2]
+
+  cmp al, 'A'
+  jl Skip
+
+  cmp al, 'z'
+  jg Skip    
   
-;====== EVERYTHING IS OK ======;
-        
+; success
   invoke WriteConsoleA, [hStdOut], allowed, allowedLen, chrsWritten, 0
 
   jmp Finish
     
-;====== EVERYTHING IS NOT OK ======;
+; error
 Skip:
   invoke WriteConsoleA, [hStdOut], disallowed, disallowedLen, chrsWritten, 0
 
-;====== DO NOT CLOSE ======;
+; prevent from closing
 Finish:    
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 

@@ -20,11 +20,13 @@ Start:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
   
+; swap letters
   mov al, [readBuf+8] ; indexing from 0, so 9th symbol = 8
   mov bl, [readBuf+9]
   mov [readBuf+8], bl
   mov [readBuf+9], al   
   
+; do manipulations on letters
   mov al, [readBuf+2]
   mov bl, [readBuf+5]
   mov cl, [readBuf+8]
@@ -37,6 +39,7 @@ Start:
 
   invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0    
 
+; prevent from closing
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0 
 
 Exit:
