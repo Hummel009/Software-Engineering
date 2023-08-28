@@ -21,18 +21,18 @@ begin
   
   asm
     mov ecx, 0
-  @cycle:
+  @Cycle:
     mov eax, dword[nums+ecx]
     cmp eax, 100
-    jng @skip
+    jng @Skip
 
     add sus, eax
     add amogus, 1
 
-    @skip:
+    @Skip:
     add ecx, 4  //every int is 4 bytes
     cmp ecx, 36 //9 ints = 36 bytes
-  jl @cycle
+  jl @Cycle
   end;
 
   writeln;

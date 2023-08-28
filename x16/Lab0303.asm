@@ -1,148 +1,147 @@
 org 100h
-;FIND THE POSITIONS OF TWO DUPLICATES IN ARRAY
 
-;====== START ======;
-        mov ah, 09h
-        mov dx, str1
-        int 21h
+; start
+  mov ah, 09h
+  mov dx, str1
+  int 21h
 
-        mov cx, 2
+  mov cx, 2
 
-cycle1:
-        mov bx, cx
-        mov ax, [arr+bx]
-        mov [temp], ax
+Cycle1:
+  mov bx, cx
+  mov ax, [arr+bx]
+  mov [temp], ax
 
-        cmp ax, 0
-        jnl @F
+  cmp ax, 0
+  jnl @F
 
-        mov ah, 02h
-        mov dx, '-'
-        int 21h
+  mov ah, 02h
+  mov dx, '-'
+  int 21h
 
-        mov ax, [temp]
-        mov bl, -1
-        idiv bl
+  mov ax, [temp]
+  mov bl, -1
+  idiv bl
 
-        @@:
-        call intToStrAndDisp
+@@:
+  call IntToStrAndDisp
 
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
+  mov ah, 02h
+  mov dx, ' '
+  int 21h
 
-        add cx, 2
-        cmp cx, [arrSize]
+  add cx, 2
+  cmp cx, [arrSize]
 
-jbe cycle1
+  jbe Cycle1
 
-;====== FIRST LOOP ======;
-        mov cx, 2
-cycle2:
+; first loop
+  mov cx, 2
+Cycle2:
 
-        mov [savedI], cx              
+  mov [savedI], cx        
 
-        ;====== SECOND LOOP ======;
-        mov cx, [savedI]
+  ; second loop
+  mov cx, [savedI]
 
-        cycle3:
-                mov [savedJ], cx     
+  Cycle3:
+    mov [savedJ], cx     
 
-                mov bx, [savedI]
-                mov dx, [arr+bx]
-                mov [savedAI], dx     
+    mov bx, [savedI]
+    mov dx, [arr+bx]
+    mov [savedAI], dx     
 
-                mov bx, [savedJ]
-                mov dx, [arr+bx]
-                mov [savedAJ], dx
+    mov bx, [savedJ]
+    mov dx, [arr+bx]
+    mov [savedAJ], dx
 
-                mov dx, [savedI]
-                cmp dx, [savedJ]
-                je @F
+    mov dx, [savedI]
+    cmp dx, [savedJ]
+    je @F
 
-                mov dx, [savedAI]
-                cmp dx, [savedAJ]
-                jne @F        
+    mov dx, [savedAI]
+    cmp dx, [savedAJ]
+    jne @F  
 
-        ;====== FIND THE REAL POS ======;
-                mov ax, [savedI]
-                mov bl, 2
-                div bl
-                mov [pos1], ax
+  ; real pos
+    mov ax, [savedI]
+    mov bl, 2
+    div bl
+    mov [pos1], ax
 
-                mov ax, [savedJ]
-                mov bl, 2
-                div bl
-                mov [pos2], ax
+    mov ax, [savedJ]
+    mov bl, 2
+    div bl
+    mov [pos2], ax
 
-                @@:
-                add cx, 2
-                cmp cx, [arrSize]
-        jbe cycle3
+  @@:
+    add cx, 2
+    cmp cx, [arrSize]
+    jbe Cycle3
 
-        mov cx, [savedI]
-        add cx, 2
-        cmp cx, [arrSize]
+  mov cx, [savedI]
+  add cx, 2
+  cmp cx, [arrSize]
 
-jbe cycle2
+  jbe Cycle2
 
-;====== DISPLAY DUPLICATE 1 ======;
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
+; display duplicate 1
+  mov ah, 09h
+  mov dx, newLine
+  int 21h
 
-        mov ah, 09h
-        mov dx, str2
-        int 21h
+  mov ah, 09h
+  mov dx, str2
+  int 21h
 
-        mov ax, [pos1]
-        call intToStrAndDisp
+  mov ax, [pos1]
+  call IntToStrAndDisp
 
-;====== DISPLAY DUPLICATE 2 ======;
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
+; display duplicate 2
+  mov ah, 09h
+  mov dx, newLine
+  int 21h
 
-        mov ah, 09h
-        mov dx, str3
-        int 21h
+  mov ah, 09h
+  mov dx, str3
+  int 21h
 
-        mov ax, [pos2]
-        call intToStrAndDisp
+  mov ax, [pos2]
+  call IntToStrAndDisp
 
-;====== DO NOT EXIT ======;
-        mov ah, 08h
-        int 21h
-        
+; prevent from closing
+  mov ah, 08h
+  int 21h
+  
 ret
 
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
+; convert
+IntToStrAndDisp:
+  aam
 
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
-                
-        mov ah, 02h
-        int 21h
-                
-        mov dl, dh
-        int 21h
+  add ax, '00'
+  mov dl, ah
+  mov dh, al
+    
+  mov ah, 02h
+  int 21h
+    
+  mov dl, dh
+  int 21h
+
 ret
 
-;====== VARIABLES ======;
-        str1 db "Array: $"
-        str2 db "Dup Index 1: $" 
-        str3 db "Dup Index 2: $" 
-        arr dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
-        arrSize dw 18                                
-        length dw 9                                
-        newLine db 13, 10, '$'
-        pos1 dw 0
-        pos2 dw 0
-        savedI dw 0
-        savedJ dw 0
-        savedAI dw 0
-        savedAJ dw 0
-        temp dw 0
+; variables
+str1     db "Array: $"
+str2     db "Dup Index 1: $" 
+str3     db "Dup Index 2: $" 
+arr      dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
+arrSize  dw 18    
+newLine  db 13, 10, '$'
+pos1     dw 0
+pos2     dw 0
+savedI   dw 0
+savedJ   dw 0
+savedAI  dw 0
+savedAJ  dw 0
+temp     dw 0

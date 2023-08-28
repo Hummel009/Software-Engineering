@@ -1,30 +1,33 @@
 org 100h
 
-;====== LOAD MODE ======;
-        mov ax, 0013h
-        int 10h
+; load mode
+  mov ax, 0013h
+  int 10h
 
-        push $A000
-        pop es
+  push $A000
+  pop es
 
-        mov cx, 320 * 200
-        mov di, 0
-        mov si, 320
-drawLoop:
-        sub ax, 160 ; move screen up/down
-        sub dx, 160 ; move screen left/right
+  mov cx, 320 * 200
+  mov di, 0
+  mov si, 320
+  
+DrawLoop:
+  sub ax, 160 ; move screen up/down
+  sub dx, 160 ; move screen left/right
 
-        mov al, 60h ;fill screen with color
+  mov al, 60h ; fill screen with color
 
-        mov ax, di  ;smth random
+  mov ax, di  ; smth random
 
-        xor ax, dx  ;smth random
-        imul ax, ax ;smth random
-        ;add here xor,and,or,mov,imul etc with ax, dx, di and si to get arts
+  xor ax, dx  ; smth random
+  imul ax, ax ; smth random
+  
+; add here xor,and,or,mov,imul etc with ax, dx, di and si to get arts
 
-        stosb
-loop drawLoop
+  stosb
+loop DrawLoop
 
-        mov ah, 08h
-        int 21h
+  mov ah, 08h
+  int 21h
+
 ret

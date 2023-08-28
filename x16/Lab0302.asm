@@ -1,200 +1,201 @@
 org 100h
-;FIND THE QUANTITY OF UNIQUE ELEMENTS IN ARRAY
 
-;====== START ======;
-        mov ah, 09h
-        mov dx, str1
-        int 21h
+; start
+  mov ah, 09h
+  mov dx, str1
+  int 21h
 
-        mov cx, 0
+  mov cx, 0
 
-cycle1:
-        mov bx, cx
-        mov ax, [arr+bx]
-        mov [temp], ax
+Cycle1:
+  mov bx, cx
+  mov ax, [arr+bx]
+  mov [temp], ax
 
-        cmp ax, 0
-        jnl @F
+  cmp ax, 0
+  jnl @F
 
-        mov ah, 02h
-        mov dx, '-'
-        int 21h
+  mov ah, 02h
+  mov dx, '-'
+  int 21h
 
-        mov ax, [temp]
-        mov bl, -1
-        idiv bl
+  mov ax, [temp]
+  mov bl, -1
+  idiv bl
 
-        @@:
-        call intToStrAndDisp
+@@:
+  call IntToStrAndDisp
 
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
+  mov ah, 02h
+  mov dx, ' '
+  int 21h
 
-        add cx, 2
-        cmp cx, [arrSize]
+  add cx, 2
+  cmp cx, [arrSize]
 
-jng cycle1
+  jng Cycle1
 
-;====== FIRST LOOP ======;
-        mov cx, 0
-cycle2:
+; first loop
+  mov cx, 0
+  
+Cycle2:
+  mov [savedI], cx
+  mov [broken], 0
 
-        mov [savedI], cx
-        mov [broken], 0
+  ; second loop
+  mov cx, [savedI]
+  
+  Cycle3:
+    mov [savedJ], cx    
 
-        ;====== SECOND LOOP ======;
-        mov cx, [savedI]
-        cycle3:
-                mov [savedJ], cx    
+    mov bx, [savedI]
+    mov dx, [arr+bx]
+    mov [savedAI], dx    
 
-                mov bx, [savedI]
-                mov dx, [arr+bx]
-                mov [savedAI], dx    
+    mov bx, [savedJ]
+    mov dx, [arr+bx]
+    mov [savedAJ], dx
 
-                mov bx, [savedJ]
-                mov dx, [arr+bx]
-                mov [savedAJ], dx
+    mov dx, [savedI]
+    cmp dx, [savedJ]
+    je @F
 
-                mov dx, [savedI]
-                cmp dx, [savedJ]
-                je @F
+    mov dx, [savedAI]
+    cmp dx, [savedAJ]
+    jne @F  
 
-                mov dx, [savedAI]
-                cmp dx, [savedAJ]
-                jne @F        
+  ;====== BREAK ELEMENT
+    mov bx, [savedJ]
+    mov [arr+bx], 'ff'
 
-        ;====== BREAK ELEMENT ======;
-                mov bx, [savedJ]
-                mov [arr+bx], 'ff'
+    mov [broken], 1
 
-                mov [broken], 1
+  @@:
+    add cx, 2
+    cmp cx, [arrSize]
 
-                @@:
-                add cx, 2
-                cmp cx, [arrSize]
+    jbe Cycle3
 
-        jbe cycle3
+  mov ax, [broken]
 
-        mov ax, [broken]
+  cmp ax, 0
+  je @F
 
-        cmp ax, 0
-        je @F
+  mov bx, [savedI]
+  mov [arr+bx], 'ff'
 
-        mov bx, [savedI]
-        mov [arr+bx], 'ff'
+@@:
+  mov cx, [savedI]
+  add cx, 2
+  cmp cx, [arrSize]
 
-        @@:
-        mov cx, [savedI]
-        add cx, 2
-        cmp cx, [arrSize]
+  jng Cycle2
 
-jng cycle2
+;====== CALCULATE UNIQUE ELEMENTS
+  mov cx, 0
 
-;====== CALCULATE UNIQUE ELEMENTS ======;
-        mov cx, 0
-cycle4:
-        mov bx, cx
-        mov ax, [arr+bx]
+Cycle4:
+  mov bx, cx
+  mov ax, [arr+bx]
 
-        cmp ax, 'ff'
-        jne @F
+  cmp ax, 'ff'
+  jne @F
 
-        sub [unique], 1
+  sub [unique], 1
 
-        @@:
-        add cx, 2
-        cmp cx, [arrSize]
+@@:
+  add cx, 2
+  cmp cx, [arrSize]
 
-jng cycle4
+  jng Cycle4
 
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
+  mov ah, 09h
+  mov dx, newLine
+  int 21h
 
-        mov ah, 09h
-        mov dx, str2
-        int 21h
+  mov ah, 09h
+  mov dx, str2
+  int 21h
 
-        mov cx, 0
+  mov cx, 0
 
-cycle5:
-        mov bx, cx
-        mov ax, [arr+bx]
-        mov [temp], ax
+Cycle5:
+  mov bx, cx
+  mov ax, [arr+bx]
+  mov [temp], ax
 
-        cmp ax, 'ff'
-        je skip
+  cmp ax, 'ff'
+  je Skip
 
-        cmp ax, 0
-        jnl @F
+  cmp ax, 0
+  jnl @F
 
-        mov ah, 02h
-        mov dx, '-'
-        int 21h
+  mov ah, 02h
+  mov dx, '-'
+  int 21h
 
-        mov ax, [temp]
-        mov bl, -1
-        idiv bl
+  mov ax, [temp]
+  mov bl, -1
+  idiv bl
 
-        @@:
-        call intToStrAndDisp
+@@:
+  call IntToStrAndDisp
 
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
+  mov ah, 02h
+  mov dx, ' '
+  int 21h
 
-        skip:
-        add cx, 2
-        cmp cx, [arrSize]
+  Skip:
+  add cx, 2
+  cmp cx, [arrSize]
 
-jng cycle5
+  jng Cycle5
 
 
-;====== DISPLAY THE QUANTITY ======;
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
+; display the quantity
+  mov ah, 09h
+  mov dx, newLine
+  int 21h
 
-        mov ah, 09h
-        mov dx, str3
-        int 21h
+  mov ah, 09h
+  mov dx, str3
+  int 21h
 
-        mov ax, [unique]
-        call intToStrAndDisp
+  mov ax, [unique]
+  call IntToStrAndDisp
 
-        mov ah, 08h
-        int 21h
+  mov ah, 08h
+  int 21h
 
 ret
 
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
+; convert
+IntToStrAndDisp:
+  aam
 
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
+  add ax, '00'
+  mov dl, ah
+  mov dh, al
 
-        mov ah, 02h
-        int 21h
+  mov ah, 02h
+  int 21h
 
-        mov dl, dh
-        int 21h
-        
+  mov dl, dh
+  int 21h
+  
 ret
 
-;====== VARIABLES ======;
-        str1 db "Start array: $"
-        str2 db "No duplicat: $"
-        str3 db "Unique elements: $"
-        arr dw 2, 2, -3, 5, 7, 4, 7, 2, 9
-        arrSize dw 16
-        newLine db 13, 10, '$'
-        unique dw 9
-        savedI dw 0
-        savedJ dw 0
-        savedAI dw 0
-        savedAJ dw 0   
-        temp dw 0
-        broken dw 0 
+; variables
+str1     db "Start array: $"
+str2     db "No duplicat: $"
+str3     db "Unique elements: $"
+arr      dw 2, 2, -3, 5, 7, 4, 7, 2, 9
+arrSize  dw 16
+newLine  db 13, 10, '$'
+unique   dw 9
+savedI   dw 0
+savedJ   dw 0
+savedAI  dw 0
+savedAJ  dw 0   
+temp     dw 0
+broken   dw 0 

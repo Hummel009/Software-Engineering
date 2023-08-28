@@ -1,130 +1,129 @@
 org 100h
-;SORT THE ARRAY USING THE BUBBLE SORT
-;NO SUPPORT FOR ARRAY WITH NUMBERS 0-
 
-;====== START ======;
-        mov ah, 09h
-        mov dx, str1
-        int 21h
+; start
+  mov ah, 09h
+  mov dx, str1
+  int 21h
 
-        mov cx, 2
+  mov cx, 2
 
-cycle1:
-        mov bx, cx
-        mov ax, [arr+bx]
-        call intToStrAndDisp
+Cycle1:
+  mov bx, cx
+  mov ax, [arr+bx]
+  call IntToStrAndDisp
 
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
+  mov ah, 02h
+  mov dx, ' '
+  int 21h
 
-        add cx, 2
-        cmp cx, [arrSize]
+  add cx, 2
+  
+  cmp cx, [arrSize]
+  jbe Cycle1
 
-jbe cycle1
+; first loop
+  mov cx, 2
+  
+Cycle2:
+  mov [savedI], cx     
 
-;====== FIRST LOOP ======;
-        mov cx, 2
-cycle2:
+  ; second loop
+  mov cx, [savedI]
 
-        mov [savedI], cx           
+  Cycle3:
+    mov [savedJ], cx     
 
-;====== SECOND LOOP ======;
-        mov cx, [savedI]
+    mov bx, [savedI]
+    mov dx, [arr+bx]
+    mov [savedAI], dx   
 
-        cycle3:
-                mov [savedJ], cx     
+    mov bx, [savedJ]
+    mov dx, [arr+bx]
+    mov [savedAJ], dx    
 
-                mov bx, [savedI]
-                mov dx, [arr+bx]
-                mov [savedAI], dx   
+    mov dx, [savedAI]
+    cmp dx, [savedAJ]
+    jl @F
 
-                mov bx, [savedJ]
-                mov dx, [arr+bx]
-                mov [savedAJ], dx    
+  ; swap
+    mov ax, [savedAJ]
+    mov bx, [savedI]
+    mov [arr+bx], ax
 
-                mov dx, [savedAI]
-                cmp dx, [savedAJ]
-                jl @F
+    mov ax, [savedAI]
+    mov bx, [savedJ]
+    mov [arr+bx], ax
 
-        ;====== SWAP ======;
-                mov ax, [savedAJ]
-                mov bx, [savedI]
-                mov [arr+bx], ax
+    mov cx, [savedJ]
 
-                mov ax, [savedAI]
-                mov bx, [savedJ]
-                mov [arr+bx], ax
+  @@:
+    add cx, 2
+    cmp cx, [arrSize]
 
-                mov cx, [savedJ]
+    jbe Cycle3
 
-                @@:
-                add cx, 2
-                cmp cx, [arrSize]
+  mov cx, [savedI]
+  add cx, 2
+  
+  cmp cx, [arrSize]
+  jbe Cycle2
 
-        jbe cycle3
+  mov ah, 09h
+  mov dx, newLine
+  int 21h
 
-        mov cx, [savedI]
-        add cx, 2
-        cmp cx, [arrSize]
+;====== DISPLAY THE ARRAY
+  mov ah, 09h
+  mov dx, str2
+  int 21h
 
-jbe cycle2
+  mov cx, 2
+  
+Cycle4:
+  mov bx, cx
+  mov ax, [arr+bx]
+  call IntToStrAndDisp
 
-        mov ah, 09h
-        mov dx, newLine
-        int 21h
+  mov ah, 02h
+  mov dx, ' '
+  int 21h
 
-;====== DISPLAY THE ARRAY ======;
-        mov ah, 09h
-        mov dx, str2
-        int 21h
+  add cx, 2
+  
+  cmp cx, [arrSize]
+  jbe Cycle4
 
-        mov cx, 2
-cycle4:
-        mov bx, cx
-        mov ax, [arr+bx]
-        call intToStrAndDisp
-
-        mov ah, 02h
-        mov dx, ' '
-        int 21h
-
-        add cx, 2
-        cmp cx, [arrSize]
-
-jbe cycle4
-
-;====== DO NOT EXIT ======;
-        mov ah, 08h
-        int 21h
-        
+; prevent from closing
+  mov ah, 08h
+  int 21h
+  
 ret
 
-;====== CONVERT ======;
-intToStrAndDisp:
-        aam
+; convert
+IntToStrAndDisp:
+  aam
 
-        add ax, '00'
-        mov dl, ah
-        mov dh, al
+  add ax, '00'
+  mov dl, ah
+  mov dh, al
  
-        mov ah, 02h
-        int 21h
+  mov ah, 02h
+  int 21h
 
-        mov dl, dh
-        int 21h
+  mov dl, dh
+  int 21h
+  
 ret
 
-;====== VARIABLES ======;
-        str1 db "Start array: $"
-        str2 db "Sorted array: $"
-        arr dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
-        arrSize dw 18                               
-        length dw 9                                 
-        newLine db 13, 10, '$'
-        neededI dw 0
-        neededJ dw 0
-        savedI dw 0
-        savedJ dw 0
-        savedAI dw 0
-        savedAJ dw 0
+; variables
+str1     db "Start array: $"
+str2     db "Sorted array: $"
+arr      dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
+arrSize  dw 18 
+newLine  db 13, 10, '$'
+neededI  dw 0
+neededJ  dw 0
+savedI   dw 0
+savedJ   dw 0
+savedAI  dw 0
+savedAJ  dw 0
