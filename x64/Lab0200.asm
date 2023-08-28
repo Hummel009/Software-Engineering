@@ -46,7 +46,7 @@ Start:
   cmp al, 'z'
   jg Skip
 
-; find and test 3rd
+; find and test 3
   mov al, [readBuf+2]
 
   cmp al, 'A'

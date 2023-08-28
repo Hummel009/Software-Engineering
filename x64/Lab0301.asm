@@ -18,10 +18,8 @@ Start:
 
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0   
   
-; show arr
+; loop: show the array
   mov ebx, 0
-    
-; loop 
 Cycle1:
   mov dx, [arr+ebx]
   mov [tempWord], dx
@@ -38,16 +36,14 @@ Cycle1:
   
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
   
-; show arr
+; loop: show needed items
   mov ebx, 0
-  
-; loop 
 Cycle2:
   mov dx, [arr+ebx]
   mov [tempWord], dx
           
   shr dx, 1 ; shift -> 1 bit
-  jc @F  ; jump if older bit is not 0, it means jump if not even
+  jc @F ; jump if older bit is not 0, it means jump if not even
       
   mov dx, [tempWord]
   add [mods], dx
@@ -66,7 +62,7 @@ Cycle2:
   
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
   
-; number to two symbols
+; convert number into 2 symbols
   mov al, byte[mods]
   mov ah, 0
   mov bl, 10
