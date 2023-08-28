@@ -23,9 +23,16 @@ Start:
   mov al, [readBuf+8]
   mov bl, [readBuf+9]
   mov [readBuf+8], bl
-  mov [readBuf+9], al
-        
-  invoke WriteConsoleA, [hStdOut], readBuf, 255, chrsWritten, 0
+  mov [readBuf+9], al   
+  
+  mov al, [str2+2]
+  mov bl, [str2+5]
+  mov cl, [str2+8]
+  sub al, bl
+  add al, cl
+  mov [str2+4], al
+
+  invoke WriteConsoleA, [hStdOut], readBuf, 255, chrsWritten, 0    
 
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
