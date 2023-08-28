@@ -7,7 +7,7 @@ org 100h
 
 ; show arr
   mov bx, 0
-  
+
 Cycle1:
   mov ah, 02h
   mov dx, [arr+bx]
@@ -15,6 +15,7 @@ Cycle1:
   int 21h
 
   add bx, 2
+
   cmp bx, [arrSize]
   jng Cycle1
 
@@ -28,14 +29,14 @@ Cycle1:
 
 ; display needed items
   mov bx, 0
-  
+
 Cycle2:
   mov cx, 4
   mov ax, bx
   mov dx, 0
   div cx
-  cmp dx, 0
 
+  cmp dx, 0
   jne Skip
 
   mov ax, [arr+bx]
@@ -47,6 +48,7 @@ Cycle2:
 
 Skip:
   add bx, 2
+
   cmp bx, [arrSize]
   jng Cycle2
 
@@ -65,7 +67,7 @@ Skip:
 ; prevent from closing
   mov ah, 08h
   int 21h
-  
+
 ret
 
 ; convert
@@ -80,7 +82,7 @@ IntToStrAndDisp:
 
   mov dl, dh
   int 21h
-  
+
 ret
 
 ; variables

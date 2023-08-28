@@ -8,19 +8,19 @@ org 100h
   mov ah, 09h
   mov dx, str2
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
-  
+
   mov ah, 09h
   mov dx, str3
   int 21h
-  
+
   mov ah, 0ah
   mov dx, str5
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -63,13 +63,13 @@ Cycle:
   mov bl, [saved]
   mov byte[di], bl
   jmp Cycle
-  
+
 ; show the result
 Finish:
   mov ah, 09h
   mov dx, str4
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -77,12 +77,12 @@ Finish:
   mov ah, 09h
   mov dx, str2
   int 21h
-  
+
   mov ah, 08h
   int 21h
-  
+
 ret
-  
+
 ; variables
 str1     db "This is the string: $"
 str2     db "Abobus$"

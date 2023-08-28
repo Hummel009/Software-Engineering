@@ -31,18 +31,18 @@ Cycle1:
   int 21h
 
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle1
-  
+
   mov [big], 0
 
 ; find items that are > 7
   mov cx, 2
 
 Cycle2:
-
   mov bx, cx
+
   cmp [arr+bx], 7
   jng @F 
 
@@ -51,8 +51,8 @@ Cycle2:
 
 @@:
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle2
 
 ; display the array
@@ -90,8 +90,8 @@ Cycle3:
   int 21h
 
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle3
 
 ; display the quantity

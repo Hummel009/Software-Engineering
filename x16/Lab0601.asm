@@ -91,5 +91,5 @@ Operations:
 
   mov bl, [savedA]
   add al, bl
-  
+
 retf

@@ -31,8 +31,8 @@ Cycle1:
   int 21h
 
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle1
 
 ; first loop
@@ -56,10 +56,12 @@ Cycle2:
     mov [savedAJ], dx
 
     mov dx, [savedI]
+	
     cmp dx, [savedJ]
     je @F
 
     mov dx, [savedAI]
+	
     cmp dx, [savedAJ]
     jne @F  
 
@@ -76,6 +78,7 @@ Cycle2:
 
   @@:
     add cx, 2
+	
     cmp cx, [arrSize]
     jbe Cycle3
 
@@ -112,7 +115,7 @@ Cycle2:
 ; prevent from closing
   mov ah, 08h
   int 21h
-  
+
 ret
 
 ; convert

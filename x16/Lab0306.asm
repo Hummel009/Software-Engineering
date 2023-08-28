@@ -7,7 +7,7 @@ org 100h
 
 ; display 1st
   mov cx, 2
-  
+
 Cycle0:
   mov bx, cx
   mov ax, [arr1+bx]
@@ -32,7 +32,7 @@ Cycle0:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle0
 
@@ -46,7 +46,7 @@ Cycle0:
 
 ; display 2nd
   mov cx, 2
-  
+
 Cycle1:
   mov bx, cx
   mov ax, [arr2+bx]
@@ -71,7 +71,7 @@ Cycle1:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle1
 
@@ -83,7 +83,7 @@ Cycle2:
 
   ; second loop
   mov cx, 2
-  
+
   Cycle3:
     mov [savedJ], cx    
 
@@ -96,6 +96,7 @@ Cycle2:
     mov [savedAJ], dx
 
     mov dx, [savedAI]
+	
     cmp dx, [savedAJ]
     jne @F
 
@@ -114,7 +115,7 @@ Cycle2:
 
   mov cx, [savedI]
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle2
 
@@ -152,7 +153,7 @@ Cycle5:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [savedDupPos]
   jb Cycle5
 
@@ -191,7 +192,7 @@ IntToStrAndDisp:
 
   mov dl, dh
   int 21h
-  
+
 ret
 
 ; variables

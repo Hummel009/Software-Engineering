@@ -31,13 +31,13 @@ Cycle1:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle1
 
 ; let it be the starting 0- element
   mov cx, 2
-  
+
 Cycle2:
   mov bx, cx
   mov ax, [arr+bx]
@@ -49,13 +49,13 @@ Cycle2:
 
 @@:
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle2
 
 ; let it be the starting 0+ element
   mov cx, 2
-  
+
 Cycle3:
   mov bx, cx
   mov ax, [arr+bx]
@@ -67,13 +67,13 @@ Cycle3:
 
 @@:
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jbe Cycle3
 
 ; compare and find max 0- element
   mov cx, 2
-  
+
 Cycle4:
   mov bx, cx
   mov ax, [arr+bx]
@@ -81,7 +81,7 @@ Cycle4:
 
   cmp ax, dx
   jl @F
-  
+
   cmp ax, 0
   jnl @F
 
@@ -89,21 +89,21 @@ Cycle4:
 
 @@:
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle4
 
 ; compare and find min 0+ element
   mov cx, 2
-  
+
 Cycle5:
   mov bx, cx
   mov ax, [arr+bx]
   mov dx, [plus]
-  
+
   cmp ax, dx
   jnl @F
-  
+
   cmp ax, 0
   jl @F
 
@@ -111,7 +111,7 @@ Cycle5:
 
 @@:
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle5
 
@@ -148,7 +148,7 @@ Cycle5:
 ; prevent from closing
   mov ah, 08h
   int 21h
-  
+
 ret
 
 ; convert
@@ -164,7 +164,7 @@ IntToStrAndDisp:
 
   mov dl, dh
   int 21h
-  
+
 ret
 
 ; variables

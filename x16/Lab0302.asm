@@ -31,20 +31,20 @@ Cycle1:
   int 21h
 
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jng Cycle1
 
 ; first loop
   mov cx, 0
-  
+
 Cycle2:
   mov [savedI], cx
   mov [broken], 0
 
   ; second loop
   mov cx, [savedI]
-  
+
   Cycle3:
     mov [savedJ], cx    
 
@@ -57,10 +57,12 @@ Cycle2:
     mov [savedAJ], dx
 
     mov dx, [savedI]
+	
     cmp dx, [savedJ]
     je @F
 
     mov dx, [savedAI]
+	
     cmp dx, [savedAJ]
     jne @F  
 
@@ -72,8 +74,8 @@ Cycle2:
 
   @@:
     add cx, 2
+	
     cmp cx, [arrSize]
-
     jbe Cycle3
 
   mov ax, [broken]
@@ -87,8 +89,8 @@ Cycle2:
 @@:
   mov cx, [savedI]
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jng Cycle2
 
 ;====== CALCULATE UNIQUE ELEMENTS
@@ -105,8 +107,8 @@ Cycle4:
 
 @@:
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jng Cycle4
 
   mov ah, 09h
@@ -147,8 +149,8 @@ Cycle5:
 
   Skip:
   add cx, 2
-  cmp cx, [arrSize]
 
+  cmp cx, [arrSize]
   jng Cycle5
 
 
@@ -182,7 +184,7 @@ IntToStrAndDisp:
 
   mov dl, dh
   int 21h
-  
+
 ret
 
 ; variables

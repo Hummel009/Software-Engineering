@@ -1,5 +1,5 @@
 org 100h
-  
+
 ; start
   mov ah, 09h
   mov dx, str1
@@ -8,19 +8,19 @@ org 100h
   mov ah, 09h
   mov dx, str2
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
-  
+
   mov ah, 09h
   mov dx, str3
   int 21h
-  
+
   mov ah, 0ah
   mov dx, str5
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -56,28 +56,28 @@ Finish:
   mov ax, 0
   mov al, [pos]
   call IntToStrAndDisp
-  
+
   mov ah, 08h
   int 21h
-  
+
 ret
-  
+
 ; convert
 IntToStrAndDisp:
   aam
-  
+
   add ax, '00'
   mov dl, ah
   mov dh, al
-  
+
   mov ah, 02h
   int 21h
-  
+
   mov dl, dh
   int 21h
-  
+
 ret
-  
+
 ; variables
 str1     db "This is the string: $"
 str2     db "Abobus$"

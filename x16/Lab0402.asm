@@ -7,7 +7,7 @@ org 100h
 
 ; show arr
   mov bx, 0
-  
+
 Cycle1:
   mov ah, 02h
   mov dx, [arr+bx]
@@ -15,7 +15,7 @@ Cycle1:
   int 21h
 
   add bx, 2
-  
+
   cmp bx, [arrSize]
   jng Cycle1
 
@@ -29,14 +29,14 @@ Cycle1:
 
 ; display needed items
   mov bx, 0
-  
+
 Cycle2:
   mov cx, 2
   mov ax, [arr+bx]
   mov dx, 0
   div cx
-  cmp dx, 0
 
+  cmp dx, 0
   jne @F
 
   add [mods], 1
@@ -46,9 +46,8 @@ Cycle2:
   int 21h
 
 @@:
-
   add bx, 2
-  
+
   cmp bx, [arrSize]
   jng Cycle2
 

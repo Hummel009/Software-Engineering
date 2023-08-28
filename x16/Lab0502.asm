@@ -4,23 +4,23 @@ org 100h
   mov ah, 09h
   mov dx, str1
   int 21h
-  
+
   mov ah, 09h
   mov dx, str2
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
-  
+
   mov ah, 09h
   mov dx, str3
   int 21h
-  
+
   mov ah, 09h
   mov dx, newLine
   int 21h
-  
+
 ; find symbol
 Cycle:
   mov al, '2'
@@ -29,26 +29,26 @@ Cycle:
   mov di, str2
   repne scasb
   jnz Finish
-  
+
   dec di
   mov byte[di], '0'
   jmp Cycle
-  
+
 ; show the result
 Finish:
   mov ah, 09h
   mov dx, str4
   int 21h
-  
+
   mov ah, 09h
   mov dx, str2
   int 21h
-  
+
   mov ah, 08h
   int 21h
-  
+
 ret
-  
+
 ; variables
 str1     db "This is the string: $"
 str2     db "Abobus228$"

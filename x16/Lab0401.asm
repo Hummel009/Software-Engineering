@@ -17,13 +17,13 @@ Cycle1:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle1
 
 ; first loop
   mov cx, 2
-  
+
 Cycle2:
   mov [savedI], cx     
 
@@ -42,6 +42,7 @@ Cycle2:
     mov [savedAJ], dx    
 
     mov dx, [savedAI]
+	
     cmp dx, [savedAJ]
     jl @F
 
@@ -58,13 +59,13 @@ Cycle2:
 
   @@:
     add cx, 2
+	
     cmp cx, [arrSize]
-
     jbe Cycle3
 
   mov cx, [savedI]
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle2
 
@@ -78,7 +79,7 @@ Cycle2:
   int 21h
 
   mov cx, 2
-  
+
 Cycle4:
   mov bx, cx
   mov ax, [arr+bx]
@@ -89,14 +90,14 @@ Cycle4:
   int 21h
 
   add cx, 2
-  
+
   cmp cx, [arrSize]
   jbe Cycle4
 
 ; prevent from closing
   mov ah, 08h
   int 21h
-  
+
 ret
 
 ; convert
@@ -112,7 +113,7 @@ IntToStrAndDisp:
 
   mov dl, dh
   int 21h
-  
+
 ret
 
 ; variables

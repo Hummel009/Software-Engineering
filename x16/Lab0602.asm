@@ -90,5 +90,5 @@ Operations:
 
   mov bl, cl
   add al, bl
-  
+
 retf
