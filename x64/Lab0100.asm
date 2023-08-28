@@ -20,7 +20,7 @@ Start:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
   
-  mov al, [readBuf+8] ; индексация с нуля, так что девятый символ - это 8
+  mov al, [readBuf+8] ; indexing from 0, so 9th symbol = 8
   mov bl, [readBuf+9]
   mov [readBuf+8], bl
   mov [readBuf+9], al   
@@ -33,7 +33,7 @@ Start:
   mov [readBuf+4], al
   
   mov eax, [chrsRead]
-  sub eax, 2 ; истинная длина строки без спецсимволов
+  sub eax, 2 ; true string length without special symbols
 
   invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0    
 
