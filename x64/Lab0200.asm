@@ -16,7 +16,7 @@ Start:
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
 
-  invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0   
+  invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
 
@@ -53,19 +53,19 @@ Start:
   jl Skip
 
   cmp al, 'z'
-  jg Skip    
+  jg Skip
 
 ; success
   invoke WriteConsoleA, [hStdOut], allowed, allowedLen, chrsWritten, 0
 
   jmp Finish
-    
+
 ; error
 Skip:
   invoke WriteConsoleA, [hStdOut], disallowed, disallowedLen, chrsWritten, 0
 
 ; prevent from closing
-Finish:    
+Finish:
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
 Exit:
@@ -74,7 +74,7 @@ Exit:
 section '.data' data readable writeable
 
   conTitle   db 'Hummel009', 0
-  newLine    db 13, 10, 0  
+  newLine    db 13, 10, 0
   newLineLen = $-newLine
 
   msg           db 'Enter the text:', 0
@@ -94,7 +94,7 @@ section '.data' data readable writeable
 
 section '.bss' readable writeable
 
-  readBuf  db ? 
+  readBuf  db ?
 
 section '.idata' import data readable
 

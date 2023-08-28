@@ -83,18 +83,18 @@ Cycle2:
   ; loop 2
   mov cx, 2
   Cycle3:
-    mov [savedJ], cx    
+    mov [savedJ], cx
 
     mov bx, [savedI]
     mov dx, [arr1+bx]
-    mov [savedAI], dx    
+    mov [savedAI], dx
 
     mov bx, [savedJ]
     mov dx, [arr2+bx]
     mov [savedAJ], dx
 
     mov dx, [savedAI]
-	
+
     cmp dx, [savedAJ]
     jne @F
 
@@ -107,7 +107,7 @@ Cycle2:
 
   @@:
     add cx, 2
-	
+
     cmp cx, [arrSize]
     jbe Cycle3
   ; end loop 2
@@ -208,6 +208,6 @@ ret
   savedI      dw 0
   savedJ      dw 0
   savedAI     dw 0
-  savedAJ     dw 0 
+  savedAJ     dw 0
   temp        dw 0
   savedDupPos dw 2 

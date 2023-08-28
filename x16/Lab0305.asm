@@ -43,7 +43,7 @@ Cycle2:
   mov ax, [arr+bx]
 
   cmp ax, 0
-  jnl @F      
+  jnl @F
 
   mov [minus], ax
 
@@ -61,7 +61,7 @@ Cycle3:
   mov ax, [arr+bx]
 
   cmp ax, 0
-  jl @F      
+  jl @F
 
   mov [plus], ax
 

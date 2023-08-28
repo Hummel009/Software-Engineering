@@ -25,23 +25,23 @@ Cycle1:
 ; loop 1
   mov cx, 2
 Cycle2:
-  mov [savedI], cx     
+  mov [savedI], cx
 
   ; loop 2
   mov cx, [savedI]
   Cycle3:
-    mov [savedJ], cx     
+    mov [savedJ], cx
 
     mov bx, [savedI]
     mov dx, [arr+bx]
-    mov [savedAI], dx   
+    mov [savedAI], dx
 
     mov bx, [savedJ]
     mov dx, [arr+bx]
-    mov [savedAJ], dx    
+    mov [savedAJ], dx
 
     mov dx, [savedAI]
-	
+
     cmp dx, [savedAJ]
     jl @F
 
@@ -58,7 +58,7 @@ Cycle2:
 
   @@:
     add cx, 2
-	
+
     cmp cx, [arrSize]
     jbe Cycle3
   ; end loop 2
@@ -110,7 +110,7 @@ IntToStrAndDisp:
   add ax, '00'
   mov dl, ah
   mov dh, al
- 
+
   mov ah, 02h
   int 21h
 
@@ -123,7 +123,7 @@ ret
   str1    db "Start array: $"
   str2    db "Sorted array: $"
   arr     dw '0', 9, 5, 17, 6, 8, 4, 3, 2, 1
-  arrSize dw 18 
+  arrSize dw 18
   newLine db 13, 10, '$'
   neededI dw 0
   neededJ dw 0

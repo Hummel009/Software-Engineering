@@ -4,7 +4,7 @@ org 100h
   mov ah, 09h
   mov dx, str1
   int 21h
-  
+
 ; loop: show the array
   mov cx, 2
 Cycle1:
@@ -44,7 +44,7 @@ Cycle2:
   mov bx, cx
 
   cmp [arr+bx], 7
-  jng @F 
+  jng @F
 
   add [big], 1
   mov [arr+bx], 7
@@ -63,7 +63,7 @@ Cycle2:
   mov ah, 09h
   mov dx, str3
   int 21h
-  
+
 ; loop: display the array
   mov cx, 2
 Cycle3:
@@ -136,5 +136,5 @@ ret
   arr     dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
   arrSize dw  18
   newLine db  13, 10, '$'
-  big     dw 0   
+  big     dw 0
   temp    dw 0

@@ -63,10 +63,10 @@ Start:
   add ax, '00'
   mov dl, ah
   mov dh, al
-    
+
   mov ah, 02h
   int 21h
-    
+
   mov dl, dh
   int 21h
 

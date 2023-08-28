@@ -16,7 +16,7 @@ Start:
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
 
-  invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0   
+  invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
 
@@ -24,7 +24,7 @@ Start:
   mov al, [readBuf+8] ; indexing from 0, so 9th symbol = 8
   mov bl, [readBuf+9]
   mov [readBuf+8], bl
-  mov [readBuf+9], al   
+  mov [readBuf+9], al
 
 ; do manipulations on letters
   mov al, [readBuf+2]
@@ -37,10 +37,10 @@ Start:
   mov eax, [chrsRead]
   sub eax, 2 ; true string length without special symbols
 
-  invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0    
+  invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0
 
 ; prevent from closing
-  invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0 
+  invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
 Exit:
   invoke  ExitProcess, 0
@@ -48,7 +48,7 @@ Exit:
 section '.data' data readable writeable
 
   conTitle   db 'Hummel009', 0
-  newLine    db 13, 10, 0  
+  newLine    db 13, 10, 0
   newLineLen = $-newLine
 
   msg    db 'Enter the text:', 0

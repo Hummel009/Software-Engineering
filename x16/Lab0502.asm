@@ -27,7 +27,7 @@ Cycle:
   mov cx, 0
   mov ch, [str2+1]
   mov di, str2
-  
+
   repne scasb
   jnz Finish
 

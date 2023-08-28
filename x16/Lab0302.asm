@@ -48,25 +48,25 @@ Cycle2:
   mov cx, [savedI]
 
   Cycle3:
-    mov [savedJ], cx    
+    mov [savedJ], cx
 
     mov bx, [savedI]
     mov dx, [arr+bx]
-    mov [savedAI], dx    
+    mov [savedAI], dx
 
     mov bx, [savedJ]
     mov dx, [arr+bx]
     mov [savedAJ], dx
 
     mov dx, [savedI]
-	
+
     cmp dx, [savedJ]
     je @F
 
     mov dx, [savedAI]
-	
+
     cmp dx, [savedAJ]
-    jne @F  
+    jne @F
 
   ; destroy element
     mov bx, [savedJ]
@@ -76,7 +76,7 @@ Cycle2:
 
   @@:
     add cx, 2
-	
+
     cmp cx, [arrSize]
     jbe Cycle3
   ; end loop 2
@@ -206,6 +206,6 @@ ret
   savedI  dw 0
   savedJ  dw 0
   savedAI dw 0
-  savedAJ dw 0   
+  savedAJ dw 0
   temp    dw 0
   broken  dw 0 
