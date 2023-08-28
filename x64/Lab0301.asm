@@ -123,7 +123,7 @@ section '.idata' import data readable
 
   library kernel,'KERNEL32.DLL'
 
-  import kernel,\
+import kernel,\
     SetConsoleTitleA, 'SetConsoleTitleA',\
     GetStdHandle, 'GetStdHandle',\
     WriteConsoleA, 'WriteConsoleA',\
