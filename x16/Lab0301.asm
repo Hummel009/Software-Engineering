@@ -5,9 +5,8 @@ org 100h
   mov dx, str1
   int 21h
 
-; show arr
+; loop: show the array
   mov bx, 0
-
 Cycle1:
   mov ah, 02h
   mov dx, [arr+bx]
@@ -18,6 +17,7 @@ Cycle1:
 
   cmp bx, [arrSize]
   jng Cycle1
+; end loop
 
   mov ah, 09h
   mov dx, newLine
@@ -27,9 +27,8 @@ Cycle1:
   mov dx, str2
   int 21h
 
-; display needed items
+; loop: display needed items
   mov bx, 0
-
 Cycle2:
   mov cx, 4
   mov ax, bx
@@ -37,7 +36,7 @@ Cycle2:
   div cx
 
   cmp dx, 0
-  jne Skip
+  jne @F
 
   mov ax, [arr+bx]
   add [mods], ax
@@ -46,13 +45,14 @@ Cycle2:
   mov ah, 02h
   int 21h
 
-Skip:
+@@:
   add bx, 2
 
   cmp bx, [arrSize]
   jng Cycle2
+; end loop
 
-; display quantity
+; display the sum
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -86,10 +86,10 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1     db "Start array: $"
-str2     db "New array: $"
-str3     db "The sum of items mod 2 = 0: $"
-arr      dw 1, 2, 3, 4, 5, 6, 7, 8, 9
-newLine  db 13, 10, '$'
-mods     dw 0
-arrSize  dw 16
+  str1    db "Start array: $"
+  str2    db "New array: $"
+  str3    db "The sum of items mod 2 = 0: $"
+  arr     dw 1, 2, 3, 4, 5, 6, 7, 8, 9
+  newLine db 13, 10, '$'
+  mods    dw 0
+  arrSize dw 16

@@ -67,8 +67,8 @@ Finish:
 ret
 
 ; variables
-str1     db "Enter the text: $"
-str2     db 7, 0, 7 dup ('$')
-str3     db 'Yes, this word is allowed.$'
-str4     db 'No, this word is not allowed.$'
-newLine  db 13, 10, '$'
+  str1    db "Enter the text: $"
+  str2    db 7, 0, 7 dup ('$')
+  str3    db 'Yes, this word is allowed.$'
+  str4    db 'No, this word is not allowed.$'
+  newLine db 13, 10, '$'

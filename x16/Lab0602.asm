@@ -5,11 +5,11 @@ stack 200h
 segment DataSeg
 
 ; variables
-str1     db "Enter the number A: $"
-str2     db "Enter the number B: $"
-str3     db 2, 0, 2 dup "$"
-str4     db 2, 0, 2 dup "$"
-newLine  db 13, 10, '$'
+  str1    db "Enter the number A: $"
+  str2    db "Enter the number B: $"
+  str3    db 2, 0, 2 dup "$"
+  str4    db 2, 0, 2 dup "$"
+  newLine db 13, 10, '$'
 
 segment CodeSeg
 

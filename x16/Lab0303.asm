@@ -5,8 +5,8 @@ org 100h
   mov dx, str1
   int 21h
 
+; loop: show the array
   mov cx, 2
-
 Cycle1:
   mov bx, cx
   mov ax, [arr+bx]
@@ -34,16 +34,15 @@ Cycle1:
 
   cmp cx, [arrSize]
   jbe Cycle1
+; end loop
 
-; first loop
+; loop 1
   mov cx, 2
 Cycle2:
-
   mov [savedI], cx        
 
-  ; second loop
+  ; loop 2
   mov cx, [savedI]
-
   Cycle3:
     mov [savedJ], cx     
 
@@ -81,12 +80,14 @@ Cycle2:
 	
     cmp cx, [arrSize]
     jbe Cycle3
+  ; end loop 2
 
   mov cx, [savedI]
   add cx, 2
   cmp cx, [arrSize]
 
   jbe Cycle2
+; end loop 1
 
 ; display duplicate 1
   mov ah, 09h
@@ -135,16 +136,16 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1     db "Array: $"
-str2     db "Dup Index 1: $" 
-str3     db "Dup Index 2: $" 
-arr      dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
-arrSize  dw 18    
-newLine  db 13, 10, '$'
-pos1     dw 0
-pos2     dw 0
-savedI   dw 0
-savedJ   dw 0
-savedAI  dw 0
-savedAJ  dw 0
-temp     dw 0
+  str1    db "Array: $"
+  str2    db "Dup Index 1: $" 
+  str3    db "Dup Index 2: $" 
+  arr     dw '0', 59, 8, -7, 6, 5, 59, 3, 2, 1
+  arrSize dw 18    
+  newLine db 13, 10, '$'
+  pos1    dw 0
+  pos2    dw 0
+  savedI  dw 0
+  savedJ  dw 0
+  savedAI dw 0
+  savedAJ dw 0
+  temp    dw 0

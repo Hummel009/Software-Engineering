@@ -5,8 +5,8 @@ org 100h
   mov dx, str1
   int 21h
 
+; loop: show the array
   mov cx, 2
-
 Cycle1:
   mov bx, cx
   mov ax, [arr+bx]
@@ -34,10 +34,10 @@ Cycle1:
 
   cmp cx, [arrSize]
   jbe Cycle1
+; end loop
 
-; let it be the starting 0- element
+; loop: detect at least one 0- element
   mov cx, 2
-
 Cycle2:
   mov bx, cx
   mov ax, [arr+bx]
@@ -52,10 +52,10 @@ Cycle2:
 
   cmp cx, [arrSize]
   jbe Cycle2
+; end loop
 
-; let it be the starting 0+ element
+; loop: detect at least one 0+ element
   mov cx, 2
-
 Cycle3:
   mov bx, cx
   mov ax, [arr+bx]
@@ -70,10 +70,10 @@ Cycle3:
 
   cmp cx, [arrSize]
   jbe Cycle3
+; end loop
 
-; compare and find max 0- element
+; loop: compare and find max 0- element
   mov cx, 2
-
 Cycle4:
   mov bx, cx
   mov ax, [arr+bx]
@@ -92,10 +92,10 @@ Cycle4:
 
   cmp cx, [arrSize]
   jbe Cycle4
+; end loop
 
-; compare and find min 0+ element
+; loop: compare and find min 0+ element
   mov cx, 2
-
 Cycle5:
   mov bx, cx
   mov ax, [arr+bx]
@@ -114,6 +114,7 @@ Cycle5:
 
   cmp cx, [arrSize]
   jbe Cycle5
+; end loop
 
 ; abs of the element
   mov ax, [minus]
@@ -121,7 +122,7 @@ Cycle5:
   idiv bl
   mov [minus], ax
 
-; display 1
+; display first
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -133,7 +134,7 @@ Cycle5:
   mov ax, [minus]
   call IntToStrAndDisp
 
-; display 2
+; display second
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -168,12 +169,12 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1     db "Array: $"
-str2     db "Minus elem: -$"
-str3     db "Plus elem: $"
-arr      dw 'f', -1, -2, -3, -4, 5, 6, 7, 8, 9
-arrSize  dw 18
-newLine  db 13, 10, '$'
-minus    dw 0
-plus     dw 0
-temp     dw 0
+  str1    db "Array: $"
+  str2    db "Minus elem: -$"
+  str3    db "Plus elem: $"
+  arr     dw 'f', -1, -2, -3, -4, 5, 6, 7, 8, 9
+  arrSize dw 18
+  newLine db 13, 10, '$'
+  minus   dw 0
+  plus    dw 0
+  temp    dw 0

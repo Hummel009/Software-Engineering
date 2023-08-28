@@ -38,6 +38,6 @@ org 100h
 ret
 
 ; variables
-str1     db "Enter the text: $"
-str2     db 255 dup "$"
-newLine  db 13, 10, '$'
+  str1    db "Enter the text: $"
+  str2    db 255 dup "$"
+  newLine db 13, 10, '$'

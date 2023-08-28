@@ -54,7 +54,7 @@ Find:
   mov cx, 0
   mov cl, 6
 
-; find symbol
+; loop: find symbol
 Cycle:
   repne scasb
   jnz Finish
@@ -63,6 +63,7 @@ Cycle:
   mov bl, [saved]
   mov byte[di], bl
   jmp Cycle
+; end loop
 
 ; show the result
 Finish:
@@ -84,10 +85,10 @@ Finish:
 ret
 
 ; variables
-str1     db "This is the string: $"
-str2     db "Abobus$"
-str3     db "Enter the symbol: $"
-str4     db "Result: $"
-str5     db 255 dup ('$')
-newLine  db 13, 10, '$'
-saved    db 0 
+  str1    db "This is the string: $"
+  str2    db "Abobus$"
+  str3    db "Enter the symbol: $"
+  str4    db "Result: $"
+  str5    db 255 dup ('$')
+  newLine db 13, 10, '$'
+  saved   db 0 

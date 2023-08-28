@@ -11,6 +11,7 @@ org 100h
   mov di, 0
   mov si, 320
 
+; loop
 DrawLoop:
   sub ax, 160 ; move screen up/down
   sub dx, 160 ; move screen left/right
@@ -26,6 +27,7 @@ DrawLoop:
 
   stosb
   loop DrawLoop
+; end loop
 
   mov ah, 08h
   int 21h

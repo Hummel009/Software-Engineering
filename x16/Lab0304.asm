@@ -4,9 +4,9 @@ org 100h
   mov ah, 09h
   mov dx, str1
   int 21h
-
+  
+; loop: show the array
   mov cx, 2
-
 Cycle1:
   mov bx, cx
   mov ax, [arr+bx]
@@ -34,12 +34,12 @@ Cycle1:
 
   cmp cx, [arrSize]
   jbe Cycle1
+; end loop
 
   mov [big], 0
 
-; find items that are > 7
+; loop: find items that are > 7
   mov cx, 2
-
 Cycle2:
   mov bx, cx
 
@@ -54,8 +54,8 @@ Cycle2:
 
   cmp cx, [arrSize]
   jbe Cycle2
+; end loop
 
-; display the array
   mov ah, 09h
   mov dx, newLine
   int 21h
@@ -63,9 +63,9 @@ Cycle2:
   mov ah, 09h
   mov dx, str3
   int 21h
-
+  
+; loop: display the array
   mov cx, 2
-
 Cycle3:
   mov bx, cx
   mov ax, [arr+bx]
@@ -93,6 +93,7 @@ Cycle3:
 
   cmp cx, [arrSize]
   jbe Cycle3
+; end loop
 
 ; display the quantity
   mov ah, 09h
@@ -129,11 +130,11 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1    db "Start array: $"
-str2    db "Elements bigger than 7: $"
-str3    db "New array: $"
-arr     dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
-arrSize dw  18
-newLine db  13, 10, '$'
-big     dw 0   
-temp    dw 0
+  str1    db "Start array: $"
+  str2    db "Elements bigger than 7: $"
+  str3    db "New array: $"
+  arr     dw '0', 9, 2, 9, -4, 7, 6, 7, 8, 9
+  arrSize dw  18
+  newLine db  13, 10, '$'
+  big     dw 0   
+  temp    dw 0

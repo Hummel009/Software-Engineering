@@ -52,6 +52,7 @@ Cycle2:
   mov dx, [tempWord]
   add [mods], dx
   add [tempWord], '0'
+  
   invoke WriteConsoleA, [hStdOut], tempWord, 1, chrsWritten, 0    
   invoke WriteConsoleA, [hStdOut], wsp, wspLen, chrsWritten, 0
 
@@ -88,9 +89,9 @@ Exit:
 
 section '.data' data readable writeable
 
-  conTitle          db 'Hummel009', 0
-  newLine           db 13, 10, 0  
-  newLineLen        = $-newLine
+  conTitle   db 'Hummel009', 0
+  newLine    db 13, 10, 0  
+  newLineLen = $-newLine
   
   str1     db "Start array: ", 0
   str1Len  = $-str1
@@ -124,8 +125,8 @@ section '.idata' import data readable
   library kernel,'KERNEL32.DLL'
 
 import kernel,\
-    SetConsoleTitleA, 'SetConsoleTitleA',\
-    GetStdHandle, 'GetStdHandle',\
-    WriteConsoleA, 'WriteConsoleA',\
-    ReadConsoleA, 'ReadConsoleA',\
-    ExitProcess, 'ExitProcess'
+  SetConsoleTitleA, 'SetConsoleTitleA',\
+  GetStdHandle, 'GetStdHandle',\
+  WriteConsoleA, 'WriteConsoleA',\
+  ReadConsoleA, 'ReadConsoleA',\
+  ExitProcess, 'ExitProcess'

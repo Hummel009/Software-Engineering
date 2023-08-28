@@ -26,13 +26,14 @@ org 100h
   mov cx, 0
   mov cl, [str4+1]
 
-; find symbol
+; loop: find symbol
 Cycle:
   repne scasb
   jnz Finish
 
   add [save], 1
   jmp Cycle
+; end loop
 
 ; show the result
 Finish:
@@ -65,9 +66,9 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1     db "We will count the symbol `3`$"
-str2     db "Enter the string: $"
-str3     db "Result: $"
-str4     db 255 dup ('$')
-newLine  db 13, 10, '$'
-save     dw 0    
+  str1    db "We will count the symbol `3`$"
+  str2    db "Enter the string: $"
+  str3    db "Result: $"
+  str4    db 255 dup ('$')
+  newLine db 13, 10, '$'
+  save    dw 0    

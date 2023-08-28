@@ -5,9 +5,8 @@ org 100h
   mov dx, str1
   int 21h
 
-; display 1st
+; loop: show the first array
   mov cx, 2
-
 Cycle0:
   mov bx, cx
   mov ax, [arr1+bx]
@@ -35,6 +34,7 @@ Cycle0:
 
   cmp cx, [arrSize]
   jbe Cycle0
+; end loop
 
   mov ah, 09h
   mov dx, newLine
@@ -44,9 +44,8 @@ Cycle0:
   mov dx, str2
   int 21h
 
-; display 2nd
+; loop: show the second array
   mov cx, 2
-
 Cycle1:
   mov bx, cx
   mov ax, [arr2+bx]
@@ -74,16 +73,15 @@ Cycle1:
 
   cmp cx, [arrSize]
   jbe Cycle1
+; end loop
 
-; first loop
+; loop 1
   mov cx, 2
 Cycle2:
-
   mov [savedI], cx
 
-  ; second loop
+  ; loop 2
   mov cx, 2
-
   Cycle3:
     mov [savedJ], cx    
 
@@ -112,12 +110,14 @@ Cycle2:
 	
     cmp cx, [arrSize]
     jbe Cycle3
+  ; end loop 2
 
   mov cx, [savedI]
   add cx, 2
 
   cmp cx, [arrSize]
   jbe Cycle2
+; end loop 1
 
   mov ah, 09h
   mov dx, newLine
@@ -127,8 +127,8 @@ Cycle2:
   mov dx, str3
   int 21h
 
+; loop
   mov cx, 2
-
 Cycle5:
   mov bx, cx
   mov ax, [arr3+bx]
@@ -156,7 +156,7 @@ Cycle5:
 
   cmp cx, [savedDupPos]
   jb Cycle5
-
+; end loop
 
 ; display the quantity
   mov ah, 09h
@@ -196,18 +196,18 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1         db "1st array: $"
-str2         db "2nd array: $"
-str3         db "Duplicates: $"
-str4         db "Duplicates quantity: $"
-arr1         dw '0', 1, 2, 3, 4, 5, 6, 7, 8, 9
-arr2         dw '0', -1, -2, 3, 4, -5, 6, 7, 8, 9
-arr3         dw '0', 0, 0, 0, 0, 0, 0, 0, 0, 0
-arrSize      dw 18
-newLine      db 13, 10, '$'
-savedI       dw 0
-savedJ       dw 0
-savedAI      dw 0
-savedAJ      dw 0 
-temp         dw 0
-savedDupPos  dw 2 
+  str1        db "1st array: $"
+  str2        db "2nd array: $"
+  str3        db "Duplicates: $"
+  str4        db "Duplicates quantity: $"
+  arr1        dw '0', 1, 2, 3, 4, 5, 6, 7, 8, 9
+  arr2        dw '0', -1, -2, 3, 4, -5, 6, 7, 8, 9
+  arr3        dw '0', 0, 0, 0, 0, 0, 0, 0, 0, 0
+  arrSize     dw 18
+  newLine     db 13, 10, '$'
+  savedI      dw 0
+  savedJ      dw 0
+  savedAI     dw 0
+  savedAJ     dw 0 
+  temp        dw 0
+  savedDupPos dw 2 

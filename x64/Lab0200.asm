@@ -73,15 +73,16 @@ Exit:
 
 section '.data' data readable writeable
 
-  conTitle          db 'Hummel009', 0
-  msg               db 'Enter the text:', 0
-  msgLen            = $-msg
-  newLine           db 13, 10, 0  
-  newLineLen        = $-newLine
-  allowed           db 'Yes, this word is allowed.'
-  allowedLen        = $-allowed
-  disallowed        db 'No, this word is not allowed.'
-  disallowedLen     = $-disallowed
+  conTitle   db 'Hummel009', 0
+  newLine    db 13, 10, 0  
+  newLineLen = $-newLine
+  
+  msg           db 'Enter the text:', 0
+  msgLen        = $-msg
+  allowed       db 'Yes, this word is allowed.'
+  allowedLen    = $-allowed
+  disallowed    db 'No, this word is not allowed.'
+  disallowedLen = $-disallowed
 
   hStdIn      dd 0
   hStdOut     dd 0
@@ -101,8 +102,8 @@ section '.idata' import data readable
   library kernel,'KERNEL32.DLL'
 
 import kernel,\
-    SetConsoleTitleA, 'SetConsoleTitleA',\
-    GetStdHandle, 'GetStdHandle',\
-    WriteConsoleA, 'WriteConsoleA',\
-    ReadConsoleA, 'ReadConsoleA',\
-    ExitProcess, 'ExitProcess'
+  SetConsoleTitleA, 'SetConsoleTitleA',\
+  GetStdHandle, 'GetStdHandle',\
+  WriteConsoleA, 'WriteConsoleA',\
+  ReadConsoleA, 'ReadConsoleA',\
+  ExitProcess, 'ExitProcess'

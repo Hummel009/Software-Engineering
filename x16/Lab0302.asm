@@ -7,6 +7,7 @@ org 100h
 
   mov cx, 0
 
+; loop: show the array
 Cycle1:
   mov bx, cx
   mov ax, [arr+bx]
@@ -34,15 +35,16 @@ Cycle1:
 
   cmp cx, [arrSize]
   jng Cycle1
+; end loop
 
-; first loop
   mov cx, 0
 
+; loop 1
 Cycle2:
   mov [savedI], cx
   mov [broken], 0
 
-  ; second loop
+  ; loop 2
   mov cx, [savedI]
 
   Cycle3:
@@ -66,7 +68,7 @@ Cycle2:
     cmp dx, [savedAJ]
     jne @F  
 
-  ;====== BREAK ELEMENT
+  ; destroy element
     mov bx, [savedJ]
     mov [arr+bx], 'ff'
 
@@ -77,6 +79,7 @@ Cycle2:
 	
     cmp cx, [arrSize]
     jbe Cycle3
+  ; end loop 2
 
   mov ax, [broken]
 
@@ -92,10 +95,12 @@ Cycle2:
 
   cmp cx, [arrSize]
   jng Cycle2
+; end loop 1
 
-;====== CALCULATE UNIQUE ELEMENTS
+; calculate the quantity of unique elements
   mov cx, 0
 
+; loop
 Cycle4:
   mov bx, cx
   mov ax, [arr+bx]
@@ -110,6 +115,7 @@ Cycle4:
 
   cmp cx, [arrSize]
   jng Cycle4
+; end loop
 
   mov ah, 09h
   mov dx, newLine
@@ -121,6 +127,7 @@ Cycle4:
 
   mov cx, 0
 
+; loop
 Cycle5:
   mov bx, cx
   mov ax, [arr+bx]
@@ -147,11 +154,12 @@ Cycle5:
   mov dx, ' '
   int 21h
 
-  Skip:
+Skip:
   add cx, 2
 
   cmp cx, [arrSize]
   jng Cycle5
+; end loop
 
 
 ; display the quantity
@@ -188,16 +196,16 @@ IntToStrAndDisp:
 ret
 
 ; variables
-str1     db "Start array: $"
-str2     db "No duplicat: $"
-str3     db "Unique elements: $"
-arr      dw 2, 2, -3, 5, 7, 4, 7, 2, 9
-arrSize  dw 16
-newLine  db 13, 10, '$'
-unique   dw 9
-savedI   dw 0
-savedJ   dw 0
-savedAI  dw 0
-savedAJ  dw 0   
-temp     dw 0
-broken   dw 0 
+  str1    db "Start array: $"
+  str2    db "No duplicat: $"
+  str3    db "Unique elements: $"
+  arr     dw 2, 2, -3, 5, 7, 4, 7, 2, 9
+  arrSize dw 16
+  newLine db 13, 10, '$'
+  unique  dw 9
+  savedI  dw 0
+  savedJ  dw 0
+  savedAI dw 0
+  savedAJ dw 0   
+  temp    dw 0
+  broken  dw 0 
