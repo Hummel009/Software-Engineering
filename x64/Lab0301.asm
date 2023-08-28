@@ -17,7 +17,7 @@ Start:
   mov [hStdIn], eax
 
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0   
-  
+
 ; loop: show the array
   mov ebx, 0
 Cycle1:
@@ -33,9 +33,9 @@ Cycle1:
 ; end loop
 
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  
+
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
-  
+
 ; loop: show needed items
   mov ebx, 0
 Cycle2:
@@ -48,7 +48,7 @@ Cycle2:
   mov dx, [tempWord]
   add [mods], dx
   add [tempWord], '0'
-  
+
   invoke WriteConsoleA, [hStdOut], tempWord, 1, chrsWritten, 0    
   invoke WriteConsoleA, [hStdOut], wsp, wspLen, chrsWritten, 0
 
@@ -59,9 +59,9 @@ Cycle2:
 ; end loop   
         
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  
+
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
-  
+
 ; convert number into 2 symbols
   mov al, byte[mods]
   mov ah, 0
@@ -88,7 +88,7 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0  
   newLineLen = $-newLine
-  
+
   str1     db "Start array: ", 0
   str1Len  = $-str1
   str2     db "New array: ", 0
@@ -113,8 +113,7 @@ section '.data' data readable writeable
 
 section '.bss' readable writeable
 
-  readBuf  db ? 
-  readLen  db ?    
+  readBuf  db ?    
 
 section '.idata' import data readable
 

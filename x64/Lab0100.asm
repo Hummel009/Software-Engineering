@@ -19,13 +19,13 @@ Start:
   invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0   
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
-  
+
 ; swap letters
   mov al, [readBuf+8] ; indexing from 0, so 9th symbol = 8
   mov bl, [readBuf+9]
   mov [readBuf+8], bl
   mov [readBuf+9], al   
-  
+
 ; do manipulations on letters
   mov al, [readBuf+2]
   mov bl, [readBuf+5]
@@ -33,7 +33,7 @@ Start:
   sub al, bl
   add al, cl
   mov [readBuf+4], al
-  
+
   mov eax, [chrsRead]
   sub eax, 2 ; true string length without special symbols
 
@@ -50,7 +50,7 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0  
   newLineLen = $-newLine
-  
+
   msg    db 'Enter the text:', 0
   msgLen = $-msg
 

@@ -19,11 +19,11 @@ Start:
   invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0   
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
-  
+
 ; skip if 3 <> 5
   mov al, [readBuf+2]
   mov bl, [readBuf+4]
-  
+
   cmp al, bl
   jne Skip
 
@@ -37,7 +37,7 @@ Start:
 ; find and test N-1
   mov ebx, eax
   sub ebx, 2 ; n - 1 -> indexing from 0 and sub 1
-  
+
   mov al, [readBuf+ebx]
 
   cmp al, 'A'
@@ -54,7 +54,7 @@ Start:
 
   cmp al, 'z'
   jg Skip    
-  
+
 ; success
   invoke WriteConsoleA, [hStdOut], allowed, allowedLen, chrsWritten, 0
 
@@ -76,7 +76,7 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0  
   newLineLen = $-newLine
-  
+
   msg           db 'Enter the text:', 0
   msgLen        = $-msg
   allowed       db 'Yes, this word is allowed.'
@@ -95,7 +95,6 @@ section '.data' data readable writeable
 section '.bss' readable writeable
 
   readBuf  db ? 
-  readLen  db ?     
 
 section '.idata' import data readable
 
