@@ -25,16 +25,18 @@ Start:
   mov [readBuf+8], bl
   mov [readBuf+9], al   
   
-  mov al, [str2+2]
-  mov bl, [str2+5]
-  mov cl, [str2+8]
+  mov al, [readBuf+2]
+  mov bl, [readBuf+5]
+  mov cl, [readBuf+8]
   sub al, bl
   add al, cl
-  mov [str2+4], al
+  mov [readBuf+4], al
+                          
+  sub [chrsRead], 2
 
-  invoke WriteConsoleA, [hStdOut], readBuf, 255, chrsWritten, 0    
+  invoke WriteConsoleA, [hStdOut], readBuf, [chrsRead], chrsWritten, 0    
 
-  invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
+  invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0 
 
 Exit:
   invoke  ExitProcess, 0
