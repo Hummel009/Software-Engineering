@@ -5,9 +5,8 @@ org 100h
   mov dx, str1
   int 21h
 
-  mov cx, 0
-
 ; loop: show the array
+  mov cx, 0
 Cycle1:
   mov bx, cx
   mov ax, [arr+bx]
@@ -37,16 +36,14 @@ Cycle1:
   jng Cycle1
 ; end loop
 
-  mov cx, 0
-
 ; loop 1
+  mov cx, 0
 Cycle2:
   mov [savedI], cx
   mov [broken], 0
 
   ; loop 2
   mov cx, [savedI]
-
   Cycle3:
     mov [savedJ], cx
 
@@ -97,10 +94,8 @@ Cycle2:
   jng Cycle2
 ; end loop 1
 
-; calculate the quantity of unique elements
+; loop: calculate the quantity of unique elements
   mov cx, 0
-
-; loop
 Cycle4:
   mov bx, cx
   mov ax, [arr+bx]
@@ -125,9 +120,8 @@ Cycle4:
   mov dx, str2
   int 21h
 
-  mov cx, 0
-
 ; loop
+  mov cx, 0
 Cycle5:
   mov bx, cx
   mov ax, [arr+bx]
@@ -160,7 +154,6 @@ Skip:
   cmp cx, [arrSize]
   jng Cycle5
 ; end loop
-
 
 ; display the quantity
   mov ah, 09h
