@@ -91,7 +91,7 @@ Cycle2:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
     
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0  
-
+        
 ; loop: show the array
   mov ebx, 0
 Cycle4:
@@ -115,7 +115,7 @@ Continue:
   cmp ebx, [arrSize]
   jng Cycle4
 ; end loop
-
+        
   add [unique], '0'
        
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
@@ -156,7 +156,6 @@ section '.data' data readable writeable
   savedAI dw 0
   savedAJ dw 0
   temp    dd 0
-  broken  dd 0 
 
   hStdIn      dd 0
   hStdOut     dd 0
