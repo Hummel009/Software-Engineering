@@ -84,26 +84,6 @@ Cycle2:
 ; end loop 1
  
 BreakCycle:
- 
-; loop: show the array
-  mov ebx, 0
-Cycle4:
-  mov dx, [arr+ebx] 
-  cmp dx, 'ff'
-  jne @F
-  jmp Continue
-  
-@@:
-  dec [duplic]
-  jmp Continue
- 
-Continue:
-  add ebx, 2
-  cmp ebx, [arrSize]
-  jng Cycle4
-; end loop
-        
-  add [duplic], '0'
   shr [savedI], 1
   shr [savedJ], 1
   add [savedI], '0'
@@ -113,10 +93,6 @@ Continue:
        
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0  
-  invoke WriteConsoleA, [hStdOut], duplic, 1, chrsWritten, 0  
-  
-  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0  
   invoke WriteConsoleA, [hStdOut], savedI, 1, chrsWritten, 0 
   
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
@@ -138,12 +114,10 @@ section '.data' data readable writeable
 
   str1     db "Start array: ", 0
   str1Len  = $-str1
-  str2     db "The quantity of duplicate elements: ", 0
-  str2Len  = $-str2 
-  str3     db "Pos 1: ", 0
+  str2     db "The position of the 1st duplicate: ", 0
+  str2Len  = $-str2
+  str3     db "The position of the 2nd duplicate: ", 0
   str3Len  = $-str3
-  str4     db "Pos 2: ", 0
-  str4Len  = $-str4
   arr      dw 1, 2, 3, 4, 5, 5, 7, 8, 9
   mods     dw 0
   arrSize  dd 16
@@ -152,7 +126,6 @@ section '.data' data readable writeable
   tempWord dw 0
   tempByte db 0
   
-  duplic  dd 9
   savedI  dd 0
   savedJ  dd 0
   savedAI dw 0
