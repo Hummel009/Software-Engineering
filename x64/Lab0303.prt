@@ -1,0 +1,12 @@
+; FASM Editor
+
+include "Lab0303.asm"
+
+if 2 * 2 = 5
+[options]
+  countAsm=1
+  countInc=0
+[asm]
+  asm1="Lab0303.asm"
+[inc]
+end if
