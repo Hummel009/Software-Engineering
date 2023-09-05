@@ -23,8 +23,7 @@ Start:
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0  
-
-Find:   
+ 
   mov al, [symbolSrc]
   mov edi, readBuf
   mov ecx, [chrsRead]
