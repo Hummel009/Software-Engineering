@@ -15,38 +15,41 @@ Start:
 
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
-
-  invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
-  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
      
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  
-  invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
-    
-  mov al, '3'
+  invoke ReadConsoleA, [hStdIn], symbolSrc, 3, chrsRead, 0     
+
+  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
+  invoke ReadConsoleA, [hStdIn], symbolDest, 3, chrsRead, 0   
+
+  invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
+  invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0  
+        
+  mov al, [symbolSrc]
+  mov bl, [symbolDest] 
   mov edi, readBuf
   mov ecx, [chrsRead]
-  sub ecx, 2
+  sub ecx, 1
 
-; loop: find symbol
-Cycle:
+; loop: find symbol   
+Cycle:    
   repne scasb
   jnz BreakCycle
-
-  inc [tempByte]
+            
+  mov byte[edi-1], bl
   jmp Cycle
 ; end loop
-    
-BreakCycle:   
-  add [tempByte], '0'                                                     
-  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0   
-  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
-     
-; prevent from closing
-Finish:     
+   
+BreakCycle:                                                        
+  invoke WriteConsoleA, [hStdOut], readBuf, [chrsRead], chrsWritten, 0
+   
+; prevent from closing   
+Finish: 
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
-
+  
 Exit:
   invoke  ExitProcess, 0
 
@@ -60,24 +63,26 @@ section '.data' data readable writeable
   tempWord   dw 0
   tempByte   db 0
                 
-  str1     db 'We will count the symbol `3`.', 0
-  str1Len  = $-str1
-  str2     db 'Enter the text:', 0
-  str2Len  = $-str2  
-  str3     db 'The quantity of symbols: ', 0
-  str3Len  = $-str3
+  str1     db 'Enter the text:', 0
+  str1Len  = $-str1  
+  str2     db 'Enter the symbol src:', 0
+  str2Len  = $-str2     
+  str3     db 'Enter the symbol dest:', 0
+  str3Len  = $-str3   
 
   hStdIn      dd 0
   hStdOut     dd 0
   chrsRead    dd 0
-  chrsWritten dd 0
+  chrsWritten dd 0  
+  symbolSrc   db 0
+  symbolDest  db 0
 
   STD_INP_HNDL  dd -10
   STD_OUTP_HNDL dd -11
 
 section '.bss' readable writeable
 
-  readBuf  db ?
+  readBuf    db ?
 
 section '.idata' import data readable
 
