@@ -34,10 +34,7 @@ Start:
   add al, cl
   mov [readBuf+4], al
 
-  mov eax, [chrsRead]
-  sub eax, 2 ; true string length without special symbols
-
-  invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], readBuf, [chrsRead], chrsWritten, 0
 
 ; prevent from closing
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0

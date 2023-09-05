@@ -29,7 +29,7 @@ Start:
 
 ; skip if N < 5
   mov eax, [chrsRead]
-  sub eax, 2 ; true length
+  sub eax, 2 ; true length, if skip \r\n
 
   cmp eax, 5
   jl Skip

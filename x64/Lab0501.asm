@@ -27,7 +27,6 @@ Start:
   mov al, '3'
   mov edi, readBuf
   mov ecx, [chrsRead]
-  sub ecx, 2
 
 ; loop: find symbol
 Cycle:
