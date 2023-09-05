@@ -20,14 +20,33 @@ Start:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], symbolSrc, 3, chrsRead, 0     
 
-  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
-  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-  invoke ReadConsoleA, [hStdIn], symbolDest, 3, chrsRead, 0   
-
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0  
-        
+       
+; load converter data
+  mov al, [symbolSrc]
+
+  cmp al, 'Z'
+  jle ToSmallLetter
+
+  cmp al, 'a'
+  jge ToBigLetter
+
+; set converter data
+ToBigLetter:
+  mov al, [symbolSrc]
+  sub al, 32
+  mov [symbolDest], al
+  jmp Find
+
+ToSmallLetter:
+  mov al, [symbolSrc]
+  add al, 32
+  mov [symbolDest], al
+  jmp Find
+
+Find:   
   mov al, [symbolSrc]
   mov bl, [symbolDest] 
   mov edi, readBuf
@@ -68,22 +87,22 @@ section '.data' data readable writeable
   str2     db 'Enter the symbol src:', 0
   str2Len  = $-str2     
   str3     db 'Enter the symbol dest:', 0
-  str3Len  = $-str3 
+  str3Len  = $-str3  
 
   hStdIn      dd 0
   hStdOut     dd 0
   chrsRead    dd 0
-  chrsWritten dd 0  
+  chrsWritten dd 0 
   
-  symbolSrc   db 0
-  symbolDest  db 0  
+  symbolSrc  db 0 
+  symbolDest db 0 
 
   STD_INP_HNDL  dd -10
   STD_OUTP_HNDL dd -11
 
 section '.bss' readable writeable
 
-  readBuf db ?
+  readBuf    db ? 
 
 section '.idata' import data readable
 
