@@ -141,23 +141,22 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0
   newLineLen = $-newLine
+  wsp        db " ", 0
+  wspLen     = $-wsp
+  tempWord   dw 0
+  tempByte   db 0
 
-  str1     db "Start array: ", 0
-  str1Len  = $-str1
-  str2     db "The biggest element < 0: ", 0
-  str2Len  = $-str2
-  str3     db "The smallest element >= 0: ", 0
-  str3Len  = $-str3
-  arr      dw -9, 8, -7, 6, -5, 4, -3, 2, -1
-  mods     dw 0
-  arrSize  dd 16
-  wsp      db " ", 0
-  wspLen   = $-wsp 
-  min      db "-", 0
-  minLen   = $-min
-  tempWord dw 0
-  tempByte db 0
-  
+  str1      db "Start array: ", 0
+  str1Len   = $-str1
+  str2      db "The biggest element < 0: ", 0
+  str2Len   = $-str2
+  str3      db "The smallest element >= 0: ", 0
+  str3Len   = $-str3
+  arr       dw -9, 8, -7, 6, -5, 4, -3, 2, -1
+  mods      dw 0
+  arrSize   dd 16
+  min       db "-", 0
+  minLen    = $-min
   zeroMaxL  dw 0
   zeroMinGE dw 0
 

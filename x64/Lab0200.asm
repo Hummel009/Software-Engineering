@@ -16,7 +16,7 @@ Start:
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
 
-  invoke WriteConsoleA, [hStdOut], msg, msgLen, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
 
@@ -56,13 +56,13 @@ Start:
   jg Skip
 
 ; success
-  invoke WriteConsoleA, [hStdOut], allowed, allowedLen, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
 
   jmp Finish
 
 ; error
 Skip:
-  invoke WriteConsoleA, [hStdOut], disallowed, disallowedLen, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
 
 ; prevent from closing
 Finish:
@@ -76,13 +76,17 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0
   newLineLen = $-newLine
+  wsp        db " ", 0
+  wspLen     = $-wsp
+  tempWord   dw 0
+  tempByte   db 0
 
-  msg           db 'Enter the text:', 0
-  msgLen        = $-msg
-  allowed       db 'Yes, this word is allowed.'
-  allowedLen    = $-allowed
-  disallowed    db 'No, this word is not allowed.'
-  disallowedLen = $-disallowed
+  str1    db 'Enter the text:', 0
+  str1Len = $-str1
+  str2    db 'Yes, this word is str2.', 0
+  str2Len = $-str2
+  str3    db 'No, this word is not str2.', 0
+  str3Len = $-str3
 
   hStdIn      dd 0
   hStdOut     dd 0

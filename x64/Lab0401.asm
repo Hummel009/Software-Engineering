@@ -104,19 +104,18 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0
   newLineLen = $-newLine
+  wsp        db " ", 0
+  wspLen     = $-wsp
+  tempWord   dw 0
+  tempByte   db 0
 
-  str1     db "Start array:  ", 0
-  str1Len  = $-str1
-  str2     db "Sorted array: ", 0
-  str2Len  = $-str2
-  arr      dw 1, 9, 8, 7, 6, 5, 4, 3, 2
-  mods     dw 0
-  arrSize  dd 16
-  wsp      db " ", 0
-  wspLen   = $-wsp
-  tempWord dw 0
-  tempByte db 0
-  
+  str1      db "Start array:  ", 0
+  str1Len   = $-str1
+  str2      db "Sorted array: ", 0
+  str2Len   = $-str2
+  arr       dw 1, 9, 8, 7, 6, 5, 4, 3, 2
+  mods      dw 0
+  arrSize   dd 16
   savedI    dd 0
   savedJ    dd 0
   savedAJM0 dw 0

@@ -134,6 +134,10 @@ section '.data' data readable writeable
   conTitle   db 'Hummel009', 0
   newLine    db 13, 10, 0
   newLineLen = $-newLine
+  wsp        db " ", 0
+  wspLen     = $-wsp
+  tempWord   dw 0
+  tempByte   db 0
 
   str1     db "Start array: ", 0
   str1Len  = $-str1
@@ -145,17 +149,12 @@ section '.data' data readable writeable
   img      dw 1, 2, 3, 4, 5, 5, 7, 8, 9 
   mods     dw 0
   arrSize  dd 16
-  wsp      db " ", 0
-  wspLen   = $-wsp
-  tempWord dw 0
-  tempByte db 0
-  
-  duplic  dd 0
-  savedI  dd 0
-  savedJ  dd 0
-  savedAI dw 0
-  savedAJ dw 0
-  temp    dd 0
+  duplic   dd 0
+  savedI   dd 0
+  savedJ   dd 0
+  savedAI  dw 0
+  savedAJ  dw 0
+  temp     dd 0
 
   hStdIn      dd 0
   hStdOut     dd 0

@@ -18,28 +18,32 @@ Start:
 
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
+     
+  invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
+  
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0
+    
+  mov al, '3'
+  mov edi, readBuf
+  mov ecx, [chrsRead]
+  sub ecx, 2
 
-; swap letters
-  mov al, [readBuf+8] ; indexing from 0, so 9th symbol = 8
-  mov bl, [readBuf+9]
-  mov [readBuf+8], bl
-  mov [readBuf+9], al
+; loop: find symbol
+Cycle:
+  repne scasb
+  jnz Finish
 
-; do manipulations on letters
-  mov al, [readBuf+2]
-  mov bl, [readBuf+5]
-  mov cl, [readBuf+8]
-  sub al, bl
-  add al, cl
-  mov [readBuf+4], al
-
-  mov eax, [chrsRead]
-  sub eax, 2 ; true string length without special symbols
-
-  invoke WriteConsoleA, [hStdOut], readBuf, eax, chrsWritten, 0
-
+  inc [tempByte]
+  jmp Cycle
+; end loop
+      
 ; prevent from closing
+Finish:      
+  add [tempByte], '0'                                                     
+  invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0   
+  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
+  
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
 Exit:
@@ -54,9 +58,13 @@ section '.data' data readable writeable
   wspLen     = $-wsp
   tempWord   dw 0
   tempByte   db 0
-
-  str1    db 'Enter the text:', 0
-  str1Len = $-str1
+                
+  str1     db 'We will count the symbol `3`.', 0
+  str1Len  = $-str1
+  str2     db 'Enter the text:', 0
+  str2Len  = $-str2  
+  str3     db 'The quantity of symbols: ', 0
+  str3Len  = $-str3
 
   hStdIn      dd 0
   hStdOut     dd 0
