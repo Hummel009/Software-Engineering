@@ -41,9 +41,9 @@ Cycle1:
   mov ebx, 0
 Cycle2:
   mov ecx, ebx
-  shr ecx, 1 ; shift -> 1 bit
-  inc ecx
-  shr ecx, 1
+  shr ecx, 1 ; shift -> 1 bit: our indexes are 0, 2, 4... -> 0, 1, 2...
+  inc ecx    ; inc: our indexes are 1, 2, 3...
+  shr ecx, 1 ; test mod 2
   jc @F ; jump if older bit is not 0, it means jump if not even
               
   mov dx, [arr+ebx]  
