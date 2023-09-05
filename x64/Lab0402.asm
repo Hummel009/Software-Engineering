@@ -40,13 +40,14 @@ Cycle1:
   mov ebx, 0
 Cycle2:
   mov dx, [arr+ebx]
-  mov [tempWord], dx
 
   shr dx, 1 ; shift -> 1 bit
   jc @F ; jump if older bit is not 0, it means jump if not even
-
-  mov dx, [tempWord]
+                 
+  mov dx, [arr+ebx]  
   inc [qua]
+  
+  mov [tempWord], dx
   add [tempWord], '0'
 
   invoke WriteConsoleA, [hStdOut], tempWord, 1, chrsWritten, 0

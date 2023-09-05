@@ -64,19 +64,19 @@ Cycle2:
 
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
 
-; convert number into 2 symbols
-  mov al, byte[res]
-  mov ah, 0
-  mov bl, 10
-  div bl ; now AL has result, AH has rest
+  movzx eax, [res]
+  mov ebx, 10
+  mov edx, 0 ; clear future place of the rest
+  div ebx    ; EAX has the result now, EDX has the rest now
+    
+  mov [save1], eax
+  mov [save2], edx
+  
+  add [save1], '0'
+  invoke WriteConsoleA, [hStdOut], save1, 1, chrsWritten, 0
 
-  add al, '0'
-  mov [tempByte], al
-  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
-
-  add ah, '0'
-  mov [tempByte], ah
-  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
+  add [save2], '0'
+  invoke WriteConsoleA, [hStdOut], save2, 1, chrsWritten, 0
 
 ; prevent from closing
 Finish:
@@ -97,13 +97,16 @@ section '.data' data readable writeable
   str2Len  = $-str2
   str3     db "The sum of items with indexes mod 2 = 0: ", 0
   str3Len  = $-str3
-  arr      dw 1, 2, 3, 4, 5, 6, 7, 8, 9
+  arr      dw 2, 1, 4, 3, 6, 5, 8, 7, 9
   res      dw 0
   arrSize  dd 16
   wsp      db " ", 0
   wspLen   = $-wsp
   tempWord dw 0
   tempByte db 0
+  
+  save1 dd 0
+  save2 dd 0
 
   hStdIn      dd 0
   hStdOut     dd 0
