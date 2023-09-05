@@ -92,7 +92,6 @@ Cycle4:
   jng Cycle4
 ; end loop
 
-
 ; prevent from closing
 Finish:
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
