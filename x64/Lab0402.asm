@@ -36,19 +36,17 @@ Cycle1:
 
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
 
-  mov [res], 0
 ; loop: show needed items
   mov ebx, 0
 Cycle2:
-  mov ecx, ebx
-  shr ecx, 1 ; shift -> 1 bit
-  inc ecx
-  shr ecx, 1
-  jc @F ; jump if older bit is not 0, it means jump if not even
-              
-  mov dx, [arr+ebx]  
-  add [res], dx
+  mov dx, [arr+ebx]
   mov [tempWord], dx
+
+  shr dx, 1 ; shift -> 1 bit
+  jc @F ; jump if older bit is not 0, it means jump if not even
+
+  mov dx, [tempWord]
+  inc [qua]
   add [tempWord], '0'
 
   invoke WriteConsoleA, [hStdOut], tempWord, 1, chrsWritten, 0
@@ -59,24 +57,12 @@ Cycle2:
   cmp ebx, [arrSize]
   jng Cycle2
 ; end loop
-
+                    
+  add [qua], '0'
+  
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0
-
-; convert number into 2 symbols
-  mov al, byte[res]
-  mov ah, 0
-  mov bl, 10
-  div bl ; now AL has result, AH has rest
-
-  add al, '0'
-  mov [tempByte], al
-  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
-
-  add ah, '0'
-  mov [tempByte], ah
-  invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
+  invoke WriteConsoleA, [hStdOut], qua, 1, chrsWritten, 0
 
 ; prevent from closing
 Finish:
@@ -95,10 +81,10 @@ section '.data' data readable writeable
   str1Len  = $-str1
   str2     db "New array: ", 0
   str2Len  = $-str2
-  str3     db "The sum of items with indexes mod 2 = 0: ", 0
+  str3     db "The quantity of items with values mod 2 = 0: ", 0
   str3Len  = $-str3
-  arr      dw 1, 2, 3, 4, 5, 6, 7, 8, 9
-  res      dw 0
+  arr      dw 2, 1, 4, 3, 6, 5, 8, 7, 9
+  qua      dw 0
   arrSize  dd 16
   wsp      db " ", 0
   wspLen   = $-wsp
