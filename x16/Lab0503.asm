@@ -28,7 +28,7 @@ org 100h
 ; load converter data
   mov al, [str5+2]
 
-  cmp al, 'A'
+  cmp al, 'Z'
   jle ToSmallLetter
 
   cmp al, 'a'
