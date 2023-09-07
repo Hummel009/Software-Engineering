@@ -18,8 +18,11 @@ jobs:
 
     - name: Компиляция x16
       run: |
-        Get-ChildItem -Path ../x16 -Filter *.asm | ForEach-Object {
-          if ($_.GetType().Name -eq 'FileInfo') {
-            Start-Process -Wait -FilePath "fasm.exe" -ArgumentList $_.FullName
-          }
-        }
+        for %%i in (..\x16\*.asm) do (
+          if exist "fasm.exe" (
+            start /wait "" "fasm.exe" "%%~fi"
+          ) else (
+            echo "fasm.exe" not found!
+            exit /b 1
+          )
+)
