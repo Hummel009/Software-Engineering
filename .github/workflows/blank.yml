@@ -14,9 +14,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Компиляция x16
-      run: ./fasm/fasm.exe fasm x16/*.asm
+      run: ./fasm/FASM.exe fasm x16/*.asm
       working-directory: ${{ github.workspace }}
 
     - name: Компиляция x64
-      run: ./fasm/fasm.exe fasm x64/*.asm
+      run: ./fasm/FASM.exe fasm x64/*.asm
       working-directory: ${{ github.workspace }}
