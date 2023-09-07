@@ -15,10 +15,7 @@ jobs:
       run: cd ./fasm
     - name: Компиляция x16
       shell: cmd
-      run: |
-        for %%i in (..\x16\*.asm) do (
-          start /wait "" "fasm.exe" "%%~fi"
-        )
+      run: build16
   build64:
     runs-on: windows-latest
     steps:
@@ -28,7 +25,4 @@ jobs:
       run: cd ./fasm
     - name: Компиляция x64
       shell: cmd
-      run: |
-        for %%i in (..\x64\*.asm) do (
-          start /wait "" "fasm.exe" "%%~fi"
-        )
+      run: build64
