@@ -11,9 +11,11 @@ jobs:
     steps:
     - name: Checkout кода
       uses: actions/checkout@v4
+    - name: Папка FASM
+      shell: cmd
+      run: cd ./fasm
     - name: Компиляция x16
       shell: cmd
-      working-directory: ./fasm
       run: build16.bat
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
