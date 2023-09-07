@@ -13,10 +13,16 @@ jobs:
     - name: Checkout кода
       uses: actions/checkout@v4
 
-    - name: Компиляция x16
-      run: ./fasm/FASM.exe fasm x16/*.asm
-      working-directory: ${{ github.workspace }}
+    - name: Открыть FASM
+      run: cd ./fasm
+
+    - name: Компиляция .asm файлов
+      run: |
+        for file in ../x16/*.asm; do
+          if [ -f "$file" ]; then
+            fasm "$file"
+          fi
+        done
 
     - name: Компиляция x64
       run: ./fasm/FASM.exe fasm x64/*.asm
-      working-directory: ${{ github.workspace }}
