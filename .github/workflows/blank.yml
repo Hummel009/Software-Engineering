@@ -20,17 +20,3 @@ jobs:
       with:
         name: compiled-artifact-x16
         path: ./x16
-  build64:
-    runs-on: windows-latest
-    steps:
-    - name: Checkout кода
-      uses: actions/checkout@v4
-    - name: Компиляция x64
-      shell: cmd
-      working-directory: ./fasm
-      run: build64.bat
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: compiled-artifact-x64
-        path: ./x64

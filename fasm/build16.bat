@@ -1,3 +1,8 @@
+@echo off
 for %%i in (..\x16\*.asm) do (
-	start /wait "" "fasm.exe" "%%~fi"
+    "fasm.exe" "%%~fi"
+    if errorlevel 1 (
+        echo Error assembling "%%~fi"
+        pause
+    )
 )
