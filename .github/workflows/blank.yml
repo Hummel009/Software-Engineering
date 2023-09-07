@@ -20,10 +20,5 @@ jobs:
       shell: cmd
       run: |
         for %%i in (..\x16\*.asm) do (
-            if exist "fasm.exe" (
-                start /wait "" "fasm.exe" "%%~fi"
-            ) else (
-                echo "fasm.exe" not found!
-                exit /b 1
-            )
+          start /wait "" "fasm.exe" "%%~fi"
         )
