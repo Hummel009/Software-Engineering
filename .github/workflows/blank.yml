@@ -1,0 +1,29 @@
+name: Compile Assembly Code
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout кода
+      uses: actions/checkout@v2
+
+    - name: Загрузка FASM
+      run: |
+        curl -o fasm-1.73.22.tgz https://flatassembler.net/fasm-1.73.22.tgz
+        7z x fasm-1.73.22.tgz
+        Move-Item -Path "fasm\*" -Destination "C:\Tools\fasm" -Force
+        echo 'C:\Tools\fasm' | Out-File -FilePath $env:Path -Encoding utf8 -Append
+
+    - name: Компиляция x16
+      run: fasm x16/*.asm
+      working-directory: ${{ github.workspace }}
+
+    - name: Компиляция x64
+      run: fasm x64/*.asm
+      working-directory: ${{ github.workspace }}
