@@ -9,24 +9,36 @@ jobs:
   build16:
     runs-on: windows-latest
     steps:
-    - name: Check out code
+    - name: Checkout кода
       uses: actions/checkout@v4
-    - name: Build Assembly x16
+    - name: Открыть FASM
+      run: cd ./fasm
+    - name: Компиляция x16
       shell: cmd
-      working-directory: ./fasm
       run: |
         for %%i in (..\x16\*.asm) do (
           start /wait "" "fasm.exe" "%%~fi"
         )
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-artifact1
+        path: ./x16
   build64:
     runs-on: windows-latest
     steps:
-    - name: Check out code
+    - name: Checkout кода
       uses: actions/checkout@v4
-    - name: Build Assembly x64
+    - name: Открыть FASM
+      run: cd ./fasm
+    - name: Компиляция x64
       shell: cmd
-      working-directory: ./fasm
       run: |
-        for %%i in (..\x16\*.asm) do (
+        for %%i in (..\x64\*.asm) do (
           start /wait "" "fasm.exe" "%%~fi"
         )
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-artifact1
+        path: ./x64
