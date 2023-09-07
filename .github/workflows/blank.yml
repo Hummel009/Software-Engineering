@@ -25,4 +25,4 @@ jobs:
             echo "fasm.exe" not found!
             exit /b 1
           )
-)
+        )
