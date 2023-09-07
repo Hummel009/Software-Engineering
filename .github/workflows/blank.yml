@@ -9,18 +9,18 @@ jobs:
   build16:
     runs-on: windows-latest
     steps:
-    - name: Checkout кода
+    - name: Check out code
       uses: actions/checkout@v4
-    - name: Открыть FASM
-      run: cd ./fasm
-    - name: Компиляция x16
-      run: ./build16.bat
+    - name: Build Assembly x16
+      working-directory: ./fasm
+      run: |
+        ./build16.bat
   build64:
     runs-on: windows-latest
     steps:
-    - name: Checkout кода
+    - name: Check out code
       uses: actions/checkout@v4
-    - name: Открыть FASM
-      run: cd ./fasm
-    - name: Компиляция x64
-      run: ./build64.bat
+    - name: Build Assembly x64
+      working-directory: ./fasm
+      run: |
+        ./build64.bat
