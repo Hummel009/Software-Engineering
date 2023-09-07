@@ -15,11 +15,9 @@ jobs:
 
     - name: Загрузка FASM
       run: |
-        Invoke-WebRequest -Uri https://flatassembler.net/fasm-1.73.22.zip -OutFile fasm.zip
-        Expand-Archive -Path fasm.zip -DestinationPath C:\Tools\fasm -Force
-
-    - name: Добавление FASM в PATH
-      run: |
+        curl -o fasmw17331.zip https://flatassembler.net/fasmw17331.zip
+        7z x fasmw17331.zip
+        Move-Item -Path "fasm\*" -Destination "C:\Tools\fasm" -Force
         echo 'C:\Tools\fasm' | Out-File -FilePath $env:Path -Encoding utf8 -Append
 
     - name: Компиляция x16
