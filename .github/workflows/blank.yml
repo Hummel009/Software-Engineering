@@ -16,13 +16,14 @@ jobs:
     - name: Открыть FASM
       run: cd ./fasm
 
-    - name: Компиляция x16
+    - name: Run Batch script
+      shell: cmd
       run: |
         for %%i in (..\x16\*.asm) do (
-          if exist "fasm.exe" (
-            start /wait "" "fasm.exe" "%%~fi"
-          ) else (
-            echo "fasm.exe" not found!
-            exit /b 1
-          )
+            if exist "fasm.exe" (
+                start /wait "" "fasm.exe" "%%~fi"
+            ) else (
+                echo "fasm.exe" not found!
+                exit /b 1
+            )
         )
