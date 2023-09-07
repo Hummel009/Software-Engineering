@@ -12,6 +12,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
     - name: Build Assembly x16
+      shell: cmd
       working-directory: ./fasm
       run: |
         for %%i in (..\x16\*.asm) do (
@@ -23,6 +24,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
     - name: Build Assembly x64
+      shell: cmd
       working-directory: ./fasm
       run: |
         for %%i in (..\x16\*.asm) do (
