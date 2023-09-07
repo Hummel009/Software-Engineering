@@ -32,7 +32,7 @@ jobs:
       run: cd ./fasm
     - name: Компиляция x64
       shell: cmd
-      run: for %i in (..\x16\*.asm) do fasm "%~fi"
+      run: for %i in (..\x64\*.asm) do fasm "%~fi"
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
