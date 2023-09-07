@@ -14,8 +14,7 @@ jobs:
     - name: Открыть FASM
       run: cd ./fasm
     - name: Компиляция x16
-      shell: cmd
-      run: build16
+      run: build16.bat
   build64:
     runs-on: windows-latest
     steps:
@@ -24,5 +23,4 @@ jobs:
     - name: Открыть FASM
       run: cd ./fasm
     - name: Компиляция x64
-      shell: cmd
-      run: build64
+      run: build64.bat
