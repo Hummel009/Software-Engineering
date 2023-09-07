@@ -16,13 +16,10 @@ jobs:
     - name: Открыть FASM
       run: cd ./fasm
 
-    - name: Компиляция .asm файлов
+    - name: Компиляция x16
       run: |
-        for file in ../x16/*.asm; do
-          if [ -f "$file" ]; then
-            fasm "$file"
-          fi
-        done
-
-    - name: Компиляция x64
-      run: ./fasm/FASM.exe fasm x64/*.asm
+        Get-ChildItem -Path ../x16 -Filter *.asm | ForEach-Object {
+          if ($_.GetType().Name -eq 'FileInfo') {
+            Start-Process -Wait -FilePath "fasm.exe" -ArgumentList $_.FullName
+          }
+        }
