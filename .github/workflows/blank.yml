@@ -6,19 +6,29 @@ on:
       - main
 
 jobs:
-  build:
+  build16:
     runs-on: windows-latest
-
     steps:
     - name: Checkout кода
       uses: actions/checkout@v4
-
     - name: Открыть FASM
       run: cd ./fasm
-
-    - name: Run Batch script
+    - name: Компиляция x16
       shell: cmd
       run: |
         for %%i in (..\x16\*.asm) do (
+          start /wait "" "fasm.exe" "%%~fi"
+        )
+  build64:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout кода
+      uses: actions/checkout@v4
+    - name: Открыть FASM
+      run: cd ./fasm
+    - name: Компиляция x64
+      shell: cmd
+      run: |
+        for %%i in (..\x64\*.asm) do (
           start /wait "" "fasm.exe" "%%~fi"
         )
