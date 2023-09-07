@@ -13,6 +13,13 @@ jobs:
     - name: Checkout кода
       uses: actions/checkout@v4
 
+    - name: Update curl
+      run: |
+        curl -o curl.zip https://curl.se/windows/dl-7.78.0/curl-7.78.0-win64-mingw.zip
+        7z x curl.zip
+        Move-Item -Path "curl-7.78.0-win64-mingw\*" -Destination "C:\Tools\curl" -Force
+        echo 'C:\Tools\curl' | Out-File -FilePath $env:Path -Encoding utf8 -Append
+    
     - name: Загрузка FASM
       run: |
         curl -o fasmw17331.zip https://flatassembler.net/fasmw17331.zip
