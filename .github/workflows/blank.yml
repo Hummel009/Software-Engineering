@@ -11,12 +11,10 @@ jobs:
     steps:
     - name: Checkout кода
       uses: actions/checkout@v4
-    - name: Открыть FASM
-      shell: cmd
-      run: cd ./fasm
     - name: Компиляция x16
       shell: cmd
-      run: build16
+      working-directory: ./fasm
+      run: build16.bat
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
@@ -27,12 +25,10 @@ jobs:
     steps:
     - name: Checkout кода
       uses: actions/checkout@v4
-    - name: Открыть FASM
-      shell: cmd
-      run: cd ./fasm
     - name: Компиляция x64
       shell: cmd
-      run: build64
+      working-directory: ./fasm
+      run: build64.bat
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
