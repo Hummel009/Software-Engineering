@@ -7,7 +7,7 @@ org 100h
 
 ; loop: show the first array
   mov cx, 2
-Cycle0:
+cycle0:
   mov bx, cx
   mov ax, [arr1+bx]
   mov [temp], ax
@@ -33,7 +33,7 @@ Cycle0:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle0
+  jbe cycle0
 ; end loop
 
   mov ah, 09h
@@ -46,7 +46,7 @@ Cycle0:
 
 ; loop: show the second array
   mov cx, 2
-Cycle1:
+cycle1:
   mov bx, cx
   mov ax, [arr2+bx]
   mov [temp], ax
@@ -72,17 +72,17 @@ Cycle1:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle1
+  jbe cycle1
 ; end loop
 
 ; loop 1
   mov cx, 2
-Cycle2:
+cycle2:
   mov [savedI], cx
 
   ; loop 2
   mov cx, 2
-  Cycle3:
+  cycle3:
     mov [savedJ], cx
 
     mov bx, [savedI]
@@ -109,14 +109,14 @@ Cycle2:
     add cx, 2
 
     cmp cx, [arrSize]
-    jbe Cycle3
+    jbe cycle3
   ; end loop 2
 
   mov cx, [savedI]
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle2
+  jbe cycle2
 ; end loop 1
 
   mov ah, 09h
@@ -129,7 +129,7 @@ Cycle2:
 
 ; loop
   mov cx, 2
-Cycle5:
+cycle5:
   mov bx, cx
   mov ax, [arr3+bx]
   mov [temp], ax
@@ -155,7 +155,7 @@ Cycle5:
   add cx, 2
 
   cmp cx, [savedDupPos]
-  jb Cycle5
+  jb cycle5
 ; end loop
 
 ; display the quantity

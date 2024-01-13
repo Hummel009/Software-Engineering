@@ -29,44 +29,44 @@ org 100h
   mov al, [str5+2]
 
   cmp al, 'Z'
-  jle ToSmallLetter
+  jle toSmallLetter
 
   cmp al, 'a'
-  jge ToBigLetter
+  jge toBigLetter
 
 ; set converter data
-ToBigLetter:
+toBigLetter:
   mov al, [str5+2]
   sub al, 32
   mov [saved], al
-  jmp Find
+  jmp find
 
-ToSmallLetter:
+toSmallLetter:
   mov al, [str5+2]
   add al, 32
   mov [saved], al
-  jmp Find
+  jmp find
 
 ; prepare to find symbol
-Find:
+find:
   mov al, [str5+2]
   mov di, str2
   mov cx, 0
   mov cl, 6
 
 ; loop: find symbol
-Cycle:
+cycle:
   repne scasb
-  jnz Finish
+  jnz finish
 
   dec di
   mov bl, [saved]
   mov byte[di], bl
-  jmp Cycle
+  jmp cycle
 ; end loop
 
 ; show the result
-Finish:
+finish:
   mov ah, 09h
   mov dx, str4
   int 21h

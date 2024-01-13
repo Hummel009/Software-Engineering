@@ -12,7 +12,7 @@ org 100h
   mov si, 320
 
 ; loop
-DrawLoop:
+cycle:
   sub ax, 160 ; move screen up/down
   sub dx, 160 ; move screen left/right
 
@@ -26,7 +26,7 @@ DrawLoop:
 ; add here xor,and,or,mov,imul etc with ax, dx, di and si to get arts
 
   stosb
-  loop DrawLoop
+  loop cycle
 ; end loop
 
   mov ah, 08h

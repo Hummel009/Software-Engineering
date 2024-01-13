@@ -27,12 +27,12 @@ org 100h
   mov cl, [str4+1]
 
 ; loop: find symbol
-Cycle:
+cycle:
   repne scasb
   jnz Finish
 
   add [save], 1
-  jmp Cycle
+  jmp cycle
 ; end loop
 
 ; show the result

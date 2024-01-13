@@ -22,22 +22,22 @@ org 100h
   int 21h
 
 ; loop: find symbol
-Cycle:
+cycle:
   mov al, '2'
   mov cx, 0
   mov ch, [str2+1]
   mov di, str2
 
   repne scasb
-  jnz Finish
+  jnz finish
 
   dec di
   mov byte[di], '0'
-  jmp Cycle
+  jmp cycle
 ; end loop
 
 ; show the result
-Finish:
+finish:
   mov ah, 09h
   mov dx, str4
   int 21h

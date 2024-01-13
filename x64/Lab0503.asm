@@ -1,21 +1,19 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
 
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
-     
+
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], symbolSrc, 3, chrsRead, 0     
@@ -23,30 +21,30 @@ Start:
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0  
-       
+
 ; load converter data
   mov al, [symbolSrc]
 
   cmp al, 'Z'
-  jle ToSmallLetter
+  jle toSmallLetter
 
   cmp al, 'a'
-  jge ToBigLetter
+  jge toBigLetter
 
 ; set converter data
-ToBigLetter:
+toBigLetter:
   mov al, [symbolSrc]
   sub al, 32
   mov [symbolDest], al
-  jmp Find
+  jmp find
 
-ToSmallLetter:
+toSmallLetter:
   mov al, [symbolSrc]
   add al, 32
   mov [symbolDest], al
-  jmp Find
+  jmp find
 
-Find:   
+find:   
   mov al, [symbolSrc]
   mov bl, [symbolDest] 
   mov edi, readBuf
@@ -54,22 +52,22 @@ Find:
   sub ecx, 1
 
 ; loop: find symbol   
-Cycle:    
+cycle:    
   repne scasb
-  jnz BreakCycle
-            
+  jnz breakCycle
+
   mov byte[edi-1], bl
-  jmp Cycle
+  jmp cycle
 ; end loop
    
-BreakCycle:                                                        
+breakCycle:                                                        
   invoke WriteConsoleA, [hStdOut], readBuf, [chrsRead], chrsWritten, 0
    
 ; prevent from closing   
-Finish: 
+finish: 
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
   
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable
@@ -81,7 +79,7 @@ section '.data' data readable writeable
   wspLen     = $-wsp
   tempWord   dw 0
   tempByte   db 0
-                
+
   str1     db 'Enter the text:', 0
   str1Len  = $-str1  
   str2     db 'Enter the symbol src:', 0

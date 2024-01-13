@@ -18,13 +18,13 @@ org 100h
   mov bl, [str2+6]
 
   cmp al, bl
-  jne Skip
+  jne skip
 
 ; skip if N < 5
   mov al, [str2+1]
 
   cmp al, 5
-  jl Skip
+  jl skip
 
 ; find and test N-1
   mov bx, 0
@@ -32,35 +32,35 @@ org 100h
   mov al, [str2+bx]
 
   cmp al, 'A'
-  jl Skip
+  jl skip
 
   cmp al, 'z'
-  jg Skip
+  jg skip
 
 ; find and test 3
   mov al, [str2+4]
 
   cmp al, 'A'
-  jl Skip
+  jl skip
 
   cmp al, 'z'
-  jg Skip
+  jg skip
 
 ; success
   mov ah, 09h
   mov dx, str3
   int 21h
 
-  jmp Finish
+  jmp finish
 
 ; error
-Skip:
+skip:
   mov ah, 09h
   mov dx, str4
   int 21h
 
 ; prevent from closing
-Finish:
+finish:
   mov ah, 08h
   int 21h
 

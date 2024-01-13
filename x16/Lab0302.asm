@@ -7,7 +7,7 @@ org 100h
 
 ; loop: show the array
   mov cx, 0
-Cycle1:
+cycle1:
   mov bx, cx
   mov ax, [arr+bx]
   mov [temp], ax
@@ -33,18 +33,18 @@ Cycle1:
   add cx, 2
 
   cmp cx, [arrSize]
-  jng Cycle1
+  jng cycle1
 ; end loop
 
 ; loop 1
   mov cx, 0
-Cycle2:
+cycle2:
   mov [savedI], cx
   mov [broken], 0
 
   ; loop 2
   mov cx, [savedI]
-  Cycle3:
+  cycle3:
     mov [savedJ], cx
 
     mov bx, [savedI]
@@ -75,7 +75,7 @@ Cycle2:
     add cx, 2
 
     cmp cx, [arrSize]
-    jbe Cycle3
+    jbe cycle3
   ; end loop 2
 
   mov ax, [broken]
@@ -91,12 +91,12 @@ Cycle2:
   add cx, 2
 
   cmp cx, [arrSize]
-  jng Cycle2
+  jng cycle2
 ; end loop 1
 
 ; loop: calculate the quantity of unique elements
   mov cx, 0
-Cycle4:
+cycle4:
   mov bx, cx
   mov ax, [arr+bx]
 
@@ -109,7 +109,7 @@ Cycle4:
   add cx, 2
 
   cmp cx, [arrSize]
-  jng Cycle4
+  jng cycle4
 ; end loop
 
   mov ah, 09h
@@ -122,13 +122,13 @@ Cycle4:
 
 ; loop
   mov cx, 0
-Cycle5:
+cycle5:
   mov bx, cx
   mov ax, [arr+bx]
   mov [temp], ax
 
   cmp ax, 'ff'
-  je Skip
+  je skip
 
   cmp ax, 0
   jnl @F
@@ -148,11 +148,11 @@ Cycle5:
   mov dx, ' '
   int 21h
 
-Skip:
+skip:
   add cx, 2
 
   cmp cx, [arrSize]
-  jng Cycle5
+  jng cycle5
 ; end loop
 
 ; display the quantity

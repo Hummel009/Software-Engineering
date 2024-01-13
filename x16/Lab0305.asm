@@ -7,7 +7,7 @@ org 100h
 
 ; loop: show the array
   mov cx, 2
-Cycle1:
+cycle1:
   mov bx, cx
   mov ax, [arr+bx]
   mov [temp], ax
@@ -33,12 +33,12 @@ Cycle1:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle1
+  jbe cycle1
 ; end loop
 
 ; loop: detect at least one 0- element
   mov cx, 2
-Cycle2:
+cycle2:
   mov bx, cx
   mov ax, [arr+bx]
 
@@ -51,12 +51,12 @@ Cycle2:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle2
+  jbe cycle2
 ; end loop
 
 ; loop: detect at least one 0+ element
   mov cx, 2
-Cycle3:
+cycle3:
   mov bx, cx
   mov ax, [arr+bx]
 
@@ -69,12 +69,12 @@ Cycle3:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle3
+  jbe cycle3
 ; end loop
 
 ; loop: compare and find max 0- element
   mov cx, 2
-Cycle4:
+cycle4:
   mov bx, cx
   mov ax, [arr+bx]
   mov dx, [minus]
@@ -91,12 +91,12 @@ Cycle4:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle4
+  jbe cycle4
 ; end loop
 
 ; loop: compare and find min 0+ element
   mov cx, 2
-Cycle5:
+cycle5:
   mov bx, cx
   mov ax, [arr+bx]
   mov dx, [plus]
@@ -113,7 +113,7 @@ Cycle5:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle5
+  jbe cycle5
 ; end loop
 
 ; abs of the element

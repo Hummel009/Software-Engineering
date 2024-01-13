@@ -1,14 +1,12 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
@@ -39,7 +37,7 @@ Start:
 ; prevent from closing
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable

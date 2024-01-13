@@ -1,14 +1,12 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
@@ -20,7 +18,7 @@ Start:
 
 ; loop: show the array
   mov ebx, 0
-Cycle1:
+cycle1:
   mov dx, [arr+ebx]
   mov [tempWord], dx
   add [tempWord], '0'
@@ -29,7 +27,7 @@ Cycle1:
 
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle1
+  jng cycle1
 ; end loop
 
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
@@ -38,12 +36,12 @@ Cycle1:
 
 ; loop: show needed items
   mov ebx, 0
-Cycle2:
+cycle2:
   mov dx, [arr+ebx]
 
   shr dx, 1 ; shift -> 1 bit
   jc @F ; jump if older bit is not 0, it means jump if not even
-                 
+
   mov dx, [arr+ebx]  
   inc [qua]
   
@@ -56,9 +54,9 @@ Cycle2:
 @@:
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle2
+  jng cycle2
 ; end loop
-                    
+
   add [qua], '0'
   
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
@@ -66,10 +64,10 @@ Cycle2:
   invoke WriteConsoleA, [hStdOut], qua, 1, chrsWritten, 0
 
 ; prevent from closing
-Finish:
+finish:
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable

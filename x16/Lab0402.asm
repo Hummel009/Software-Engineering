@@ -7,7 +7,7 @@ org 100h
 
 ; loop: show arr
   mov bx, 0
-Cycle1:
+cycle1:
   mov ah, 02h
   mov dx, [arr+bx]
   add dx, '0'
@@ -16,7 +16,7 @@ Cycle1:
   add bx, 2
 
   cmp bx, [arrSize]
-  jng Cycle1
+  jng cycle1
 ; end loop
 
   mov ah, 09h
@@ -29,7 +29,7 @@ Cycle1:
 
 ; loop: display needed items
   mov bx, 0
-Cycle2:
+cycle2:
   mov cx, 2
   mov ax, [arr+bx]
   mov dx, 0
@@ -48,7 +48,7 @@ Cycle2:
   add bx, 2
 
   cmp bx, [arrSize]
-  jng Cycle2
+  jng cycle2
 ; end loop
 
 ; display the quantity

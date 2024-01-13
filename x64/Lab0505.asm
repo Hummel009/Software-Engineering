@@ -1,21 +1,19 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
 
   invoke GetStdHandle, [STD_INP_HNDL]
   mov [hStdIn], eax
-     
+
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], symbolSrc, 3, chrsRead, 0     
@@ -24,7 +22,6 @@ Start:
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   invoke ReadConsoleA, [hStdIn], readBuf, 255, chrsRead, 0  
 
- 
   mov al, [symbolSrc]
   mov edi, readBuf
   mov ecx, [chrsRead]
@@ -32,8 +29,8 @@ Start:
 
 ; find first symbol  
   repne scasb
-  jnz BreakCycle
-            
+  jnz breakCycle
+
   mov ebx, [chrsRead]
   sub ebx, ecx
   mov [pos1], ebx
@@ -44,18 +41,18 @@ Start:
   sub ecx, 1
 
 ; loop: find last symbol   
-Cycle:    
+cycle:    
   repne scasb
-  jnz BreakCycle
-            
+  jnz breakCycle
+
   mov ebx, [chrsRead]
   sub ebx, ecx
   mov [pos2], ebx
-  jmp Cycle
+  jmp cycle
 ; end loop
    
-BreakCycle:
-         
+breakCycle:
+
   mov eax, [pos2]
   sub eax, [pos1]
   mov [diff], eax
@@ -66,24 +63,23 @@ BreakCycle:
 
   add [pos2], '0'
   dec [pos2]
-  
-      
+
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0                                                    
   invoke WriteConsoleA, [hStdOut], pos1, 1, chrsWritten, 0 
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0 
-      
+
   invoke WriteConsoleA, [hStdOut], str4, str3Len, chrsWritten, 0                                                    
   invoke WriteConsoleA, [hStdOut], pos2, 1, chrsWritten, 0 
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-                 
+
   invoke WriteConsoleA, [hStdOut], str5, str5Len, chrsWritten, 0                                                    
   invoke WriteConsoleA, [hStdOut], diff, 1, chrsWritten, 0 
    
 ; prevent from closing   
-Finish: 
+finish: 
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
   
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable
@@ -95,7 +91,7 @@ section '.data' data readable writeable
   wspLen     = $-wsp
   tempWord   dw 0
   tempByte   db 0
-                
+
   str1     db 'Enter the text:', 0
   str1Len  = $-str1  
   str2     db 'Enter the symbol src:', 0

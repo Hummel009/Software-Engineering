@@ -1,5 +1,5 @@
 format MZ
-entry CodeSeg:Start
+entry CodeSeg:start
 stack 200h
 
 segment DataSeg
@@ -14,7 +14,7 @@ segment DataSeg
 segment CodeSeg
 
 ; start
-Start:
+start:
   mov ax, DataSeg
   mov ds, ax
 

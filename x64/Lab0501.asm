@@ -1,14 +1,12 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
@@ -18,7 +16,7 @@ Start:
 
   invoke WriteConsoleA, [hStdOut], str1, str1Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
-     
+
   invoke WriteConsoleA, [hStdOut], str2, str2Len, chrsWritten, 0
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
   
@@ -29,24 +27,24 @@ Start:
   mov ecx, [chrsRead]
 
 ; loop: find symbol
-Cycle:
+cycle:
   repne scasb
-  jnz BreakCycle
+  jnz breakCycle
 
   inc [tempByte]
-  jmp Cycle
+  jmp cycle
 ; end loop
     
-BreakCycle:   
+breakCycle:   
   add [tempByte], '0'                                                     
   invoke WriteConsoleA, [hStdOut], str3, str3Len, chrsWritten, 0   
   invoke WriteConsoleA, [hStdOut], tempByte, 1, chrsWritten, 0
-     
+
 ; prevent from closing
-Finish:     
+finish:     
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable

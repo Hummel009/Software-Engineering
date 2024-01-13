@@ -7,7 +7,7 @@ org 100h
 
 ; loop
   mov cx, 2
-Cycle1:
+cycle1:
   mov bx, cx
   mov ax, [arr+bx]
   call IntToStrAndDisp
@@ -19,17 +19,17 @@ Cycle1:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle1
+  jbe cycle1
 ; end loop
 
 ; loop 1
   mov cx, 2
-Cycle2:
+cycle2:
   mov [savedI], cx
 
   ; loop 2
   mov cx, [savedI]
-  Cycle3:
+  cycle3:
     mov [savedJ], cx
 
     mov bx, [savedI]
@@ -60,14 +60,14 @@ Cycle2:
     add cx, 2
 
     cmp cx, [arrSize]
-    jbe Cycle3
+    jbe cycle3
   ; end loop 2
 
   mov cx, [savedI]
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle2
+  jbe cycle2
 ; end loop 1
 
   mov ah, 09h
@@ -82,7 +82,7 @@ Cycle2:
   mov cx, 2
 
 ; loop
-Cycle4:
+cycle4:
   mov bx, cx
   mov ax, [arr+bx]
   call IntToStrAndDisp
@@ -94,7 +94,7 @@ Cycle4:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle4
+  jbe cycle4
 ; end loop
 
 ; prevent from closing

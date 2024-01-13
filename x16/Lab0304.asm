@@ -7,7 +7,7 @@ org 100h
 
 ; loop: show the array
   mov cx, 2
-Cycle1:
+cycle1:
   mov bx, cx
   mov ax, [arr+bx]
   mov [temp], ax
@@ -33,14 +33,14 @@ Cycle1:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle1
+  jbe cycle1
 ; end loop
 
   mov [big], 0
 
 ; loop: find items that are > 7
   mov cx, 2
-Cycle2:
+cycle2:
   mov bx, cx
 
   cmp [arr+bx], 7
@@ -53,7 +53,7 @@ Cycle2:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle2
+  jbe cycle2
 ; end loop
 
   mov ah, 09h
@@ -66,7 +66,7 @@ Cycle2:
 
 ; loop: display the array
   mov cx, 2
-Cycle3:
+cycle3:
   mov bx, cx
   mov ax, [arr+bx]
   mov [temp], ax
@@ -92,7 +92,7 @@ Cycle3:
   add cx, 2
 
   cmp cx, [arrSize]
-  jbe Cycle3
+  jbe cycle3
 ; end loop
 
 ; display the quantity

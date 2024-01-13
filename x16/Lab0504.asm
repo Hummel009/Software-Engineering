@@ -37,19 +37,19 @@ org 100h
   mov [len], 6
 
 ; loop: find symbol
-Cycle:
+cycle:
   repne scasb
-  jnz Finish
+  jnz finish
 
   mov bx, 0
   mov bl, [len]
   sub bl, cl
   mov [pos], bl
-  jmp Cycle
+  jmp cycle
 ; end loop
 
 ; show the result
-Finish:
+finish:
   mov ah, 09h
   mov dx, str4
   int 21h

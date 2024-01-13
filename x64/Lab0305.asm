@@ -1,14 +1,12 @@
 format PE64 Console 5.0
-entry Start
+entry start
 
 include 'win64a.inc'
 
 section '.text' code readable executable
 
-Start:
+start:
   invoke SetConsoleTitleA, conTitle
-  test eax, eax
-  jz Exit
 
   invoke GetStdHandle, [STD_OUTP_HNDL]
   mov [hStdOut], eax
@@ -20,18 +18,18 @@ Start:
 
 ; loop: show the array
   mov ebx, 0
-Cycle1:
+cycle1:
   mov dx, [arr+ebx]
   mov [tempWord], dx
   cmp [tempWord], 0
   jg @F
-            
+
   mov ax, [tempWord]
   mov cl, -1
   idiv cl ; make it > 0 and display "-" separately  
   mov [tempWord], ax
   invoke WriteConsoleA, [hStdOut], min, minLen, chrsWritten, 0
-  
+
 @@:      
   add [tempWord], '0'
   invoke WriteConsoleA, [hStdOut], tempWord, 1, chrsWritten, 0
@@ -39,48 +37,48 @@ Cycle1:
 
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle1
+  jng cycle1
 ; end loop
 
 ; loop: find at least one element < 0
   mov ebx, 0
-Cycle2:
+cycle2:
   mov dx, [arr+ebx]
   cmp dx, 0
   jge @F
-            
+
   mov [zeroMaxL], dx
-  jmp BreakCycle2
-  
+  jmp breakCycle2
+
 @@:
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle2
+  jng cycle2
 ; end loop
 
-BreakCycle2:
+breakCycle2:
    
 ; loop: find at least one element >= 0
   mov ebx, 0
-Cycle3:
+cycle3:
   mov dx, [arr+ebx]
   cmp dx, 0
   jl @F
-            
+
   mov [zeroMinGE], dx
-  jmp BreakCycle3
+  jmp breakCycle3
   
 @@:
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle3
+  jng cycle3
 ; end loop
 
-BreakCycle3:
+breakCycle3:
 
 ; loop: find athe biggest element < 0
   mov ebx, 0
-Cycle4:
+cycle4:
   mov dx, [arr+ebx]
   cmp dx, 0
   jge @F
@@ -93,25 +91,25 @@ Cycle4:
 @@:
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle4
+  jng cycle4
 ; end loop
 
 ; loop: find the least element >= 0
   mov ebx, 0
-Cycle5:
+cycle5:
   mov dx, [arr+ebx]
   cmp dx, 0
   jl @F
   
   cmp dx, [zeroMinGE]
   jge @F
-            
+
   mov [zeroMinGE], dx
   
 @@:
   add ebx, 2
   cmp ebx, [arrSize]
-  jng Cycle5
+  jng cycle5
 ; end loop
 
   invoke WriteConsoleA, [hStdOut], newLine, newLineLen, chrsWritten, 0
@@ -130,10 +128,10 @@ Cycle5:
   invoke WriteConsoleA, [hStdOut], zeroMinGE, 1, chrsWritten, 0
 
 ; prevent from closing
-Finish:
+finish:
   invoke ReadConsoleA, [hStdIn], readBuf, 1, chrsRead, 0
 
-Exit:
+exit:
   invoke  ExitProcess, 0
 
 section '.data' data readable writeable
